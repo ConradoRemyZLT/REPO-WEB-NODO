@@ -1,11 +1,16 @@
 {% from 'parciales/macros.html' import head, gallery, accompany, services, location, progress, i_arrow, i_back, i_down, i_play, i_plus, PARTNERS %}
 
 {# ═════════ I1 · CABECERA ═════════ #}
-<section id="i-inicio" class="sec blue dk wm subhero" aria-label="Nodo Flex para inversores">
+<section id="i-inicio" class="sec blue dk subhero" aria-label="Nodo Flex para inversores">
+  <div class="sub-bg" aria-hidden="true">
+    <img class="hv-poster" data-img="{{ img('videos/nodo-hero-16x9.jpg', 1920, 72) }}" data-eager alt="">
+    <video class="hv" data-vid muted loop playsinline preload="none"></video>
+  </div>
   <div class="wrap">
     <div>
       <div class="sub-crumb" data-reveal="fade"><a href="#/">{{ i_back() }}{{ t('Parque Logístico Nodo','Nodo Logistics Park') }}</a></div>
       {{ svg('nodo-flex', 'sub-logo', 'Nodo Flex') }}
+      <span class="tag big-tag tag-adv sub-tag" data-reveal="fade">{{ t('En construcción · finalización ' ~ d.obra.fin_es, 'Under construction · completion ' ~ d.obra.fin_en) }}</span>
       <div class="eyebrow" data-reveal="fade" style="margin-bottom:18px">{{ t('Para inversores','For investors') }}</div>
       <h1 class="h1">
         <span class="hline" style="--d:.1s"><span>{{ t('Invertí en logística AAA','Invest in AAA logistics') }}</span></span>
@@ -23,11 +28,6 @@
         <div><b>{{ t('Mensual','Monthly') }}</b><span>{{ t('Liquidación','Payout') }}</span></div>
       </div>
     </div>
-    <figure class="sub-media" data-reveal="left" style="margin:0">
-      <img data-img="{{ img('fotos/nodo-flex/nodo-flex-01.jpg', 1400) }}" alt="Nodo Flex en construcción, agosto 2026" data-eager>
-      <span class="tag big-tag">{{ t('En construcción','Under construction') }}</span>
-      <figcaption>{{ t('Nodo Flex · obra, ' ~ d.obra.mes_es|lower, 'Nodo Flex · site, ' ~ d.obra.mes_en) }}</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -104,7 +104,7 @@
             'Nodo Flex adapts to each operation: it subdivides into modules for companies of different sizes and sectors, from storage and distribution to light production.') }}
     <div class="kn">
       <div class="kcard" data-reveal="up"><small>{{ t('Superficie total','Total area') }}</small><b>14.400<em>m²</em></b><p>{{ t('Nave AAA divisible, dentro del Parque Logístico Nodo.','Divisible AAA warehouse inside Nodo Logistics Park.') }}</p></div>
-      <div class="kcard" data-reveal="up" style="--d:.05s"><small>{{ t('Configuraciones','Configurations') }}</small><b>3.600–9.600<em>m²</em></b><p>{{ t('Superficies de referencia por operador; se adaptan a cada necesidad.','Indicative areas per operator, adapted to each need.') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.05s"><small>{{ t('Configuraciones','Configurations') }}</small><b>600–14.400<em>m²</em></b><p>{{ t('Desde un módulo de 600 m² hasta la nave completa, según cada operador.','From a single 600 m² module up to the whole building, depending on each operator.') }}</p></div>
       <div class="kcard" data-reveal="up" style="--d:.1s"><small>{{ t('Altura útil','Clear height') }}</small><b>10,24–12<em>m</em></b><p>{{ t('Apta para racks altos y logística moderna.','Fit for high racking and modern logistics.') }}</p></div>
     </div>
     <ul class="specs mt" data-reveal="up">

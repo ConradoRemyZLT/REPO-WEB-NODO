@@ -30,12 +30,23 @@
     "inversores": "brochures/nodo-flex-inversores.pdf"
   },
   "mapa": {
-    "nodo": [-31.3856875, -64.0703125],
-    "aeropuerto": [-31.3236, -64.2081],
-    "centro": [-31.4167, -64.1836]
+    "nodo": [
+      -31.3856875,
+      -64.0703125
+    ],
+    "aeropuerto": [
+      -31.3236,
+      -64.2081
+    ],
+    "centro": [
+      -31.4167,
+      -64.1836
+    ]
   },
   "obra": {
     "mes_es": "Agosto 2026",
-    "mes_en": "August 2026"
+    "mes_en": "August 2026",
+    "fin_es": "marzo 2027",
+    "fin_en": "March 2027"
   }
 }

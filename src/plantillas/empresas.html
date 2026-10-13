@@ -1,11 +1,16 @@
 {% from 'parciales/macros.html' import head, gallery, accompany, services, location, progress, i_arrow, i_back, i_down, i_play, i_check %}
 
 {# ═════════ E1 · CABECERA ═════════ #}
-<section id="e-inicio" class="sec blue dk wm subhero" aria-label="Nodo Flex para empresas">
+<section id="e-inicio" class="sec blue dk subhero" aria-label="Nodo Flex para empresas">
+  <div class="sub-bg" aria-hidden="true">
+    <img class="hv-poster" data-img="{{ img('videos/nodo-hero-16x9.jpg', 1920, 72) }}" data-eager alt="">
+    <video class="hv" data-vid muted loop playsinline preload="none"></video>
+  </div>
   <div class="wrap">
     <div>
       <div class="sub-crumb" data-reveal="fade"><a href="#/">{{ i_back() }}{{ t('Parque Logístico Nodo','Nodo Logistics Park') }}</a></div>
       {{ svg('nodo-flex', 'sub-logo', 'Nodo Flex') }}
+      <span class="tag big-tag tag-adv sub-tag" data-reveal="fade">{{ t('En construcción · finalización ' ~ d.obra.fin_es, 'Under construction · completion ' ~ d.obra.fin_en) }}</span>
       <div class="eyebrow" data-reveal="fade" style="margin-bottom:18px">{{ t('Para empresas','For companies') }}</div>
       <h1 class="h1">
         <span class="hline" style="--d:.1s"><span>{{ t('Una nave AAA','An AAA warehouse') }}</span></span>
@@ -19,15 +24,10 @@
       </div>
       <div class="sub-facts" data-reveal="up" style="--d:.56s">
         <div><b>14.400 m²</b><span>{{ t('Nave AAA','AAA warehouse') }}</span></div>
-        <div><b>≥ 3.600 m²</b><span>{{ t('Módulos desde','Modules from') }}</span></div>
-        <div><b>20 km</b><span>{{ t('Al aeropuerto','To the airport') }}</span></div>
+        <div><b>≥ 600 m²</b><span>{{ t('Módulos desde','Modules from') }}</span></div>
+        <div><b>{{ t('Mar 2027','Mar 2027') }}</b><span>{{ t('Finalización prevista','Expected completion') }}</span></div>
       </div>
     </div>
-    <figure class="sub-media" data-reveal="left" style="margin:0">
-      <img data-img="{{ img('fotos/renders/nodo-flex-fachada.jpg', 1400) }}" alt="Render de la fachada de Nodo Flex" data-eager>
-      <span class="tag big-tag">{{ t('En construcción','Under construction') }}</span>
-      <figcaption>{{ t('Nodo Flex · render de fachada','Nodo Flex · façade render') }}</figcaption>
-    </figure>
   </div>
 </section>
 
@@ -38,7 +38,7 @@
             'Nodo Flex es una nave logística AAA de 14.400 m² divisible, diseñada para empresas de primer nivel que requieren infraestructura moderna, eficiente y escalable para sus operaciones de distribución, almacenamiento y logística en el centro del país.',
             'Nodo Flex is a divisible 14,400 m² AAA logistics warehouse, designed for top-tier companies that need modern, efficient and scalable infrastructure for distribution, storage and logistics in the heart of Argentina.') }}
     <div class="hl3">
-      <div class="hl" data-reveal="up"><i class="{{ ico('nave-logistica') }}"></i><b>{{ t('Estándar AAA sin comprar una nave entera','AAA standard without leasing a whole building') }}</b><p>{{ t('Accedés a infraestructura premium desde 3.600 m², dentro de un parque con seguridad, administración y servicios.','Access premium infrastructure from 3,600 m², inside a park with security, management and services.') }}</p></div>
+      <div class="hl" data-reveal="up"><i class="{{ ico('nave-logistica') }}"></i><b>{{ t('Estándar AAA sin comprar una nave entera','AAA standard without leasing a whole building') }}</b><p>{{ t('Accedés a infraestructura premium desde 600 m², dentro de un parque con seguridad, administración y servicios.','Access premium infrastructure from 600 m², inside a park with security, management and services.') }}</p></div>
       <div class="hl" data-reveal="up" style="--d:.06s"><i class="{{ ico('administracion') }}"></i><b>{{ t('Contratos gestionados por ZLT','Leases managed by ZLT') }}</b><p>{{ t('Contratos corporativos de locación de largo alcance, con soporte integral: seguridad contractual y continuidad operativa.','Long-term corporate leases with full support: contractual certainty and operational continuity.') }}</p></div>
       <div class="hl" data-reveal="up" style="--d:.12s"><i class="{{ ico('autopista') }}"></i><b>{{ t('Conexión directa con la región','Direct regional connections') }}</b><p>{{ t('Sobre la Autovía Nacional 19, a minutos de la Circunvalación, con salida a la RN 9, RN 36 y la Autopista Rosario–Córdoba.','On National Motorway 19, minutes from the ring road, with access to RN 9, RN 36 and the Rosario–Córdoba motorway.') }}</p></div>
     </div>
@@ -49,20 +49,21 @@
 <section id="e-superficie" class="sec blue dk" aria-label="Superficies disponibles">
   <div class="wrap">
     {{ head('Superficies','Areas','FLEXIBILIDAD QUE SE ADAPTA <b>A TU NEGOCIO</b>','FLEXIBILITY THAT ADAPTS <b>TO YOUR BUSINESS</b>',
-            'La nave se subdivide en módulos para empresas de distintos tamaños y sectores: desde almacenamiento y distribución hasta producción ligera. Elegí una superficie para ver cómo ocupa la nave.',
-            'The warehouse subdivides into modules for companies of different sizes and sectors, from storage and distribution to light production. Pick an area to see how it fits in the building.') }}
+            'La nave se subdivide en módulos para empresas de distintos tamaños y sectores: desde almacenamiento y distribución hasta producción ligera. Se alquila por módulos de 600 m². Elegí una superficie para ver cómo ocupa la nave.',
+            'The warehouse subdivides into modules for companies of different sizes and sectors, from storage and distribution to light production. Space is leased in 600 m² modules. Pick an area to see how it fits in the building.') }}
     <div class="cfg" id="cfg">
       <div data-reveal="up">
         <div class="cfg-btns">
-          <button class="cfg-btn on" type="button" data-m2="3600"><b>3.600 m²</b><span>{{ t('Módulo base','Base module') }}</span></button>
-          <button class="cfg-btn" type="button" data-m2="6000"><b>6.000 m²</b><span>{{ t('Operación media','Mid-size operation') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="600"><b>600 m²</b><span>{{ t('Módulo mínimo','Minimum module') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="1200"><b>1.200 m²</b><span>{{ t('Dos módulos','Two modules') }}</span></button>
+          <button class="cfg-btn on" type="button" data-m2="2400"><b>2.400 m²</b><span>{{ t('Operación media','Mid-size operation') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="4800"><b>4.800 m²</b><span>{{ t('Gran operación','Large operation') }}</span></button>
           <button class="cfg-btn" type="button" data-m2="7200"><b>7.200 m²</b><span>{{ t('Media nave','Half the building') }}</span></button>
-          <button class="cfg-btn" type="button" data-m2="9600"><b>9.600 m²</b><span>{{ t('Gran operador','Large operator') }}</span></button>
-          <button class="cfg-btn all" type="button" data-m2="14400"><b>14.400 m²</b><span>{{ t('Nave completa','Whole building') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="14400"><b>14.400 m²</b><span>{{ t('Nave completa','Whole building') }}</span></button>
         </div>
         <div class="cfg-read">
-          <div><b id="cfg-pct">25%</b><span>{{ t('de la nave','of the building') }}</span></div>
-          <div><b id="cfg-rest">10.800 m²</b><span>{{ t('quedan para otros operadores','left for other operators') }}</span></div>
+          <div><b id="cfg-pct">17%</b><span>{{ t('de la nave','of the building') }}</span></div>
+          <div><b id="cfg-rest">12.000 m²</b><span>{{ t('quedan para otros operadores','left for other operators') }}</span></div>
         </div>
         <p class="note" style="color:#AFBDEA">{{ t('*Los espacios son representativos y se adaptan a la necesidad de cada operador. Consultá la disponibilidad actualizada.','*Areas are indicative and adapt to each operator’s needs. Ask for current availability.') }}</p>
       </div>
@@ -70,14 +71,14 @@
         <svg viewBox="0 0 1000 330" role="img" aria-label="Planta esquemática de Nodo Flex">
           <rect class="yard" x="40" y="8" width="920" height="40" rx="3"/>
           <rect class="yard" x="40" y="282" width="920" height="40" rx="3"/>
-          {% for i in range(12) %}<rect class="bay" data-i="{{ i }}" x="{{ 40 + i * 76.667 }}" y="52" width="76.667" height="226"/>{% endfor %}
+          {% for i in range(24) %}<rect class="bay" data-i="{{ i }}" x="{{ 40 + i * 38.3333 }}" y="52" width="38.3333" height="226"/>{% endfor %}
           {% for i in range(12) %}<rect class="dock" x="{{ 40 + i * 76.667 + 26 }}" y="46" width="24" height="5" rx="1"/><rect class="dock" x="{{ 40 + i * 76.667 + 26 }}" y="279" width="24" height="5" rx="1"/>{% endfor %}
           <text x="50" y="33">{{ 'Playón de maniobras' }}</text>
           <text x="50" y="307">{{ 'Playón de maniobras' }}</text>
           <line class="dim" x1="976" y1="52" x2="976" y2="278"/><text x="984" y="170" transform="rotate(90 984 170)" text-anchor="middle">59,16 m</text>
-          <text id="cfg-label" x="0" y="172" text-anchor="middle" style="fill:var(--nodo);font-size:15px">3.600 m²</text>
+          <text id="cfg-label" x="0" y="172" text-anchor="middle" style="fill:var(--nodo);font-size:15px">2.400 m²</text>
         </svg>
-        <div class="plan-cap"><span><i style="background:#fff"></i>{{ t('Tu operación','Your operation') }}</span><span><i style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35)"></i>{{ t('Disponible para otros operadores','Available for other operators') }}</span><span>{{ t('Luces de 20 m · docks en ambos frentes','20 m spans · docks on both sides') }}</span></div>
+        <div class="plan-cap"><span><i style="background:#fff"></i>{{ t('Tu operación','Your operation') }}</span><span><i style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35)"></i>{{ t('Disponible para otros operadores','Available for other operators') }}</span><span>{{ t('Módulos de 600 m² · docks en ambos frentes','600 m² modules · docks on both sides') }}</span></div>
       </div>
     </div>
   </div>
@@ -90,7 +91,7 @@
             'Los datos que tu equipo de ingeniería necesita para evaluar la operación.','The figures your engineering team needs to assess the operation.') }}
     <div class="kn">
       <div class="kcard" data-reveal="up"><small>{{ t('Superficie total','Total area') }}</small><b>14.400<em>m²</em></b><p>{{ t('Con capacidad flexible en módulos.','Flexible capacity in modules.') }}</p></div>
-      <div class="kcard" data-reveal="up" style="--d:.05s"><small>{{ t('Modulación','Modules') }}</small><b>≥ 3.600<em>m²</em></b><p>{{ t('Estructura preparada para subdivisión. Escalable y adaptable.','Structure ready to subdivide. Scalable and adaptable.') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.05s"><small>{{ t('Modulación','Modules') }}</small><b>≥ 600<em>m²</em></b><p>{{ t('Módulos de 600 m² que se suman hasta la nave completa. Escalable y adaptable.','600 m² modules that add up to the whole building. Scalable and adaptable.') }}</p></div>
       <div class="kcard" data-reveal="up" style="--d:.1s"><small>{{ t('Altura útil','Clear height') }}</small><b>10,24–12<em>m</em></b><p>{{ t('Despeje libre bajo viga. Apta para racks altos (5 a 7 niveles de pallets, según layout).','Clear height under beam. Fit for high racking (5–7 pallet levels, layout-dependent).') }}</p></div>
       <div class="kcard" data-reveal="up" style="--d:.15s"><small>{{ t('Ancho libre','Clear span') }}</small><b>20<em>m</em></b><p>{{ t('Sin interferencias estructurales. Óptimo para circulación y layout flexible.','No structural obstructions. Ideal for circulation and flexible layouts.') }}</p></div>
       <div class="kcard" data-reveal="up" style="--d:.2s"><small>{{ t('Largo libre','Clear depth') }}</small><b>59,16<em>m</em></b><p>{{ t('Superficie continua operativa para un flujo logístico eficiente.','Continuous operating floor for an efficient logistics flow.') }}</p></div>

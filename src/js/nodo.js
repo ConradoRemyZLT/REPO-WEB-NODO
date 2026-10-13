@@ -186,33 +186,42 @@
       if (typeof d.info.muted === 'boolean') { p.muted = d.info.muted; p.el.classList.toggle('muted', p.muted); }
     });
   });
-  var heroP = null;
+  /* ══════════ Video del banner (MP4 embebido, compartido por las tres vistas) ══════════ */
   (function () {
-    var hero = $('.vhero'); if (!hero) return;
-    var p = heroP = { el: hero, id: hero.dataset.yt, kind: 'hero', muted: true, title: 'Video oficial Nodo Flex' };
-    players.push(p);
+    var vids = $$('video[data-vid]'), tag = $('#nodo-vid');
+    if (!vids.length || !tag) return;
+    var data = null, urls = {};
+    function key() { return (innerWidth < innerHeight && innerWidth < 900) ? '9x16' : '16x9'; }
+    function url(k) {
+      if (urls[k]) return urls[k];
+      if (!data) { try { data = JSON.parse(tag.textContent); } catch (e) { data = {}; } }
+      if (!data[k]) return null;
+      var bin = atob(data[k]), n = bin.length, u8 = new Uint8Array(n);
+      for (var i = 0; i < n; i++) u8[i] = bin.charCodeAt(i);
+      return (urls[k] = URL.createObjectURL(new Blob([u8], { type: 'video/mp4' })));
+    }
+    function arm(v) {
+      var k = key(); if (v._k === k) return;
+      var u = url(k); if (!u) return;
+      v._k = k; v.classList.remove('on'); v.src = u;
+    }
+    vids.forEach(function (v) {
+      v.muted = true; v.defaultMuted = true;
+      v.addEventListener('playing', function () { v.classList.add('on'); });
+    });
     if (RM) return;
-    var host = hero.querySelector('.vhero-frame'), started = false;
-    function start() {
-      if (started || document.body.dataset.view !== 'home') return;
-      var r = host.getBoundingClientRect(); if (!r.width || !r.height) return;
-      started = true; mount(p, false);
-      setTimeout(function () { if (!p.playing) mount(p, true); }, 2600);
-    }
-    if (window.ResizeObserver) new ResizeObserver(function () { start(); fitPlayer(p); }).observe(host);
-    start();
-    p.start = start;
-    function firstGesture() {
-      if (p.muted && p.frame && document.body.dataset.view === 'home' && scrollY < innerHeight * .6) { setMuted(p, false); muteAll(p); }
-      ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) { removeEventListener(ev, firstGesture, true); });
-    }
-    ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) { addEventListener(ev, firstGesture, { capture: true, passive: true }); });
-    new IntersectionObserver(function (es) {
+    var seen = new Set();
+    function play(v) { arm(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+    var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (!p.frame) return;
-        if (e.isIntersecting) ytPost(p.frame, 'playVideo'); else { ytPost(p.frame, 'pauseVideo'); if (!p.muted) setMuted(p, true); }
+        if (e.isIntersecting) { seen.add(e.target); play(e.target); }
+        else { seen.delete(e.target); e.target.pause(); }
       });
-    }, { threshold: 0.28 }).observe(hero);
+    }, { threshold: 0.05 });
+    setTimeout(function () { vids.forEach(function (v) { io.observe(v); }); }, 120);
+    var rt; addEventListener('resize', function () {
+      clearTimeout(rt); rt = setTimeout(function () { seen.forEach(function (v) { if (v._k !== key()) play(v); }); }, 300);
+    });
   })();
   $$('.pv-auto').forEach(function (el) {
     var p = { el: el, id: el.dataset.yt, kind: 'proj', muted: true, title: 'Avance de obra' };
@@ -268,7 +277,7 @@
       lot.addEventListener('pointerenter', function () {
         var n = lot.dataset.n, e = lot.dataset.e, en = EN();
         var name = n === '2' ? 'Nodo Flex · 14.400 m²' : ((en ? 'Lot ' : 'Lote ') + n);
-        tip.innerHTML = '<small>' + (en ? 'Phase ' : 'Etapa ') + e + (n === '2' ? (en ? ' · under construction' : ' · en construcción') : '') + '</small>' + name;
+        tip.innerHTML = '<small>' + (en ? 'Phase ' : 'Etapa ') + e + (n === '2' ? (en ? ' · under construction, completion March 2027' : ' · en construcción, finaliza en marzo 2027') : '') + '</small>' + name;
         var b = lot.getBBox(), sv = lot.ownerSVGElement.getBoundingClientRect(), r = mp.getBoundingClientRect();
         var k = sv.width / 1280;
         tip.style.left = (b.x + b.width / 2) * k + 'px'; tip.style.top = b.y * k + 'px';
@@ -285,18 +294,18 @@
     var bays = $$('.bay', cfg), lab = $('#cfg-label'), pct = $('#cfg-pct'), rest = $('#cfg-rest');
     function fmt(n) { return n.toLocaleString(EN() ? 'en-US' : 'es-AR'); }
     function pick(m2) {
-      var nb = Math.round(m2 / 1200);
+      var nb = Math.round(m2 / 600);
       bays.forEach(function (b, i) { b.classList.toggle('sel', i < nb); });
       $$('.cfg-btn', cfg).forEach(function (b) { b.classList.toggle('on', +b.dataset.m2 === m2); });
-      var x0 = 40, w = 76.667 * nb;
+      var x0 = 40, w = 38.3333 * nb;
       lab.setAttribute('x', x0 + w / 2); lab.textContent = fmt(m2) + ' m²';
       pct.textContent = Math.round(m2 / 14400 * 100) + '%';
       rest.textContent = fmt(14400 - m2) + ' m²';
       cfg.dataset.m2 = m2;
     }
     $$('.cfg-btn', cfg).forEach(function (b) { b.addEventListener('click', function () { pick(+b.dataset.m2); }); });
-    pick(3600);
-    cfg._repaint = function () { pick(+cfg.dataset.m2 || 3600); };
+    pick(2400);
+    cfg._repaint = function () { pick(+cfg.dataset.m2 || 2400); };
   })();
 
   /* ══════════ Mapas (uno por vista, se crean al verse) ══════════ */
@@ -425,8 +434,6 @@
       $$('.hpill').forEach(function (p) { p.classList.toggle('on', p.dataset.pill === r.view); });
       setTitle();
       buildDots(r.view);
-      if (r.view !== 'home' && heroP && heroP.frame) { ytPost(heroP.frame, 'pauseVideo'); if (!heroP.muted) setMuted(heroP, true); }
-      if (r.view === 'home' && heroP && heroP.start) heroP.start();
       // al mostrar una vista, sus galerías y videos recién tienen tamaño
       requestAnimationFrame(function () {
         $$('.view[data-view="' + r.view + '"] [data-gallery]').forEach(function (g) { if (g._sync) g._sync(); });

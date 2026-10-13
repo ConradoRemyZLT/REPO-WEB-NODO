@@ -5,7 +5,7 @@
 #   /brochures/*.pdf        ← Home/brochures
 #   /empresas/ /inversores/ ← direcciones cortas para campañas: redirigen a #/empresas y #/inversores
 #   favicon, ícono de iOS e imagen para compartir (og-nodo.jpg)
-# Inserta el login (gate.js) igual que ZLT-WEB-V2, salvo que la variable LOGIN del repo valga "no".
+# La web es pública (sin login). Sigue en noindex hasta la mudanza del dominio.
 # Los archivos originales no se tocan.
 
 name: Publicar en GitHub Pages
@@ -31,11 +31,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Armar el sitio
-        env:
-          LOGIN: ${{ vars.LOGIN }}
         run: |
           set -euo pipefail
-          BASE="/${GITHUB_REPOSITORY#*/}"
           mkdir -p _site/brochures _site/empresas _site/inversores
           cp Home/html/NODO-WEB-home.html _site/index.html
           cp Home/brochures/*.pdf _site/brochures/
@@ -44,11 +41,6 @@ jobs:
           for v in empresas inversores; do
             printf '<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="refresh" content="0; url=../#/%s"><a href="../#/%s">Nodo</a>\n' "$v" "$v" > "_site/$v/index.html"
           done
-          if [ "${LOGIN:-si}" != "no" ]; then
-            cp gate.js _site/gate.js
-            grep -q "gate\.js" _site/index.html || sed -i "0,/<\/title>/s##</title><script src=\"$BASE/gate.js\"></script>#" _site/index.html
-            [ "$(grep -o "gate\.js" _site/index.html | wc -l)" = 1 ] || { echo "El login no quedó una sola vez"; exit 1; }
-          fi
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3

@@ -9,8 +9,8 @@ QUÉ HAY EN LA WEB
 
 Es un solo HTML con tres vistas:
 
-  #/             Home · Nodo, el parque. Video oficial de Nodo Flex en el
-                 banner, Nodo vs Nodo Flex, ficha del parque, masterplan y
+  #/             Home · Nodo, el parque. Video de la obra (dron, agosto 2026)
+                 de fondo en el banner, Nodo vs Nodo Flex, ficha del parque, masterplan y
                  próximas etapas, ficha de Nodo Flex, servicios, ubicación,
                  avance de obra, empresas que acompañan, prensa y contacto.
   #/empresas     Nodo Flex para empresas: superficies (interactivo), ficha
@@ -41,6 +41,8 @@ CÓMO ESTÁ ORDENADO
       servicios/   la iconografía de Nodo (agua, fibra, seguridad…)
       contacto/    WhatsApp, mail y redes
       web/         favicon, ícono de iOS/Android e imagen para compartir
+    videos/      el video del banner: 16x9 (escritorio) y 9x16 (celular),
+                 armados con tomas de dron de agosto 2026. Van embebidos.
     links/       videos, contacto, prensa y enlaces, en planillas
     _inventario.csv   qué es cada archivo y de dónde salió
 
@@ -66,12 +68,16 @@ CÓMO SE CAMBIA ALGO
     teléfono, mail, WhatsApp ......... src/datos/sitio.json → contacto
     videos de YouTube ................ src/datos/sitio.json → videos
     mes de las fotos de obra ......... src/datos/sitio.json → obra
+    finalización de Nodo Flex ........ src/datos/sitio.json → obra.fin_es / fin_en
     notas de prensa .................. src/datos/prensa.json
     fotos de avance .................. Home/fotos/obra-2026-08 + macros.html (OBRA)
 
 PARA TENER EN CUENTA
 
   · La web está en noindex: Google no la muestra hasta que se haga la mudanza.
+  · La web es pública: no lleva login.
+  · Nodo Flex se alquila en módulos desde 600 m² (los 3.600 m² del brochure
+    son ilustrativos).
   · El formulario envía por FormSubmit a nodo_info@somoszlt.com. La primera
     consulta dispara un mail de activación a esa casilla: hay que confirmarlo
     una vez para que empiecen a llegar.

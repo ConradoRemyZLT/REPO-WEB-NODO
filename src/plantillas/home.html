@@ -1,11 +1,20 @@
 {% from 'parciales/macros.html' import head, gallery, accompany, services, location, progress, sound_btn, i_arrow, i_down, i_play, i_ext, i_zoom, PARTNERS %}
 
-{# ═════════ 1 · BANNER: video oficial de Nodo Flex ═════════ #}
-<section id="inicio" class="vhero muted" data-yt="{{ d.videos.banner }}" aria-label="Video oficial Nodo Flex">
-  <div class="vhero-frame" data-bg="{{ img('fotos/nodo-flex/nodo-flex-01.jpg', 1920, 70) }}" data-yt-poster></div>
-  <div class="vhero-ui">
-    <span class="sound-cta js-sound" role="button" tabindex="0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg>{{ t('Activar sonido','Turn on sound') }}</span>
-    {{ sound_btn() }}
+{# ═════════ 1 · BANNER: video de Nodo Flex (agosto 2026), embebido en el HTML ═════════ #}
+<section id="inicio" class="vhero dk" aria-label="Parque Logístico Nodo">
+  <div class="vhero-frame">
+    <img class="hv-poster" data-img="{{ img('videos/nodo-hero-16x9.jpg', 1920, 72) }}" data-eager alt="">
+    <video class="hv" data-vid muted loop playsinline preload="none" aria-hidden="true"></video>
+  </div>
+  <div class="vh-copy">
+    <div class="eyebrow" data-reveal="fade">{{ t('Parque logístico · Córdoba, Argentina','Logistics park · Córdoba, Argentina') }}</div>
+    {{ svg('nodo', 'vh-logo', 'Nodo') }}
+    <p class="vh-claim" data-reveal="up" style="--d:.15s">{{ t('Logística AAA sobre la <b>Autovía Nacional 19, km 13</b>. Hoy se construye Nodo Flex, su primera nave.','AAA logistics on <b>National Motorway 19, km 13</b>. Nodo Flex, its first warehouse, is under construction.') }}</p>
+    <div class="vh-cta" data-reveal="up" style="--d:.25s">
+      <a class="btn btn-primary" href="#/empresas">{{ t('Soy empresa','I’m a company') }}{{ i_arrow() }}</a>
+      <a class="btn btn-ghost" href="#/inversores">{{ t('Soy inversor','I’m an investor') }}{{ i_arrow() }}</a>
+      <a class="vh-film" href="https://www.youtube.com/watch?v={{ d.videos.banner }}" target="_blank" rel="noopener">{{ i_play() }}<span>{{ t('Ver video oficial','Watch the official video') }}</span></a>
+    </div>
   </div>
   <a href="#/presentacion" class="scrollcue" aria-label="Ir al contenido"><span>{{ t('Descubrí Nodo','Discover Nodo') }}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
 </section>
@@ -37,7 +46,7 @@
         <span class="path-k">{{ t('Para empresas','For companies') }}</span>
         <span class="path-t">{{ t('Operá en una nave <b>AAA flexible</b>','Operate in a <b>flexible AAA</b> warehouse') }}</span>
         <ul>
-          <li>{{ t('Módulos desde 3.600 m² dentro de Nodo Flex','Modules from 3,600 m² inside Nodo Flex') }}</li>
+          <li>{{ t('Módulos desde 600 m² dentro de Nodo Flex','Modules from 600 m² inside Nodo Flex') }}</li>
           <li>{{ t('Logística, última milla y cross docking','Logistics, last mile and cross docking') }}</li>
           <li>{{ t('Contratos corporativos gestionados por ZLT','Corporate leases managed by ZLT') }}</li>
         </ul>
@@ -86,7 +95,7 @@
         <p class="duo-p">{{ t('Se divide según la necesidad de cada empresa. Las empresas alquilan; los inversores participan del negocio y cobran una renta administrada por ZLT.','It is split to fit each company’s needs. Companies lease; investors take part in the business and earn an income managed by ZLT.') }}</p>
         <div class="duo-facts">
           <div><b>14.400 m²</b><span>{{ t('Superficie de la nave','Warehouse area') }}</span></div>
-          <div><b>≥ 3.600 m²</b><span>{{ t('Módulos desde','Modules from') }}</span></div>
+          <div><b>≥ 600 m²</b><span>{{ t('Módulos desde','Modules from') }}</span></div>
           <div><b>10,24–12 m</b><span>{{ t('Altura útil','Clear height') }}</span></div>
           <div><b>AAA</b><span>{{ t('Estándar','Standard') }}</span></div>
         </div>
@@ -97,7 +106,7 @@
       <img data-img="{{ img('fotos/ilustraciones/parque-con-nodo-flex.png', 1600) }}" alt="Plano del Parque Logístico Nodo con la ubicación de Nodo Flex">
       <div class="duo-legend">
         <div><i style="background:#9DB0A8"></i><span>{{ t('<b>Nodo</b> · el predio completo, con calles, accesos y espacios verdes','<b>Nodo</b> · the whole site, with roads, access points and green areas') }}</span></div>
-        <div><i style="background:var(--nodo)"></i><span>{{ t('<b>Nodo Flex</b> · la primera nave del parque, en construcción','<b>Nodo Flex</b> · the park’s first warehouse, under construction') }}</span></div>
+        <div><i style="background:var(--nodo)"></i><span>{{ t('<b>Nodo Flex</b> · la primera nave del parque, en construcción (finaliza en ' ~ d.obra.fin_es ~ ')','<b>Nodo Flex</b> · the park’s first warehouse, under construction (completion ' ~ d.obra.fin_en ~ ')') }}</span></div>
       </div>
     </div>
   </div>
@@ -193,7 +202,7 @@
         <button class="stage on" type="button" data-etapa="1">
           <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo);box-shadow:0 0 0 1px #fff"></i>{{ t('Etapa 1','Phase 1') }}</span><span class="tag tag-adv">{{ t('En ejecución','Under way') }}</span></span>
           <span class="stage-m2 d-block">30.000 m²</span>
-          <span class="stage-d d-block">{{ t('Naves 1 a 4 · incluye Nodo Flex (14.400 m²)','Warehouses 1–4 · includes Nodo Flex (14,400 m²)') }}</span>
+          <span class="stage-d d-block">{{ t('Naves 1 a 4 · hoy se construye Nodo Flex (14.400 m²), con finalización prevista en ' ~ d.obra.fin_es, 'Warehouses 1–4 · Nodo Flex (14,400 m²) is under construction now, due for completion in ' ~ d.obra.fin_en) }}</span>
         </button>
         <button class="stage" type="button" data-etapa="2">
           <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo-m)"></i>{{ t('Etapa 2','Phase 2') }}</span><span class="tag tag-opp">{{ t('Próxima etapa','Next phase') }}</span></span>
@@ -224,7 +233,7 @@
       <div class="phead-txt">
         <div class="phead-row">
           <div class="eyebrow" data-reveal="up">{{ t('Nave logística AAA','AAA logistics warehouse') }}</div>
-          <span class="tag big-tag tag-adv pstatus" data-reveal="up" style="--d:.06s">{{ t('En construcción','Under construction') }}</span>
+          <span class="tag big-tag tag-adv pstatus" data-reveal="up" style="--d:.06s">{{ t('En construcción · finaliza ' ~ d.obra.fin_es, 'Under construction · completion ' ~ d.obra.fin_en) }}</span>
         </div>
         <h2 class="sr-only">Nodo Flex</h2>
         <div class="place" data-reveal="up" style="--d:.12s">{{ t('Dentro del Parque Logístico Nodo · Autovía Nacional 19, km 13','Inside Nodo Logistics Park · National Motorway 19, km 13') }}</div>
@@ -237,9 +246,9 @@
         <p class="prose" data-reveal="up" style="--d:.06s">{{ t('Tiene dos modelos de negocio que se sostienen entre sí: <b>las empresas</b> alquilan con contratos corporativos de locación, y <b>los inversores</b> participan del activo y reciben una renta mensual 100% administrada por ZLT.','It runs on two business models that support each other: <b>companies</b> lease space under corporate leases, and <b>investors</b> take part in the asset and receive a monthly income fully managed by ZLT.') }}</p>
         <div class="facts">
           <div data-reveal="up"><div class="fnum">14.400 m²</div><div class="flab">{{ t('Superficie de la nave','Warehouse area') }}</div></div>
-          <div data-reveal="up" style="--d:.06s"><div class="fnum">≥ 3.600 m²</div><div class="flab">{{ t('Módulos desde','Modules from') }}</div></div>
+          <div data-reveal="up" style="--d:.06s"><div class="fnum">≥ 600 m²</div><div class="flab">{{ t('Módulos desde','Modules from') }}</div></div>
           <div data-reveal="up" style="--d:.12s"><div class="fnum">10,24–12 m</div><div class="flab">{{ t('Altura útil','Clear height') }}</div></div>
-          <div data-reveal="up" style="--d:.18s"><div class="fnum">5 t/m²</div><div class="flab">{{ t('Resistencia de piso','Floor load') }}</div></div>
+          <div data-reveal="up" style="--d:.18s"><div class="fnum">{{ t('Mar 2027','Mar 2027') }}</div><div class="flab">{{ t('Finalización prevista','Expected completion') }}</div></div>
         </div>
       </div>
       <div class="pv-side" data-reveal="left">
