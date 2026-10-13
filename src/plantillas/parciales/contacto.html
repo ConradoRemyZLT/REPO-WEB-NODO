@@ -17,11 +17,11 @@
           <a class="citem" href="{{ d.contacto.maps }}" target="_blank" rel="noopener" data-reveal="up" style="--d:.12s"><span class="cico"><i class="{{ ico('accesos') }}"></i></span><span>{{ d.contacto.direccion }}<small>{{ d.contacto.localidad }}</small></span></a>
         </div>
         {% if perfil == 'empresa' %}
-        <a class="bro" href="{{ d.brochures.empresas }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/renders/nodo-flex-fachada.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Nodo Flex · Empresas','Nodo Flex brochure · Companies') }}</b><small>PDF · 2,4 MB</small></span>{{ i_down() }}</a>
+        <a class="bro" href="{{ d.brochures.empresas }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/nodo-flex/nodo-flex-02.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Nodo Flex · Empresas','Nodo Flex brochure · Companies') }}</b><small>PDF · 2,4 MB</small></span>{{ i_down() }}</a>
         {% elif perfil == 'inversor' %}
         <a class="bro" href="{{ d.brochures.inversores }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/nodo-flex/nodo-flex-01.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Nodo Flex · Inversores','Nodo Flex brochure · Investors') }}</b><small>PDF · 2,6 MB</small></span>{{ i_down() }}</a>
         {% else %}
-        <a class="bro" href="{{ d.brochures.parque }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/renders/parque-aereo-01.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Parque Logístico Nodo','Nodo Logistics Park brochure') }}</b><small>PDF · 1,1 MB</small></span>{{ i_down() }}</a>
+        <a class="bro" href="{{ d.brochures.parque }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/parque/parque-03.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Parque Logístico Nodo','Nodo Logistics Park brochure') }}</b><small>PDF · 1,1 MB</small></span>{{ i_down() }}</a>
         {% endif %}
         <div>
           <div class="sfollow">{{ t('Seguinos','Follow us') }}</div>
@@ -61,9 +61,7 @@
             <div class="fld"><label for="{{ pre }}f-apellido">{{ t('Apellido','Last name') }}<i>*</i></label><input type="text" id="{{ pre }}f-apellido" name="apellido" required autocomplete="family-name"><span class="err">{{ FLD_ERR }}</span></div>
             <div class="fld"><label for="{{ pre }}f-email">Email<i>*</i></label><input type="email" id="{{ pre }}f-email" name="email" placeholder="nombre@correo.com" required autocomplete="email"><span class="err">{{ FLD_ERR }}</span></div>
             <div class="fld"><label for="{{ pre }}f-tel">{{ t('Teléfono','Phone') }}<i>*</i></label><input type="tel" id="{{ pre }}f-tel" name="telefono" placeholder="+54 9 351 000 0000" required autocomplete="tel"><span class="err">{{ FLD_ERR }}</span></div>
-            <div class="fld"><label for="{{ pre }}f-ciudad">{{ t('Ciudad / país','City / country') }}</label><input type="text" id="{{ pre }}f-ciudad" name="ciudad" data-opt autocomplete="address-level2"></div>
-            <div class="fld"><label for="{{ pre }}f-monto">{{ t('Inversión estimada','Estimated investment') }}</label>
-              <select id="{{ pre }}f-monto" name="inversion" data-opt><option value="">—</option><option>Desde USD 160.000 (1 participación)</option><option>USD 160.000 a 320.000</option><option>Más de USD 320.000</option><option>A definir</option></select></div>
+            <div class="fld fld-full"><label for="{{ pre }}f-ciudad">{{ t('Ciudad / país','City / country') }}</label><input type="text" id="{{ pre }}f-ciudad" name="ciudad" data-opt autocomplete="address-level2"></div>
             <div class="fld fld-full"><span class="flbl">{{ t('¿Ya invertiste con ZLT?','Have you invested with ZLT before?') }}</span>
               <div class="seg"><label><input type="radio" name="ya_invirtio" value="Sí"><span>{{ t('Sí','Yes') }}</span></label><label><input type="radio" name="ya_invirtio" value="No" checked><span>No</span></label></div></div>
           {% else %}

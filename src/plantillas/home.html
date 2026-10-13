@@ -39,32 +39,6 @@
       <a class="btn btn-ghost" href="https://www.youtube.com/watch?v={{ d.videos.banner }}" target="_blank" rel="noopener">{{ i_play() }}<span>{{ t('Video oficial','Official video') }}</span></a>
     </div>
   </div>
-  <div class="wrap">
-    <div class="paths">
-      <a class="path" href="#/empresas" data-reveal="up">
-        <i class="path-i {{ ico('camion') }}"></i>
-        <span class="path-k">{{ t('Para empresas','For companies') }}</span>
-        <span class="path-t">{{ t('Operá en una nave <b>AAA flexible</b>','Operate in a <b>flexible AAA</b> warehouse') }}</span>
-        <ul>
-          <li>{{ t('Módulos desde 600 m² dentro de Nodo Flex','Modules from 600 m² inside Nodo Flex') }}</li>
-          <li>{{ t('Logística, última milla y cross docking','Logistics, last mile and cross docking') }}</li>
-          <li>{{ t('Contratos corporativos gestionados por ZLT','Corporate leases managed by ZLT') }}</li>
-        </ul>
-        <span class="path-go">{{ t('Ver propuesta para empresas','See the offer for companies') }}{{ i_arrow() }}</span>
-      </a>
-      <a class="path" href="#/inversores" data-reveal="up" style="--d:.08s">
-        <i class="path-i {{ ico('inversion') }}"></i>
-        <span class="path-k">{{ t('Para inversores','For investors') }}</span>
-        <span class="path-t">{{ t('Renta <b>100% administrada</b> en logística AAA','<b>Fully managed</b> income from AAA logistics') }}</span>
-        <ul>
-          <li>{{ t('Participaciones desde USD 160.000','Stakes from USD 160,000') }}</li>
-          <li>{{ t('Renta mensual respaldada por contratos corporativos','Monthly income backed by corporate leases') }}</li>
-          <li>{{ t('ZLT desarrolla, administra y liquida','ZLT develops, manages and pays out') }}</li>
-        </ul>
-        <span class="path-go">{{ t('Ver propuesta para inversores','See the offer for investors') }}{{ i_arrow() }}</span>
-      </a>
-    </div>
-  </div>
 </section>
 
 {# ═════════ 3 · NODO vs NODO FLEX ═════════ #}
@@ -143,13 +117,12 @@
       <span class="chip">{{ t('Naves tipo A y AAA','A and AAA warehouses') }}</span><span class="chip">{{ t('Pórticos de 20 m de luz','20 m span frames') }}</span><span class="chip">{{ t('Pisos de hormigón llaneado','Power-floated concrete floors') }}</span><span class="chip">{{ t('Red de incendios con hidrantes','Hydrant fire network') }}</span><span class="chip">{{ t('Control de acceso','Access control') }}</span><span class="chip">{{ t('Coworking y gastronomía','Coworking and food service') }}</span>
     </div>
     {{ gallery([
-      ('fotos/renders/parque-aereo-01.jpg','Render · parque completo','Render · full park'),
-      ('fotos/renders/portico-acceso.jpg','Render · pórtico de acceso','Render · entrance gate'),
-      ('fotos/renders/naves-playon.jpg','Render · naves y playón','Render · warehouses and yard'),
-      ('fotos/renders/parque-aereo-02.jpg','Render · vista desde la autovía','Render · view from the motorway'),
-      ('fotos/renders/naves-frente.jpg','Render · frente de naves','Render · warehouse fronts'),
-      ('fotos/parque/parque-01.jpg','El predio hoy','The site today'),
-      ('fotos/parque/parque-03.jpg','El predio hoy','The site today'),
+      ('fotos/parque/parque-03.jpg','El predio sobre la Autovía 19','The site on Motorway 19'),
+      ('fotos/nodo-flex/nodo-flex-05.jpg','Acceso desde la autovía','Access from the motorway'),
+      ('fotos/nodo-flex/nodo-flex-14.jpg','Vista general del predio','Overview of the site'),
+      ('fotos/nodo-flex/nodo-flex-04.jpg','Calles internas y Nodo Flex','Internal roads and Nodo Flex'),
+      ('fotos/parque/parque-02.jpg','Calles internas','Internal roads'),
+      ('fotos/parque/parque-05.jpg','El predio','The site'),
       ('fotos/parque/parque-06.jpg','Cartel del parque','Park sign')], 'Parque Logístico Nodo') }}
     <div class="tour" data-reveal="up">
       <div class="tour-head">
@@ -157,7 +130,7 @@
         <div class="tour-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M12 5v14"/></svg>{{ t('Arrastrá para mirar alrededor','Drag to look around') }}</div>
       </div>
       <div class="tour-box muted" data-tour="{{ d.recorrido_360 }}">
-        <button class="tour-start" type="button" data-bg="{{ img('fotos/renders/parque-aereo-02.jpg', 1400) }}" aria-label="Iniciar el recorrido 360 de Nodo">
+        <button class="tour-start" type="button" data-bg="{{ img('fotos/nodo-flex/nodo-flex-05.jpg', 1400) }}" aria-label="Iniciar el recorrido 360 de Nodo">
           <span class="ts-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 6.5v11c-3 .9-6 1.4-9 1.4s-6-.5-9-1.4v-11c3 .9 6 1.4 9 1.4s6-.5 9-1.4z"/><path d="M7.5 14.5l3-4 2.5 3 1.8-2 1.7 3"/></svg></span>
           <span class="ts-txt">{{ t('Recorrido 360° · Nodo','360° tour · Nodo') }}</span>
           <span class="ts-go">{{ i_play() }}{{ t('Iniciar recorrido','Start tour') }}</span>
@@ -266,7 +239,7 @@
         <span class="path-t">{{ t('Alquilá la superficie <b>que tu operación necesita</b>','Lease the space <b>your operation needs</b>') }}</span>
         <span class="path-go">{{ t('Superficies, ficha técnica y proceso','Areas, specs and process') }}{{ i_arrow() }}</span>
       </a>
-      <a class="path" href="#/inversores" data-reveal="up" style="--d:.08s;background:var(--nodo-dd);border-color:var(--nodo-dd)">
+      <a class="path" href="#/inversores" data-reveal="up" style="--d:.08s;background:var(--nodo);border-color:var(--nodo)">
         <span class="path-k">{{ t('Soy inversor','I’m an investor') }}</span>
         <span class="path-t">{{ t('Participá del negocio con <b>renta 100% administrada</b>','Join the business with <b>fully managed income</b>') }}</span>
         <span class="path-go">{{ t('Pool de renta, respaldo y preguntas','Rental pool, backing and FAQ') }}{{ i_arrow() }}</span>
@@ -274,12 +247,12 @@
     </div>
     {{ gallery([
       ('fotos/nodo-flex/nodo-flex-01.jpg','Agosto 2026','August 2026'),
-      ('fotos/renders/nodo-flex-fachada.jpg','Render · fachada','Render · façade'),
       ('fotos/nodo-flex/nodo-flex-03.jpg','Vista cenital','Top view'),
-      ('fotos/renders/nodo-flex-racks.jpg','Render · interior','Render · interior'),
+      ('fotos/nodo-flex/nodo-flex-02.jpg','Cubierta y estructura','Roof and structure'),
       ('fotos/nodo-flex/nodo-flex-07.jpg','Interior en obra','Interior under construction'),
-      ('fotos/nodo-flex/nodo-flex-04.jpg','Sobre la Autovía 19','On Motorway 19'),
-      ('fotos/renders/nodo-flex-interior.jpg','Render · oficinas y nave','Render · offices and floor'),
+      ('fotos/nodo-flex/nodo-flex-08.jpg','Pórticos de 20 m de luz','20 m span frames'),
+      ('fotos/nodo-flex/nodo-flex-09.jpg','Estructura metálica','Steel structure'),
+      ('fotos/nodo-flex/nodo-flex-10.jpg','Esquina de la nave','Building corner'),
       ('fotos/nodo-flex/nodo-flex-06.jpg','Estructura','Structure'),
       ('fotos/nodo-flex/nodo-flex-11.jpg','Panelería PIR','PIR panels'),
       ('fotos/nodo-flex/nodo-flex-13.jpg','Cubierta en ejecución','Roofing in progress'),

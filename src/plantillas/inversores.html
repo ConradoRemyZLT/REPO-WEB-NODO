@@ -23,7 +23,7 @@
         <a class="btn btn-ghost" href="{{ d.brochures.inversores }}" download>{{ i_down() }}<span>{{ t('Brochure inversores','Investors brochure') }}</span></a>
       </div>
       <div class="sub-facts" data-reveal="up" style="--d:.56s">
-        <div><b>USD 160.000</b><span>{{ t('Participaciones desde','Stakes from') }}</span></div>
+        <div><b>{{ t('Mar 2027','Mar 2027') }}</b><span>{{ t('Finalización prevista','Expected completion') }}</span></div>
         <div><b>100%</b><span>{{ t('Renta administrada','Managed income') }}</span></div>
         <div><b>{{ t('Mensual','Monthly') }}</b><span>{{ t('Liquidación','Payout') }}</span></div>
       </div>
@@ -60,14 +60,14 @@
       <div class="cycle" data-reveal="scale">
         <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="36"/><circle class="arc" cx="50" cy="50" r="36" pathLength="1060"/></svg>
         <div class="ccenter"><img data-img="{{ img('logos/marca/zlt-isologo.png', 240) }}" alt="ZLT"><b>{{ t('Gestión','Management') }}</b><span>{{ t('Desarrolla y administra el pool','Develops and runs the pool') }}</span></div>
-        <div class="cnode" style="left:50%;top:14%"><i class="{{ ico('inversion') }}"></i><b>{{ t('Inversión','Investment') }}</b><span>{{ t('Participaciones desde <strong>USD 160.000</strong>','Stakes from <strong>USD 160,000</strong>') }}</span></div>
+        <div class="cnode" style="left:50%;top:14%"><i class="{{ ico('inversion') }}"></i><b>{{ t('Inversión','Investment') }}</b><span>{{ t('Participaciones en la nave','Stakes in the warehouse') }}</span></div>
         <div class="cnode" style="left:86%;top:50%"><i class="{{ ico('operador') }}"></i><b>{{ t('Operador','Operator') }}</b><span>{{ t('Paga un alquiler mensual por contrato corporativo','Pays monthly rent under a corporate lease') }}</span></div>
         <div class="cnode" style="left:50%;top:86%"><i class="{{ ico('retorno') }}"></i><b>{{ t('Retorno','Return') }}</b><span>{{ t('Renta <strong>100% administrada</strong>, mes a mes','<strong>Fully managed</strong> income, month by month') }}</span></div>
         <div class="cnode" style="left:14%;top:50%"><i class="{{ ico('inversores') }}"></i><b>{{ t('Inversores','Investors') }}</b><span>{{ t('Aportan el capital','Provide the capital') }}</span></div>
       </div>
       <div class="roles">
         <div class="role" data-reveal="up"><i class="{{ ico('inversores') }}"></i><div><b>{{ t('Inversores','Investors') }}</b><p>{{ t('Aportan el capital y acceden a un negocio de gran escala en un sector estratégico de la economía.','Provide the capital and access a large-scale business in a strategic sector of the economy.') }}</p></div></div>
-        <div class="role" data-reveal="up" style="--d:.05s"><i class="{{ ico('inversion') }}"></i><div><b>{{ t('Inversión','Investment') }}</b><p>{{ t('Participaciones desde <strong>USD 160.000</strong>, equivalentes según porcentual a <strong>200 m²</strong> de nave.','Stakes from <strong>USD 160,000</strong>, equivalent by percentage to <strong>200 m²</strong> of the warehouse.') }}</p></div></div>
+        <div class="role" data-reveal="up" style="--d:.05s"><i class="{{ ico('inversion') }}"></i><div><b>{{ t('Inversión','Investment') }}</b><p>{{ t('Adquirís un porcentaje de la nave, proporcional a una superficie de Nodo Flex.','You acquire a percentage of the warehouse, proportional to an area of Nodo Flex.') }}</p></div></div>
         <div class="role" data-reveal="up" style="--d:.1s"><i class="{{ ico('administracion') }}"></i><div><b>{{ t('Gestión ZLT','ZLT management') }}</b><p>{{ t('ZLT desarrolla y administra de manera integral el pool de rentas.','ZLT develops and fully manages the rental pool.') }}</p></div></div>
         <div class="role" data-reveal="up" style="--d:.15s"><i class="{{ ico('operador') }}"></i><div><b>{{ t('Operador','Operator') }}</b><p>{{ t('La empresa locataria abona un alquiler mensual acordado mediante <strong>contrato corporativo de locación</strong>.','The tenant company pays an agreed monthly rent under a <strong>corporate lease</strong>.') }}</p></div></div>
         <div class="role" data-reveal="up" style="--d:.2s"><i class="{{ ico('retorno') }}"></i><div><b>{{ t('Retorno','Return') }}</b><p>{{ t('Obtenés una <strong>renta 100% administrada</strong>, con ingresos pasivos mes a mes.','You receive a <strong>fully managed income</strong>, with passive earnings every month.') }}</p></div></div>
@@ -84,8 +84,8 @@
             'The business runs on the companies that operate at Nodo Flex. Their corporate leases back the income investors receive. And because the warehouse is flexible, it can host several operators at once: income doesn’t depend on a single company.') }}
     <div class="rubros">
       <div class="rubro" data-reveal="up"><i class="{{ ico('camion') }}"></i><small>{{ t('Operadores','Operators') }}</small><b>{{ t('<strong>Logística</strong> y distribución','<strong>Logistics</strong> and distribution') }}</b></div>
-      <div class="rubro" data-reveal="up" style="--d:.06s;background:var(--nodo-2)"><i class="{{ ico('accesos') }}"></i><small>{{ t('Operadores','Operators') }}</small><b>{{ t('<strong>Última milla</strong> y e-commerce','<strong>Last mile</strong> and e-commerce') }}</b></div>
-      <div class="rubro" data-reveal="up" style="--d:.12s;background:var(--nodo-d)"><i class="{{ ico('operador') }}"></i><small>{{ t('Operadores','Operators') }}</small><b>{{ t('<strong>Cross docking</strong> y consolidación','<strong>Cross docking</strong> and consolidation') }}</b></div>
+      <div class="rubro" data-reveal="up" style="--d:.06s;background:var(--nodo)"><i class="{{ ico('accesos') }}"></i><small>{{ t('Operadores','Operators') }}</small><b>{{ t('<strong>Última milla</strong> y e-commerce','<strong>Last mile</strong> and e-commerce') }}</b></div>
+      <div class="rubro" data-reveal="up" style="--d:.12s;background:var(--nodo)"><i class="{{ ico('operador') }}"></i><small>{{ t('Operadores','Operators') }}</small><b>{{ t('<strong>Cross docking</strong> y consolidación','<strong>Cross docking</strong> and consolidation') }}</b></div>
     </div>
     <div class="hl3">
       <div class="hl" data-reveal="up" style="background:#fff"><i class="{{ ico('administracion') }}"></i><b>{{ t('Contratos corporativos','Corporate leases') }}</b><p>{{ t('Locaciones con empresas de primer nivel, gestionadas en forma integral por ZLT, con plazos de largo alcance.','Leases with top-tier companies, fully managed by ZLT, on long terms.') }}</p></div>
@@ -116,9 +116,9 @@
       <li class="spec">{{ t('Acceso a los servicios e infraestructura del parque','Access to park services and infrastructure') }}</li>
     </ul>
     <div class="ficha-media" data-reveal="up" data-zoomset>
-      <figure><img data-img="{{ img('fotos/renders/nodo-flex-fachada.jpg', 1400) }}" alt="Render de fachada"></figure>
       <figure><img data-img="{{ img('fotos/nodo-flex/nodo-flex-03.jpg', 1400) }}" alt="Vista cenital de la obra"></figure>
-      <figure><img data-img="{{ img('fotos/renders/nodo-flex-racks.jpg', 1400) }}" alt="Render interior"></figure>
+      <figure><img data-img="{{ img('fotos/nodo-flex/nodo-flex-13.jpg', 1400) }}" alt="Cubierta de Nodo Flex en ejecución"></figure>
+      <figure><img data-img="{{ img('fotos/nodo-flex/nodo-flex-10.jpg', 1400) }}" alt="Estructura de Nodo Flex"></figure>
     </div>
   </div>
 </section>
@@ -142,7 +142,7 @@
 
 {# ═════════ I9 · PREGUNTAS FRECUENTES ═════════ #}
 {% set FAQ = [
-  ('¿Cómo invierto en Nodo Flex?','How do I invest in Nodo Flex?','Adquirís un porcentaje de la nave Nodo Flex, que está titulada a un fideicomiso de administración. Las participaciones arrancan en USD 160.000, equivalentes según porcentual a 200 m² de nave.','You acquire a percentage of the Nodo Flex warehouse, which is held in an administration trust. Stakes start at USD 160,000, equivalent by percentage to 200 m² of the warehouse.'),
+  ('¿Cómo invierto en Nodo Flex?','How do I invest in Nodo Flex?','Adquirís un porcentaje de la nave Nodo Flex, que está titulada a un fideicomiso de administración. Las condiciones de cada participación se presentan en una reunión con el equipo comercial.','You acquire a percentage of the Nodo Flex warehouse, which is held in an administration trust. The terms of each stake are presented in a meeting with the sales team.'),
   ('¿Quiénes operan en la nave?','Who operates in the warehouse?','Empresas logísticas, comerciales y corporativas: principalmente operadores de logística, última milla y cross docking, con contratos corporativos de locación.','Logistics, retail and corporate companies: mainly logistics, last-mile and cross-docking operators under corporate leases.'),
   ('¿De qué se ocupa el fideicomiso de administración?','What does the administration trust do?','Rinde cuentas mensualmente y transfiere la renta a los inversores. Además gestiona el alquiler de la nave a las empresas que operan en ella, se ocupa del mantenimiento del predio y del orden general, paga los impuestos correspondientes y provee los servicios que requieren los operadores.','It reports monthly and transfers the income to investors. It also leases the warehouse to the operating companies, maintains the site, pays the applicable taxes and provides the services operators need.'),
   ('¿Cómo se determina la renta?','How is the income determined?','Se hace una liquidación mensual con todos los ingresos y egresos del fideicomiso; el resultado es la renta a distribuir. Cada fiduciante participa de un porcentaje de ese total, según la participación adquirida.','A monthly statement lists all of the trust’s income and expenses; the result is the income to distribute. Each participant receives a share of that total according to their stake.'),

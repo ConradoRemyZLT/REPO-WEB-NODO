@@ -73,13 +73,13 @@
 {% set SERV = [('seguridad','Seguridad 24 h','24/7 security'),('administracion','Servicio de administración','On-site management'),('coworking','Centro de coworking','Coworking centre'),('gastronomia','Servicio gastronómico','Food service'),('accesos','Control de acceso','Access control')] %}
 {% macro services() %}
 <div class="svc">
-  <div class="svc-col" data-reveal="up">
+  <div class="svc-col infra" data-reveal="up">
     <h3>{{ t('Infraestructura','Infrastructure') }}</h3>
     <ul class="svc-list">
     {% for k, es, en in INFRA %}<li class="svc-item"><i class="{{ ico(k) }}"></i>{{ t(es, en) }}</li>{% endfor %}
     </ul>
   </div>
-  <div class="svc-col" data-reveal="up" style="--d:.08s">
+  <div class="svc-col serv" data-reveal="up" style="--d:.08s">
     <h3>{{ t('Servicios destacados','Key services') }}</h3>
     <ul class="svc-list">
     {% for k, es, en in SERV %}<li class="svc-item"><i class="{{ ico(k) }}"></i>{{ t(es, en) }}</li>{% endfor %}
@@ -130,7 +130,7 @@
   ('fotos/obra-2026-08/obra-08.jpg','Estructura','Structure'),
   ('fotos/obra-2026-08/obra-09.jpg','Cartel de obra','Site sign')] %}
 {% macro progress(pre) %}
-<section id="{{ pre }}avance" class="sec night dk" aria-label="Avance de obra">
+<section id="{{ pre }}avance" class="sec hueso" aria-label="Avance de obra">
   <div class="wrap proj-flow">
     <div class="obra-head">
       <div class="sec-head">
