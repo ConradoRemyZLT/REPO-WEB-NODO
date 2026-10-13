@@ -99,9 +99,15 @@ logos/marca/nodo-flex.svg,,,2 KB
 logos/marca/nodo-slogan.svg,,,7 KB
 logos/marca/nodo.svg,,,1 KB
 logos/marca/zlt-isologo.png,,,11 KB
-videos/nodo-hero-16x9.mp4,Video del banner, escritorio · MP4 H.264 · 26 s, 1920×1080, sin sonido, loop,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",5092 KB
-videos/nodo-hero-16x9.webm,Mismo video en WebM VP9 (respaldo para navegadores sin H.264),"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",4437 KB
-videos/nodo-hero-9x16.mp4,Video del banner, celular · MP4 H.264 · 26 s, 720×1280,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",2489 KB
-videos/nodo-hero-9x16.webm,Mismo video vertical en WebM VP9,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",2363 KB
-videos/nodo-hero-16x9.jpg,Cuadro del video 16x9 (imagen mientras carga),"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",331 KB
-videos/nodo-hero-9x16.jpg,Cuadro del video 9x16,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",134 KB
+html/videos/nodo-oficial-16x9.mp4,Video oficial Nodo Flex, horizontal · encabezado Home en escritorio · 1080p con sonido,"Comunicación y Marketing/Nodo_Flex/15_Video-Oficial (ZLT.NodoFlex.Horizontal / Vertical)",33526 KB
+html/videos/nodo-oficial-16x9.webm,Mismo, WebM VP9 + Opus (respaldo para navegadores sin H.264),"Comunicación y Marketing/Nodo_Flex/15_Video-Oficial (ZLT.NodoFlex.Horizontal / Vertical)",31025 KB
+html/videos/nodo-oficial-9x16.mp4,Video oficial Nodo Flex, vertical · encabezado Home en celular · 720×1280 con sonido,"Comunicación y Marketing/Nodo_Flex/15_Video-Oficial (ZLT.NodoFlex.Horizontal / Vertical)",16600 KB
+html/videos/nodo-oficial-9x16.webm,Mismo, WebM VP9 + Opus,"Comunicación y Marketing/Nodo_Flex/15_Video-Oficial (ZLT.NodoFlex.Horizontal / Vertical)",18961 KB
+html/videos/nodo-oficial-16x9.jpg,Primer cuadro del video oficial horizontal (imagen mientras carga),"Comunicación y Marketing/Nodo_Flex/15_Video-Oficial (ZLT.NodoFlex.Horizontal / Vertical)",181 KB
+html/videos/nodo-oficial-9x16.jpg,Primer cuadro del video oficial vertical,"Comunicación y Marketing/Nodo_Flex/15_Video-Oficial (ZLT.NodoFlex.Horizontal / Vertical)",69 KB
+html/videos/nodo-hero-16x9.mp4,Loop de dron sin sonido · encabezado Empresas/Inversores en escritorio · 26 s,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",5092 KB
+html/videos/nodo-hero-16x9.webm,Mismo, WebM VP9,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",4437 KB
+html/videos/nodo-hero-9x16.mp4,Loop de dron vertical · encabezado Empresas/Inversores en celular,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",2489 KB
+html/videos/nodo-hero-9x16.webm,Mismo, WebM VP9,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",2363 KB
+html/videos/nodo-hero-16x9.jpg,Cuadro del loop horizontal,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",331 KB
+html/videos/nodo-hero-9x16.jpg,Cuadro del loop vertical,"Comunicación y Marketing/Nodo/14_Raw/Videos/2026_Agosto (DJI_0707, 0698, 0703, 0711, 0721, 0744)",134 KB

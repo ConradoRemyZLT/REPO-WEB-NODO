@@ -7,7 +7,7 @@ marca de Nodo y Nodo Flex.
 
 QUÉ HAY EN LA WEB
 
-Es un solo HTML con tres vistas:
+Es un HTML con tres vistas (los videos de los encabezados van aparte, en Home/html/videos):
 
   #/             Home · Nodo, el parque. Video de la obra (dron, agosto 2026)
                  de fondo en el banner, Nodo vs Nodo Flex, ficha del parque, masterplan y
@@ -41,11 +41,13 @@ CÓMO ESTÁ ORDENADO
       servicios/   la iconografía de Nodo (agua, fibra, seguridad…)
       contacto/    WhatsApp, mail y redes
       web/         favicon, ícono de iOS/Android e imagen para compartir
-    videos/      el video del banner: 16x9 (escritorio) y 9x16 (celular),
-                 armados con tomas de dron de agosto 2026, en MP4 y en WebM
-                 (respaldo para navegadores sin H.264). Van embebidos.
     links/       videos, contacto, prensa y enlaces, en planillas
     _inventario.csv   qué es cada archivo y de dónde salió
+
+  Home/html/videos/  los videos de los encabezados, al lado del HTML (no entran
+                 adentro): el video oficial de Nodo Flex para la Home (horizontal
+                 y vertical, con sonido) y el loop de dron de Empresas e Inversores.
+                 MP4 y WebM. Para ver los videos, abrir el HTML desde esa carpeta.
 
   src/           el código fuente de la web
     plantillas/  el HTML por partes (home, empresas, inversores, contacto…)

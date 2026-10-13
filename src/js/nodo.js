@@ -186,61 +186,84 @@
       if (typeof d.info.muted === 'boolean') { p.muted = d.info.muted; p.el.classList.toggle('muted', p.muted); }
     });
   });
-  /* ══════════ Video del banner (MP4 + WebM de respaldo, embebidos; compartido por las tres vistas) ══════════ */
+  /* ══════════ Videos de los encabezados (archivos en videos/, junto al HTML) ══════════
+     Arrancan solos y sin sonido. MP4 (H.264) donde se pueda; si no, WebM (VP9).
+     En celular vertical usan la versión 9x16. */
   (function () {
-    var vids = $$('video[data-vid]');
-    if (!vids.length || !$('#vid-16x9-mp4')) return;
+    var vids = $$('video.hv[data-v16]'); if (!vids.length) return;
     var probe = document.createElement('video');
-    var MP4 = !!probe.canPlayType('video/mp4; codecs="avc1.640028"');
-    var WEBM = !!probe.canPlayType('video/webm; codecs="vp9"');
-    var fmt = MP4 ? 'mp4' : (WEBM ? 'webm' : null);
-    if (!fmt) return;
-    var urls = {};
-    function key() { return (innerWidth < innerHeight && innerWidth < 900) ? '9x16' : '16x9'; }
-    function url(k, f) {
-      var id = k + '-' + f; if (urls[id]) return urls[id];
-      var tag = $('#vid-' + id); if (!tag) return null;
-      var bin = atob(tag.textContent.trim()), n = bin.length, u8 = new Uint8Array(n);
-      for (var i = 0; i < n; i++) u8[i] = bin.charCodeAt(i);
-      return (urls[id] = URL.createObjectURL(new Blob([u8], { type: 'video/' + f })));
+    var EXT = [];
+    if (probe.canPlayType('video/mp4; codecs="avc1.640028"')) EXT.push('mp4');
+    if (probe.canPlayType('video/webm; codecs="vp9"')) EXT.push('webm');
+    if (!EXT.length) EXT = ['mp4'];
+    function portrait() { return innerWidth < innerHeight && innerWidth < 900; }
+    function boxOf(v) { return v.closest('section'); }
+    function setState(v) {
+      var b = boxOf(v); if (!b) return;
+      b.classList.toggle('is-muted', v.muted);
+      b.classList.toggle('is-paused', v.paused && !!v._user);
     }
-    function arm(v) {
-      var k = key(), id = k + '-' + fmt; if (v._id === id) return true;
-      var u = url(k, fmt); if (!u) return false;
-      v._id = id; v.classList.remove('on'); v.src = u; return true;
+    function load(v) {
+      var base = portrait() ? v.dataset.v9 : v.dataset.v16, src = base + '.' + EXT[v._e || 0];
+      if (v._src === src) return;
+      v._src = src; v.classList.remove('on'); v.src = src;
     }
     function play(v) {
-      if (!arm(v)) return;
-      var pr = v.play();
-      if (pr && pr.catch) pr.catch(function () { waitGesture(); });
+      if (v._user) return;              // si la persona lo pausó, no se reanuda solo
+      load(v);
+      var pr = v.play(); if (pr && pr.catch) pr.catch(function () { waitGesture(); });
     }
     var waiting = false, seen = new Set();
     function waitGesture() {
       if (waiting) return; waiting = true;
-      var go = function () {
-        ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { removeEventListener(ev, go, true); });
-        waiting = false; seen.forEach(function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
-      };
-      ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { addEventListener(ev, go, { capture: true, passive: true }); });
+      var evs = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'];
+      var go = function () { evs.forEach(function (ev) { removeEventListener(ev, go, true); }); waiting = false; seen.forEach(play); };
+      evs.forEach(function (ev) { addEventListener(ev, go, { capture: true, passive: true }); });
     }
     vids.forEach(function (v) {
       v.muted = true; v.defaultMuted = true; v.playsInline = true;
-      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-      v.addEventListener('playing', function () { v.classList.add('on'); });
-      v.addEventListener('error', function () {   // si el MP4 no se decodifica, pasa a WebM
-        if (fmt === 'mp4' && WEBM) { fmt = 'webm'; vids.forEach(function (o) { o._id = null; }); seen.forEach(play); }
+      v.addEventListener('playing', function () { v.classList.add('on'); setState(v); });
+      v.addEventListener('pause', function () { setState(v); });
+      v.addEventListener('volumechange', function () { setState(v); });
+      v.addEventListener('error', function () {          // formato que el navegador no lee → el otro
+        if ((v._e || 0) + 1 < EXT.length) { v._e = (v._e || 0) + 1; v._src = null; play(v); }
       });
+      var box = boxOf(v);
+      $$('.js-vplay', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          if (v.paused) { v._user = false; play(v); } else { v._user = true; v.pause(); }
+          setState(v);
+        });
+      });
+      $$('.js-vmute', box).forEach(function (b) {
+        b.addEventListener('click', function () {
+          var unmute = v.muted;
+          if (unmute) {
+            vids.forEach(function (o) { if (o !== v) o.muted = true; });
+            $$('iframe').forEach(function (f) { try { f.contentWindow.postMessage('{"event":"command","func":"mute","args":""}', '*'); } catch (e) {} });
+            v._user = false; v.muted = false; play(v);
+          } else v.muted = true;
+          setState(v);
+        });
+      });
+      setState(v);
     });
     if (RM) return;
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
-        if (e.isIntersecting) { seen.add(e.target); play(e.target); }
-        else { seen.delete(e.target); e.target.pause(); }
+        var v = e.target;
+        if (e.isIntersecting) { seen.add(v); play(v); }
+        else { seen.delete(v); if (!v.paused) v.pause(); if (!v.muted) v.muted = true; }
       });
-    }, { threshold: 0.05 });
-    setTimeout(function () { vids.forEach(function (v) { io.observe(v); }); }, 120);
+    }, { threshold: 0.2 });
+    vids.forEach(function (v) { io.observe(v); });
     var rt; addEventListener('resize', function () {
-      clearTimeout(rt); rt = setTimeout(function () { seen.forEach(function (v) { if (v._id !== key() + '-' + fmt) play(v); }); }, 300);
+      clearTimeout(rt); rt = setTimeout(function () {
+        seen.forEach(function (v) {
+          var want = (portrait() ? v.dataset.v9 : v.dataset.v16) + '.' + EXT[v._e || 0];
+          if (v._src !== want) { var t = v.currentTime; load(v); v.addEventListener('loadedmetadata', function f() { v.removeEventListener('loadedmetadata', f); try { v.currentTime = t; } catch (e) {} }); play(v); }
+        });
+      }, 300);
     });
   })();
   $$('.pv-auto').forEach(function (el) {

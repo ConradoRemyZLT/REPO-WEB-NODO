@@ -1,11 +1,13 @@
-{% from 'parciales/macros.html' import head, gallery, accompany, services, location, progress, i_arrow, i_back, i_down, i_play, i_check %}
+{% from 'parciales/macros.html' import vctrl, head, gallery, accompany, services, location, progress, i_arrow, i_back, i_down, i_play, i_check %}
 
 {# ═════════ E1 · CABECERA ═════════ #}
 <section id="e-inicio" class="sec blue dk subhero" aria-label="Nodo Flex para empresas">
-  <div class="sub-bg" aria-hidden="true">
-    <img class="hv-poster" data-img="{{ img('videos/nodo-hero-16x9.jpg', 1920, 72) }}" data-eager alt="">
-    <video class="hv" data-vid muted loop playsinline preload="none"></video>
+  <div class="sub-bg" data-vbox aria-hidden="true">
+    <img class="hv-poster p16" data-img="{{ img('html/videos/nodo-hero-16x9.jpg', 1920, 72) }}" data-eager alt="">
+    <img class="hv-poster p9" data-img="{{ img('html/videos/nodo-hero-9x16.jpg', 720, 72) }}" data-eager alt="">
+    <video class="hv" data-v16="videos/nodo-hero-16x9" data-v9="videos/nodo-hero-9x16" muted autoplay loop playsinline preload="auto"></video>
   </div>
+  {{ vctrl(False) }}
   <div class="wrap">
     <div>
       <div class="sub-crumb" data-reveal="fade"><a href="#/">{{ i_back() }}{{ t('Parque Logístico Nodo','Nodo Logistics Park') }}</a></div>

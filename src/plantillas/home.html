@@ -1,21 +1,13 @@
-{% from 'parciales/macros.html' import head, gallery, accompany, services, location, progress, sound_btn, i_arrow, i_down, i_play, i_ext, i_zoom, PARTNERS %}
+{% from 'parciales/macros.html' import vctrl, head, gallery, accompany, services, location, progress, sound_btn, i_arrow, i_down, i_play, i_ext, i_zoom, PARTNERS %}
 
 {# ═════════ 1 · BANNER: video de Nodo Flex (agosto 2026), embebido en el HTML ═════════ #}
-<section id="inicio" class="vhero dk" aria-label="Parque Logístico Nodo">
+<section id="inicio" class="vhero dk is-muted" data-vbox aria-label="Video oficial de Nodo Flex">
   <div class="vhero-frame">
-    <img class="hv-poster" data-img="{{ img('videos/nodo-hero-16x9.jpg', 1920, 72) }}" data-eager alt="">
-    <video class="hv" data-vid muted loop playsinline preload="none" aria-hidden="true"></video>
+    <img class="hv-poster p16" data-img="{{ img('html/videos/nodo-oficial-16x9.jpg', 1920, 74) }}" data-eager alt="">
+    <img class="hv-poster p9" data-img="{{ img('html/videos/nodo-oficial-9x16.jpg', 720, 74) }}" data-eager alt="">
+    <video class="hv" data-v16="videos/nodo-oficial-16x9" data-v9="videos/nodo-oficial-9x16" muted autoplay loop playsinline preload="auto" aria-label="Video oficial de Nodo Flex"></video>
   </div>
-  <div class="vh-copy">
-    <div class="eyebrow" data-reveal="fade">{{ t('Parque logístico · Córdoba, Argentina','Logistics park · Córdoba, Argentina') }}</div>
-    {{ svg('nodo', 'vh-logo', 'Nodo') }}
-    <p class="vh-claim" data-reveal="up" style="--d:.15s">{{ t('Logística AAA sobre la <b>Autovía Nacional 19, km 13</b>. Hoy se construye Nodo Flex, su primera nave.','AAA logistics on <b>National Motorway 19, km 13</b>. Nodo Flex, its first warehouse, is under construction.') }}</p>
-    <div class="vh-cta" data-reveal="up" style="--d:.25s">
-      <a class="btn btn-primary" href="#/empresas">{{ t('Soy empresa','I’m a company') }}{{ i_arrow() }}</a>
-      <a class="btn btn-ghost" href="#/inversores">{{ t('Soy inversor','I’m an investor') }}{{ i_arrow() }}</a>
-      <a class="vh-film" href="https://www.youtube.com/watch?v={{ d.videos.banner }}" target="_blank" rel="noopener">{{ i_play() }}<span>{{ t('Ver video oficial','Watch the official video') }}</span></a>
-    </div>
-  </div>
+  {{ vctrl(True) }}
   <a href="#/presentacion" class="scrollcue" aria-label="Ir al contenido"><span>{{ t('Descubrí Nodo','Discover Nodo') }}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
 </section>
 
