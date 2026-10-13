@@ -186,32 +186,52 @@
       if (typeof d.info.muted === 'boolean') { p.muted = d.info.muted; p.el.classList.toggle('muted', p.muted); }
     });
   });
-  /* ══════════ Video del banner (MP4 embebido, compartido por las tres vistas) ══════════ */
+  /* ══════════ Video del banner (MP4 + WebM de respaldo, embebidos; compartido por las tres vistas) ══════════ */
   (function () {
-    var vids = $$('video[data-vid]'), tag = $('#nodo-vid');
-    if (!vids.length || !tag) return;
-    var data = null, urls = {};
+    var vids = $$('video[data-vid]');
+    if (!vids.length || !$('#vid-16x9-mp4')) return;
+    var probe = document.createElement('video');
+    var MP4 = !!probe.canPlayType('video/mp4; codecs="avc1.640028"');
+    var WEBM = !!probe.canPlayType('video/webm; codecs="vp9"');
+    var fmt = MP4 ? 'mp4' : (WEBM ? 'webm' : null);
+    if (!fmt) return;
+    var urls = {};
     function key() { return (innerWidth < innerHeight && innerWidth < 900) ? '9x16' : '16x9'; }
-    function url(k) {
-      if (urls[k]) return urls[k];
-      if (!data) { try { data = JSON.parse(tag.textContent); } catch (e) { data = {}; } }
-      if (!data[k]) return null;
-      var bin = atob(data[k]), n = bin.length, u8 = new Uint8Array(n);
+    function url(k, f) {
+      var id = k + '-' + f; if (urls[id]) return urls[id];
+      var tag = $('#vid-' + id); if (!tag) return null;
+      var bin = atob(tag.textContent.trim()), n = bin.length, u8 = new Uint8Array(n);
       for (var i = 0; i < n; i++) u8[i] = bin.charCodeAt(i);
-      return (urls[k] = URL.createObjectURL(new Blob([u8], { type: 'video/mp4' })));
+      return (urls[id] = URL.createObjectURL(new Blob([u8], { type: 'video/' + f })));
     }
     function arm(v) {
-      var k = key(); if (v._k === k) return;
-      var u = url(k); if (!u) return;
-      v._k = k; v.classList.remove('on'); v.src = u;
+      var k = key(), id = k + '-' + fmt; if (v._id === id) return true;
+      var u = url(k, fmt); if (!u) return false;
+      v._id = id; v.classList.remove('on'); v.src = u; return true;
+    }
+    function play(v) {
+      if (!arm(v)) return;
+      var pr = v.play();
+      if (pr && pr.catch) pr.catch(function () { waitGesture(); });
+    }
+    var waiting = false, seen = new Set();
+    function waitGesture() {
+      if (waiting) return; waiting = true;
+      var go = function () {
+        ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { removeEventListener(ev, go, true); });
+        waiting = false; seen.forEach(function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); });
+      };
+      ['pointerdown', 'keydown', 'touchstart', 'scroll', 'wheel'].forEach(function (ev) { addEventListener(ev, go, { capture: true, passive: true }); });
     }
     vids.forEach(function (v) {
-      v.muted = true; v.defaultMuted = true;
+      v.muted = true; v.defaultMuted = true; v.playsInline = true;
+      v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
       v.addEventListener('playing', function () { v.classList.add('on'); });
+      v.addEventListener('error', function () {   // si el MP4 no se decodifica, pasa a WebM
+        if (fmt === 'mp4' && WEBM) { fmt = 'webm'; vids.forEach(function (o) { o._id = null; }); seen.forEach(play); }
+      });
     });
     if (RM) return;
-    var seen = new Set();
-    function play(v) { arm(v); var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (e.isIntersecting) { seen.add(e.target); play(e.target); }
@@ -220,7 +240,7 @@
     }, { threshold: 0.05 });
     setTimeout(function () { vids.forEach(function (v) { io.observe(v); }); }, 120);
     var rt; addEventListener('resize', function () {
-      clearTimeout(rt); rt = setTimeout(function () { seen.forEach(function (v) { if (v._k !== key()) play(v); }); }, 300);
+      clearTimeout(rt); rt = setTimeout(function () { seen.forEach(function (v) { if (v._id !== key() + '-' + fmt) play(v); }); }, 300);
     });
   })();
   $$('.pv-auto').forEach(function (el) {

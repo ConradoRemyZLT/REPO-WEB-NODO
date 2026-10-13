@@ -11,7 +11,7 @@ Qué hace:
     las plantillas la piden con img('ruta') y el navegador la coloca al mostrarla.
   · Leaflet viaja embebido (desde src/js/vendor), así el mapa no depende de un CDN.
   · El video del banner (Home/videos/nodo-hero-16x9.mp4 y -9x16.mp4) viaja una sola vez
-    en #nodo-vid; el navegador lo usa en los encabezados de las tres vistas.
+    en <script id="vid-…"> (MP4 H.264 y WebM VP9 de respaldo); el navegador lo usa en los encabezados de las tres vistas.
   · Escribe el HTML en Home/html/ y avisa si pasa el límite de 30 MiB.
 
 Las fotos de origen viven en Home/fotos, Home/logos y Home/iconos: son las que se
@@ -146,12 +146,14 @@ def main():
     html = html.replace('/*__LEAFLET_CSS__*/', leer('js/vendor/leaflet.css'))
     html = html.replace('/*__LEAFLET_JS__*/', leer('js/vendor/leaflet.js'))
     html = html.replace('/*__JS__*/', leer('js/nodo.js'))
-    vids = {}
+    vids = []
     for k in ('16x9', '9x16'):
-        ruta = os.path.join(HOME, 'videos', f'nodo-hero-{k}.mp4')
-        if os.path.exists(ruta):
-            vids[k] = base64.b64encode(open(ruta, 'rb').read()).decode()
-    html = html.replace('__VIDS__', json.dumps(vids, separators=(',', ':')))
+        for ext in ('mp4', 'webm'):
+            ruta = os.path.join(HOME, 'videos', f'nodo-hero-{k}.{ext}')
+            if os.path.exists(ruta):
+                b64 = base64.b64encode(open(ruta, 'rb').read()).decode()
+                vids.append(f'<script type="text/plain" id="vid-{k}-{ext}">{b64}</script>')
+    html = html.replace('__VIDS__', '\n'.join(vids))
     imgs = json.dumps(REG.items, separators=(',', ':'))
     html = html.replace('__IMGS__', imgs.replace('</', '<\\/'))
 

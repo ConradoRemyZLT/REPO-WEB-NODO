@@ -10,7 +10,8 @@ autocontenido con tres vistas por dirección: `#/`, `#/empresas`, `#/inversores`
 - Verificar: `python3 tools/verificar.py <carpeta_capturas>` (0 errores JS, 0 overflow,
   galerías íntegras, mapas inicializados en 1440/768/390). Límite del HTML: 30 MiB.
 - Todo texto visible lleva las dos versiones: `{{ t('es','en') }}`.
-- Video del banner: `Home/videos/nodo-hero-16x9.mp4` (escritorio) y `-9x16.mp4` (celular), embebidos una sola vez
+- Video del banner: `Home/videos/nodo-hero-16x9.mp4` (escritorio) y `-9x16.mp4` (celular), más su versión .webm (VP9) de respaldo
+  para navegadores sin H.264; embebidos una sola vez
   y compartidos por los encabezados de las tres vistas (`<video data-vid>`). Se arman desde los brutos de dron.
 - Imágenes: en las plantillas se piden con `img('fotos/…', ancho)` → atributo `data-img`;
   viajan una sola vez en `#nodo-img` y el JS las coloca. Íconos: `ico('nombre')` → clase con máscara.

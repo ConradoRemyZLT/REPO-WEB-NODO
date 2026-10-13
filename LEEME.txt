@@ -42,7 +42,8 @@ CÓMO ESTÁ ORDENADO
       contacto/    WhatsApp, mail y redes
       web/         favicon, ícono de iOS/Android e imagen para compartir
     videos/      el video del banner: 16x9 (escritorio) y 9x16 (celular),
-                 armados con tomas de dron de agosto 2026. Van embebidos.
+                 armados con tomas de dron de agosto 2026, en MP4 y en WebM
+                 (respaldo para navegadores sin H.264). Van embebidos.
     links/       videos, contacto, prensa y enlaces, en planillas
     _inventario.csv   qué es cada archivo y de dónde salió
 
