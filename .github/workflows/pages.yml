@@ -1,0 +1,66 @@
+# Publica la web de Nodo en GitHub Pages cada vez que se sube algo a main.
+#
+# Arma una copia del sitio en _site/:
+#   /index.html             ← Home/html/NODO-WEB-home.html (el HTML autocontenido)
+#   /brochures/*.pdf        ← Home/brochures
+#   /empresas/ /inversores/ ← direcciones cortas para campañas: redirigen a #/empresas y #/inversores
+#   favicon, ícono de iOS e imagen para compartir (og-nodo.jpg)
+# Inserta el login (gate.js) igual que ZLT-WEB-V2, salvo que la variable LOGIN del repo valga "no".
+# Los archivos originales no se tocan.
+
+name: Publicar en GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Armar el sitio
+        env:
+          LOGIN: ${{ vars.LOGIN }}
+        run: |
+          set -euo pipefail
+          BASE="/${GITHUB_REPOSITORY#*/}"
+          mkdir -p _site/brochures _site/empresas _site/inversores
+          cp Home/html/NODO-WEB-home.html _site/index.html
+          cp Home/brochures/*.pdf _site/brochures/
+          cp Home/iconos/web/favicon.ico Home/iconos/web/apple-touch-icon.png Home/iconos/web/og-nodo.jpg _site/
+          cp Home/html/robots.txt _site/robots.txt
+          for v in empresas inversores; do
+            printf '<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="refresh" content="0; url=../#/%s"><a href="../#/%s">Nodo</a>\n' "$v" "$v" > "_site/$v/index.html"
+          done
+          if [ "${LOGIN:-si}" != "no" ]; then
+            cp gate.js _site/gate.js
+            grep -q "gate\.js" _site/index.html || sed -i "0,/<\/title>/s##</title><script src=\"$BASE/gate.js\"></script>#" _site/index.html
+            [ "$(grep -o "gate\.js" _site/index.html | wc -l)" = 1 ] || { echo "El login no quedó una sola vez"; exit 1; }
+          fi
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

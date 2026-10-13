@@ -1,0 +1,217 @@
+{% from 'parciales/macros.html' import head, gallery, accompany, services, location, progress, i_arrow, i_back, i_down, i_play, i_check %}
+
+{# ═════════ E1 · CABECERA ═════════ #}
+<section id="e-inicio" class="sec blue dk wm subhero" aria-label="Nodo Flex para empresas">
+  <div class="wrap">
+    <div>
+      <div class="sub-crumb" data-reveal="fade"><a href="#/">{{ i_back() }}{{ t('Parque Logístico Nodo','Nodo Logistics Park') }}</a></div>
+      {{ svg('nodo-flex', 'sub-logo', 'Nodo Flex') }}
+      <div class="eyebrow" data-reveal="fade" style="margin-bottom:18px">{{ t('Para empresas','For companies') }}</div>
+      <h1 class="h1">
+        <span class="hline" style="--d:.1s"><span>{{ t('Una nave AAA','An AAA warehouse') }}</span></span>
+        <span class="hline" style="--d:.2s"><span>{{ t('<b>que se adapta</b>','<b>that adapts</b>') }}</span></span>
+        <span class="hline" style="--d:.3s"><span>{{ t('<b>a tu operación.</b>','<b>to your operation.</b>') }}</span></span>
+      </h1>
+      <p class="lead" data-reveal="up" style="--d:.4s">{{ t('14.400 m² divisibles para que varias empresas operen al mismo tiempo. Alquilá la superficie que necesitás, con un contrato corporativo gestionado por ZLT y todos los servicios del parque.','14,400 m² of divisible space so several companies can operate at once. Lease the area you need under a corporate lease managed by ZLT, with every park service included.') }}</p>
+      <div class="p-cta" data-reveal="up" style="--d:.48s">
+        <a class="btn btn-primary" href="#/empresas/contacto">{{ t('Consultar disponibilidad','Check availability') }}{{ i_arrow() }}</a>
+        <a class="btn btn-ghost" href="{{ d.brochures.empresas }}" download>{{ i_down() }}<span>{{ t('Brochure empresas','Companies brochure') }}</span></a>
+      </div>
+      <div class="sub-facts" data-reveal="up" style="--d:.56s">
+        <div><b>14.400 m²</b><span>{{ t('Nave AAA','AAA warehouse') }}</span></div>
+        <div><b>≥ 3.600 m²</b><span>{{ t('Módulos desde','Modules from') }}</span></div>
+        <div><b>20 km</b><span>{{ t('Al aeropuerto','To the airport') }}</span></div>
+      </div>
+    </div>
+    <figure class="sub-media" data-reveal="left" style="margin:0">
+      <img data-img="{{ img('fotos/renders/nodo-flex-fachada.jpg', 1400) }}" alt="Render de la fachada de Nodo Flex" data-eager>
+      <span class="tag big-tag">{{ t('En construcción','Under construction') }}</span>
+      <figcaption>{{ t('Nodo Flex · render de fachada','Nodo Flex · façade render') }}</figcaption>
+    </figure>
+  </div>
+</section>
+
+{# ═════════ E2 · POR QUÉ ═════════ #}
+<section id="e-por-que" class="sec white" aria-label="Por qué operar en Nodo Flex">
+  <div class="wrap">
+    {{ head('Por qué Nodo Flex','Why Nodo Flex','¿POR QUÉ OPERAR <b>EN NODO FLEX?</b>','WHY OPERATE <b>AT NODO FLEX?</b>',
+            'Nodo Flex es una nave logística AAA de 14.400 m² divisible, diseñada para empresas de primer nivel que requieren infraestructura moderna, eficiente y escalable para sus operaciones de distribución, almacenamiento y logística en el centro del país.',
+            'Nodo Flex is a divisible 14,400 m² AAA logistics warehouse, designed for top-tier companies that need modern, efficient and scalable infrastructure for distribution, storage and logistics in the heart of Argentina.') }}
+    <div class="hl3">
+      <div class="hl" data-reveal="up"><i class="{{ ico('nave-logistica') }}"></i><b>{{ t('Estándar AAA sin comprar una nave entera','AAA standard without leasing a whole building') }}</b><p>{{ t('Accedés a infraestructura premium desde 3.600 m², dentro de un parque con seguridad, administración y servicios.','Access premium infrastructure from 3,600 m², inside a park with security, management and services.') }}</p></div>
+      <div class="hl" data-reveal="up" style="--d:.06s"><i class="{{ ico('administracion') }}"></i><b>{{ t('Contratos gestionados por ZLT','Leases managed by ZLT') }}</b><p>{{ t('Contratos corporativos de locación de largo alcance, con soporte integral: seguridad contractual y continuidad operativa.','Long-term corporate leases with full support: contractual certainty and operational continuity.') }}</p></div>
+      <div class="hl" data-reveal="up" style="--d:.12s"><i class="{{ ico('autopista') }}"></i><b>{{ t('Conexión directa con la región','Direct regional connections') }}</b><p>{{ t('Sobre la Autovía Nacional 19, a minutos de la Circunvalación, con salida a la RN 9, RN 36 y la Autopista Rosario–Córdoba.','On National Motorway 19, minutes from the ring road, with access to RN 9, RN 36 and the Rosario–Córdoba motorway.') }}</p></div>
+    </div>
+  </div>
+</section>
+
+{# ═════════ E3 · SUPERFICIE / CONFIGURADOR ═════════ #}
+<section id="e-superficie" class="sec blue dk" aria-label="Superficies disponibles">
+  <div class="wrap">
+    {{ head('Superficies','Areas','FLEXIBILIDAD QUE SE ADAPTA <b>A TU NEGOCIO</b>','FLEXIBILITY THAT ADAPTS <b>TO YOUR BUSINESS</b>',
+            'La nave se subdivide en módulos para empresas de distintos tamaños y sectores: desde almacenamiento y distribución hasta producción ligera. Elegí una superficie para ver cómo ocupa la nave.',
+            'The warehouse subdivides into modules for companies of different sizes and sectors, from storage and distribution to light production. Pick an area to see how it fits in the building.') }}
+    <div class="cfg" id="cfg">
+      <div data-reveal="up">
+        <div class="cfg-btns">
+          <button class="cfg-btn on" type="button" data-m2="3600"><b>3.600 m²</b><span>{{ t('Módulo base','Base module') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="6000"><b>6.000 m²</b><span>{{ t('Operación media','Mid-size operation') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="7200"><b>7.200 m²</b><span>{{ t('Media nave','Half the building') }}</span></button>
+          <button class="cfg-btn" type="button" data-m2="9600"><b>9.600 m²</b><span>{{ t('Gran operador','Large operator') }}</span></button>
+          <button class="cfg-btn all" type="button" data-m2="14400"><b>14.400 m²</b><span>{{ t('Nave completa','Whole building') }}</span></button>
+        </div>
+        <div class="cfg-read">
+          <div><b id="cfg-pct">25%</b><span>{{ t('de la nave','of the building') }}</span></div>
+          <div><b id="cfg-rest">10.800 m²</b><span>{{ t('quedan para otros operadores','left for other operators') }}</span></div>
+        </div>
+        <p class="note" style="color:#AFBDEA">{{ t('*Los espacios son representativos y se adaptan a la necesidad de cada operador. Consultá la disponibilidad actualizada.','*Areas are indicative and adapt to each operator’s needs. Ask for current availability.') }}</p>
+      </div>
+      <div class="plan" data-reveal="left">
+        <svg viewBox="0 0 1000 330" role="img" aria-label="Planta esquemática de Nodo Flex">
+          <rect class="yard" x="40" y="8" width="920" height="40" rx="3"/>
+          <rect class="yard" x="40" y="282" width="920" height="40" rx="3"/>
+          {% for i in range(12) %}<rect class="bay" data-i="{{ i }}" x="{{ 40 + i * 76.667 }}" y="52" width="76.667" height="226"/>{% endfor %}
+          {% for i in range(12) %}<rect class="dock" x="{{ 40 + i * 76.667 + 26 }}" y="46" width="24" height="5" rx="1"/><rect class="dock" x="{{ 40 + i * 76.667 + 26 }}" y="279" width="24" height="5" rx="1"/>{% endfor %}
+          <text x="50" y="33">{{ 'Playón de maniobras' }}</text>
+          <text x="50" y="307">{{ 'Playón de maniobras' }}</text>
+          <line class="dim" x1="976" y1="52" x2="976" y2="278"/><text x="984" y="170" transform="rotate(90 984 170)" text-anchor="middle">59,16 m</text>
+          <text id="cfg-label" x="0" y="172" text-anchor="middle" style="fill:var(--nodo);font-size:15px">3.600 m²</text>
+        </svg>
+        <div class="plan-cap"><span><i style="background:#fff"></i>{{ t('Tu operación','Your operation') }}</span><span><i style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35)"></i>{{ t('Disponible para otros operadores','Available for other operators') }}</span><span>{{ t('Luces de 20 m · docks en ambos frentes','20 m spans · docks on both sides') }}</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{# ═════════ E4 · FICHA TÉCNICA ═════════ #}
+<section id="e-ficha" class="sec mist" aria-label="Ficha técnica">
+  <div class="wrap">
+    {{ head('Ficha técnica','Technical sheet','KEY <b>NUMBERS</b>','KEY <b>NUMBERS</b>',
+            'Los datos que tu equipo de ingeniería necesita para evaluar la operación.','The figures your engineering team needs to assess the operation.') }}
+    <div class="kn">
+      <div class="kcard" data-reveal="up"><small>{{ t('Superficie total','Total area') }}</small><b>14.400<em>m²</em></b><p>{{ t('Con capacidad flexible en módulos.','Flexible capacity in modules.') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.05s"><small>{{ t('Modulación','Modules') }}</small><b>≥ 3.600<em>m²</em></b><p>{{ t('Estructura preparada para subdivisión. Escalable y adaptable.','Structure ready to subdivide. Scalable and adaptable.') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.1s"><small>{{ t('Altura útil','Clear height') }}</small><b>10,24–12<em>m</em></b><p>{{ t('Despeje libre bajo viga. Apta para racks altos (5 a 7 niveles de pallets, según layout).','Clear height under beam. Fit for high racking (5–7 pallet levels, layout-dependent).') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.15s"><small>{{ t('Ancho libre','Clear span') }}</small><b>20<em>m</em></b><p>{{ t('Sin interferencias estructurales. Óptimo para circulación y layout flexible.','No structural obstructions. Ideal for circulation and flexible layouts.') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.2s"><small>{{ t('Largo libre','Clear depth') }}</small><b>59,16<em>m</em></b><p>{{ t('Superficie continua operativa para un flujo logístico eficiente.','Continuous operating floor for an efficient logistics flow.') }}</p></div>
+      <div class="kcard" data-reveal="up" style="--d:.25s"><small>{{ t('Resistencia de piso','Floor load') }}</small><b>5<em>t/m²</em></b><p>{{ t('Piso llaneado en paños de 10 × 10 m, microfibra + malla: menos juntas, más durabilidad.','Power-floated floor in 10 × 10 m slabs, microfibre + mesh: fewer joints, more durability.') }}</p></div>
+    </div>
+    <h3 class="ttl sm mt" data-reveal="up">{{ t('ESPECIFICACIONES <b>DE LA NAVE</b>','WAREHOUSE <b>SPECIFICATIONS</b>') }}</h3>
+    <ul class="specs mt" style="margin-top:22px" data-reveal="up">
+      <li class="spec">{{ t('Estructura metálica certificada ISO 9001, luces de 20 m, columnas y vigas de alma llena','ISO 9001-certified steel structure, 20 m spans, solid-web columns and beams') }}</li>
+      <li class="spec">{{ t('Altura útil mínima de 10,24 m y máxima de 12 m','Clear height from 10.24 m to 12 m') }}</li>
+      <li class="spec">{{ t('Pisos de hormigón llaneado con corte láser','Laser-screeded power-floated concrete floors') }}</li>
+      <li class="spec">{{ t('Panelería exterior PIR SKIN de 40 mm con chapa prepintada','40 mm PIR SKIN exterior panels with pre-painted sheet') }}</li>
+      <li class="spec">{{ t('Cubierta de chapa U45 con aislación de lana de vidrio de 50 mm','U45 sheet roof with 50 mm glass-wool insulation') }}</li>
+      <li class="spec">{{ t('Aberturas de aluminio con vidrio DVH','Aluminium openings with double glazing') }}</li>
+      <li class="spec">{{ t('Portones seccionales industriales de acceso','Industrial sectional doors') }}</li>
+      <li class="spec">{{ t('Iluminación LED','LED lighting') }}</li>
+      <li class="spec">{{ t('Amplio playón de maniobras de hormigón llaneado','Large power-floated concrete manoeuvring yard') }}</li>
+      <li class="spec">{{ t('Acceso a los servicios e infraestructura del parque','Access to park services and infrastructure') }}</li>
+    </ul>
+    <div class="ficha-media" data-reveal="up" data-zoomset>
+      <figure><img data-img="{{ img('fotos/renders/nodo-flex-racks.jpg', 1400) }}" alt="Render interior con racks"></figure>
+      <figure><img data-img="{{ img('fotos/renders/nodo-flex-interior.jpg', 1400) }}" alt="Render interior con oficina"></figure>
+      <figure><img data-img="{{ img('fotos/nodo-flex/nodo-flex-07.jpg', 1400) }}" alt="Interior de Nodo Flex en obra"></figure>
+    </div>
+  </div>
+</section>
+
+{# ═════════ E5 · UBICACIÓN ═════════ #}
+{{ location('e-') }}
+
+{# ═════════ E6 · SERVICIOS ═════════ #}
+<section id="e-servicios" class="sec white" aria-label="Servicios del predio">
+  <div class="wrap">
+    {{ head('Servicios del predio','On-site services','TODO LO QUE EL PARQUE <b>HACE POR TU OPERACIÓN</b>','EVERYTHING THE PARK <b>DOES FOR YOUR OPERATION</b>',
+            'Al operar en Nodo Flex accedés a la infraestructura y los servicios del Parque Logístico Nodo, sin inversión propia ni obra previa.',
+            'Operating at Nodo Flex gives you the infrastructure and services of Nodo Logistics Park, with no capital outlay or prior works.') }}
+    {{ services() }}
+  </div>
+</section>
+
+{# ═════════ E7 · ECOSISTEMA ═════════ #}
+{% set BENS = [
+  ('Servicios compartidos del predio','Shared site services','Infraestructura común que reduce costos operativos fijos.','Common infrastructure that lowers fixed operating costs.'),
+  ('Seguridad y administración','Security and management','Vigilancia 24 h y gestión integral del parque por ZLT.','24/7 surveillance and full park management by ZLT.'),
+  ('Sinergias entre operadores','Synergies between operators','Proximidad con empresas de primer nivel y rubros complementarios.','Proximity to top-tier companies in complementary sectors.'),
+  ('Menor percepción de riesgo','Lower perceived risk','Un entorno consolidado que facilita la aprobación corporativa.','An established environment that eases corporate approval.'),
+  ('Reducción de CAPEX inicial','Lower initial CAPEX','Accedés a infraestructura de primer nivel sin inversión propia ni obra previa.','Top-tier infrastructure with no capital outlay or prior works.'),
+  ('Imagen corporativa y compliance AAA','Corporate image and AAA compliance','Facilita auditorías internas y la aprobación de casas matrices con estándares internacionales.','Eases internal audits and approval by headquarters with international standards.'),
+  ('Escalabilidad sin relocalización','Scale without relocating','Ampliá o reducí tu superficie según la demanda, sin interrumpir la operación ni cambiar de ubicación.','Grow or shrink your space with demand, without stopping operations or moving.')] %}
+<section id="e-ecosistema" class="sec hueso" aria-label="Ecosistema del parque">
+  <div class="wrap">
+    {{ head('Ecosistema del parque','Park ecosystem','EL VALOR DE <b>COMPARTIR EL PARQUE</b>','THE VALUE OF <b>SHARING THE PARK</b>',
+            'Sectores estratégicos que comparten infraestructura y escala en un mismo predio. Operar rodeado de otras empresas de primer nivel también es parte de la propuesta.',
+            'Strategic sectors sharing infrastructure and scale on a single site. Operating alongside other top-tier companies is part of the offer.') }}
+    <div class="bens">
+    {% for es, en, des, den in BENS %}
+      <div class="ben{{ ' wide' if loop.last }}" data-reveal="up" style="--d:{{ (loop.index0 % 2) * 0.06 }}s"><i class="{{ ico('flecha') }}"></i><div><b>{{ t(es, en) }}</b><p>{{ t(des, den) }}</p></div></div>
+    {% endfor %}
+    </div>
+    <p class="note">{{ t('*La conformación final de operadores se confirma a medida que avanza la comercialización.','*The final mix of operators is confirmed as leasing progresses.') }}</p>
+  </div>
+</section>
+
+{# ═════════ E8 · RUBROS Y ACTIVIDADES ═════════ #}
+{% set ACTS = [
+  ('Almacenamiento y distribución de mercaderías','Storage and distribution of goods', False),
+  ('Logística de última milla y e-commerce','Last-mile logistics and e-commerce', True),
+  ('Cross-docking y consolidación de cargas','Cross-docking and freight consolidation', True),
+  ('Picking, packing, etiquetado y valor agregado al producto','Picking, packing, labelling and value-added services', False),
+  ('Depósito fiscal y operaciones aduaneras','Bonded warehouse and customs operations', False),
+  ('Distribución farmacéutica y de consumo masivo','Pharmaceutical and FMCG distribution', False),
+  ('Logística en frío con habilitación específica','Cold-chain logistics with specific permits', False),
+  ('Almacenamiento de materiales no peligrosos','Storage of non-hazardous materials', False),
+  ('Oficinas administrativas vinculadas a la operación','Administrative offices tied to the operation', False),
+  ('Mantenimiento liviano de flota propia','Light maintenance of own fleet', False),
+  ('Operaciones de carga y descarga de vehículos','Vehicle loading and unloading', False),
+  ('Actividades compatibles con la zonificación industrial vigente','Activities compatible with current industrial zoning', False)] %}
+<section id="e-actividades" class="sec white" aria-label="Actividades permitidas">
+  <div class="wrap">
+    {{ head('Para quién es','Who it’s for','EMPRESAS QUE <b>MUEVEN LA REGIÓN</b>','COMPANIES THAT <b>MOVE THE REGION</b>',
+            'Nodo Flex recibe empresas de muchos rubros, con foco en la logística: operadores que necesitan espacio AAA, bien conectado y listo para crecer.',
+            'Nodo Flex welcomes companies from many industries, with a focus on logistics: operators who need well-connected AAA space that’s ready to grow.') }}
+    <div class="rubros">
+      <div class="rubro" data-reveal="up"><i class="{{ ico('camion') }}"></i><small>01</small><b>{{ t('<strong>Logística</strong> y distribución','<strong>Logistics</strong> and distribution') }}</b><p>{{ t('Operadores 3PL, almacenamiento y distribución regional.','3PL operators, storage and regional distribution.') }}</p></div>
+      <div class="rubro" data-reveal="up" style="--d:.06s;background:var(--nodo-2)"><i class="{{ ico('accesos') }}"></i><small>02</small><b>{{ t('<strong>Última milla</strong> y e-commerce','<strong>Last mile</strong> and e-commerce') }}</b><p>{{ t('A minutos de la ciudad, para entregas rápidas.','Minutes from the city, for fast deliveries.') }}</p></div>
+      <div class="rubro" data-reveal="up" style="--d:.12s;background:var(--nodo-d)"><i class="{{ ico('operador') }}"></i><small>03</small><b>{{ t('<strong>Cross docking</strong>','<strong>Cross docking</strong>') }}</b><p>{{ t('Docks en ambos frentes y playón de maniobras.','Docks on both sides and a manoeuvring yard.') }}</p></div>
+    </div>
+    <h3 class="ttl sm" data-reveal="up">{{ t('ACTIVIDADES <b>PERMITIDAS</b>','PERMITTED <b>ACTIVITIES</b>') }}</h3>
+    <ul class="acts" style="margin-top:22px" data-reveal="up">
+    {% for es, en, key in ACTS %}<li class="act{{ ' key' if key }}">{{ i_check() }}{{ t(es, en) }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{# ═════════ E9 · PROCESO ═════════ #}
+{% set STEPS = [
+  ('Consulta inicial','Initial enquiry','Reunión para entender tu operación y necesidades de superficie.','A meeting to understand your operation and space needs.'),
+  ('Propuesta y módulo','Proposal and module','Elegís el módulo y recibís la propuesta comercial a medida.','You choose the module and get a tailored commercial proposal.'),
+  ('Carta de intención','Letter of intent','Firma de LOI que reserva el módulo y fija las condiciones.','Signing the LOI reserves the module and sets the terms.'),
+  ('Contrato corporativo','Corporate lease','Firma del contrato de locación integral gestionado por ZLT.','Signing the full lease agreement managed by ZLT.'),
+  ('Adecuación (fit-out)','Fit-out','Período de adecuación de la nave a tu operación.','Period to adapt the space to your operation.'),
+  ('Entrega y operación','Handover','Recepción de llaves e inicio de operaciones.','Keys handed over and operations begin.')] %}
+<section id="e-proceso" class="sec blue dk" aria-label="Proceso de contratación">
+  <div class="wrap">
+    {{ head('Proceso de contratación','Leasing process','DE LA CONSULTA <b>A LAS LLAVES</b>','FROM ENQUIRY <b>TO KEYS</b>',
+            'Un recorrido claro y planificable, con tiempos orientativos en cada etapa.','A clear, plannable path, with indicative timings at each stage.') }}
+    <ol class="steps" style="list-style:none;padding:0;margin-bottom:0">
+    {% for es, en, des, den in STEPS %}
+      <li class="step" data-reveal="up" style="--d:{{ loop.index0 * 0.06 }}s"><span class="step-n">0{{ loop.index }}</span><b>{{ t(es, en) }}</b><p>{{ t(des, den) }}</p></li>
+    {% endfor %}
+    </ol>
+    <p class="note" style="color:#AFBDEA;margin-top:34px">{{ t('*Tiempos orientativos; pueden variar según la complejidad del fit-out y la disponibilidad de módulos.','*Indicative timings; they may vary with fit-out complexity and module availability.') }}</p>
+  </div>
+</section>
+
+{# ═════════ E10 · AVANCE ═════════ #}
+{{ progress('e-') }}
+
+{# ═════════ E11 · ACOMPAÑAN ═════════ #}
+<section id="e-acompanan" class="sec white" aria-label="Empresas que acompañan" style="padding-block:clamp(52px,6vw,84px)">
+  <div class="wrap">{{ accompany() }}</div>
+</section>
+
+{# ═════════ E12 · CONTACTO ═════════ #}
+{% with pre='e-', perfil='empresa' %}{% include 'parciales/contacto.html' %}{% endwith %}

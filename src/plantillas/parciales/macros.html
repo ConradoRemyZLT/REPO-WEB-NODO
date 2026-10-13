@@ -1,0 +1,154 @@
+{# ════════════════════════════════════════════════════════════
+   Piezas reutilizables. Todo texto visible va en los dos idiomas: t('es','en').
+   ════════════════════════════════════════════════════════════ #}
+
+{# ── íconos de interfaz (trazo) ── #}
+{% macro i_arrow() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>{% endmacro %}
+{% macro i_back() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>{% endmacro %}
+{% macro i_down() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>{% endmacro %}
+{% macro i_play() %}<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>{% endmacro %}
+{% macro i_car() %}<svg class="car" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>{% endmacro %}
+{% macro i_ext() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"/></svg>{% endmacro %}
+{% macro i_check() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.2"/><path d="M8 12.3l2.7 2.7L16.2 9.5"/></svg>{% endmacro %}
+{% macro i_plus() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>{% endmacro %}
+{% macro i_pin() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 21s-7-7.6-7-12a7 7 0 1 1 14 0c0 4.4-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>{% endmacro %}
+{% macro i_zoom() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3H3v6M15 21h6v-6M21 9V3h-6M3 15v6h6"/></svg>{% endmacro %}
+{% macro i_sound_on() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/><path d="M19 6a8.5 8.5 0 0 1 0 12"/></svg>{% endmacro %}
+{% macro i_sound_off() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9.5l4 5M21 9.5l-4 5"/></svg>{% endmacro %}
+{% macro i_send() %}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>{% endmacro %}
+
+{% macro sound_btn() %}<button class="vbtn-ui js-sound" type="button" aria-label="Activar o silenciar el sonido" title="Sonido"><span class="ico-on">{{ i_sound_on() }}</span><span class="ico-off">{{ i_sound_off() }}</span></button>{% endmacro %}
+
+{# ── encabezado de sección ── #}
+{% macro head(eb_es, eb_en, ttl_es, ttl_en, lead_es='', lead_en='', center=False, cls='') %}
+<div class="sec-head{{ ' center' if center }} {{ cls }}">
+  <div class="eyebrow{{ ' center' if center }}" data-reveal="up">{{ t(eb_es, eb_en) }}</div>
+  <h2 class="ttl" data-reveal="up" style="--d:.06s">{{ t(ttl_es, ttl_en) }}</h2>
+  {% if lead_es %}<p class="lead" data-reveal="up" style="--d:.12s">{{ t(lead_es, lead_en) }}</p>{% endif %}
+</div>
+{% endmacro %}
+
+{# ── galería: lista de (ruta, pie_es, pie_en) ── #}
+{% macro gallery(items, label, ancho=1400) %}
+<div class="gallery" data-gallery data-reveal="up" role="group" aria-label="{{ label }}">
+  <div class="gviewport">
+  {% for it in items %}
+    <figure class="gslide{{ ' active' if loop.first }}">
+      <img data-img="{{ img(it[0], ancho) }}" alt="{{ it[1] }}" decoding="async">
+      {% if it[1] %}<figcaption>{{ t(it[1], it[2] if it|length > 2 else it[1]) }}</figcaption>{% endif %}
+      <span class="gzoom" aria-hidden="true">{{ i_zoom() }}</span>
+    </figure>
+  {% endfor %}
+  </div>
+  <div class="gbar">
+    <button class="garr gprev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="garr gnext" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="gline"><i></i></div>
+    <div class="gcount"><span class="gc-cur">1</span> / {{ items|length }}</div>
+  </div>
+</div>
+{% endmacro %}
+
+{# ── desarrolla + acompañan (carrusel) ── #}
+{% set PARTNERS = [('menara','Menara'),('uveg','Üveg'),('acerma','Acerma'),('cantera-dumesnil','Cantera Dumesnil'),('ua','ÜA')] %}
+{% macro accompany() %}
+<div class="accompany" data-reveal="up">
+  <div class="acc-head">
+    <span class="acc-dev"><span class="acc-lab">{{ t('Desarrolla','Developed by') }}</span><img class="acc-zlt" data-img="{{ img('logos/marca/zlt-isologo.png', 240) }}" alt="ZLT"></span>
+    <span class="acc-line"></span>
+    <span class="acc-acc">{{ t('Acompañan','Partners') }}</span>
+  </div>
+  <div class="acc-mq" style="--accdur:24s">
+    <div class="acc-track" aria-hidden="true">
+    {% for r in range(2) %}{% for k, n in PARTNERS %}
+      <div class="acc-item"><img data-img="{{ img('logos/acompanan/' ~ k ~ '.png', 360) }}" alt="{{ n }}"></div>
+    {% endfor %}{% endfor %}
+    </div>
+  </div>
+</div>
+{% endmacro %}
+
+{# ── infraestructura y servicios del predio ── #}
+{% set INFRA = [('agua','Red de agua','Water network'),('fibra-optica','Fibra óptica','Fibre optics'),('calles-hormigon','Calles pavimentadas con hormigón','Concrete-paved roads'),('accesos','Múltiples accesos','Multiple access points'),('red-electrica','Red eléctrica subterránea','Underground power grid'),('cloacas','Desagües cloacales domiciliarios','Sewerage network'),('cordon-cuneta','Cordón cuneta','Kerb and gutter')] %}
+{% set SERV = [('seguridad','Seguridad 24 h','24/7 security'),('administracion','Servicio de administración','On-site management'),('coworking','Centro de coworking','Coworking centre'),('gastronomia','Servicio gastronómico','Food service'),('accesos','Control de acceso','Access control')] %}
+{% macro services() %}
+<div class="svc">
+  <div class="svc-col" data-reveal="up">
+    <h3>{{ t('Infraestructura','Infrastructure') }}</h3>
+    <ul class="svc-list">
+    {% for k, es, en in INFRA %}<li class="svc-item"><i class="{{ ico(k) }}"></i>{{ t(es, en) }}</li>{% endfor %}
+    </ul>
+  </div>
+  <div class="svc-col" data-reveal="up" style="--d:.08s">
+    <h3>{{ t('Servicios destacados','Key services') }}</h3>
+    <ul class="svc-list">
+    {% for k, es, en in SERV %}<li class="svc-item"><i class="{{ ico(k) }}"></i>{{ t(es, en) }}</li>{% endfor %}
+    </ul>
+  </div>
+</div>
+{% endmacro %}
+
+{# ── ubicación con mapa ── #}
+{% macro location(pre, ttl_es='UBICACIÓN <b>ESTRATÉGICA</b>', ttl_en='A <b>STRATEGIC</b> LOCATION') %}
+<section id="{{ pre }}ubicacion" class="sec blue dk" aria-label="Ubicación">
+  <div class="wrap loc">
+    <div>
+      <div class="sec-head">
+        <div class="eyebrow" data-reveal="up">{{ t('Ubicación','Location') }}</div>
+        <h2 class="ttl" data-reveal="up" style="--d:.06s">{{ t(ttl_es, ttl_en) }}</h2>
+        <p class="lead" data-reveal="up" style="--d:.12s">{{ t('Sobre la Autovía Nacional 19, km 13, en Córdoba Capital, a minutos de la Av. Circunvalación: acceso rápido y conexión directa con las principales vías de distribución regional.','On National Motorway 19, km 13, in Córdoba city, minutes from the Circunvalación ring road: quick access and a direct link to the main regional distribution routes.') }}</p>
+      </div>
+      <div class="dists" data-reveal="up" style="--d:.16s">
+        <div class="dist"><i class="{{ ico('autopista') }}"></i><b>5 km</b><span>{{ t('a la Av. Circunvalación de Córdoba','to Córdoba’s ring road (Av. Circunvalación)') }}</span></div>
+        <div class="dist"><i class="{{ ico('aeropuerto') }}"></i><b>20 km</b><span>{{ t('al Aeropuerto Internacional de Córdoba','to Córdoba International Airport') }}</span></div>
+        <div class="dist"><i class="{{ ico('ciudad') }}"></i><b>km 13</b><span>{{ t('de la Autovía Nacional 19, hacia el este de la ciudad','of National Motorway 19, east of the city') }}</span></div>
+      </div>
+      <div class="roads" data-reveal="up" style="--d:.2s" aria-label="Rutas">
+        <span class="road">Au. RN 19</span><span class="road">RN 9</span><span class="road">RN 36</span><span class="road">RN 20</span><span class="road">Au. Rosario–Córdoba</span>
+      </div>
+      <div class="p-cta mt" data-reveal="up" style="--d:.24s">
+        <a class="btn btn-primary" href="{{ d.contacto.maps }}" target="_blank" rel="noopener">{{ i_pin() }}<span>{{ t('Cómo llegar','Get directions') }}</span></a>
+      </div>
+    </div>
+    <div data-reveal="left">
+      <div class="nmap" data-map aria-label="Mapa de ubicación de Nodo"></div>
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# ── avance de obra ── #}
+{% set OBRA = [
+  ('fotos/obra-2026-08/obra-01.jpg','Estructura y cubierta','Structure and roofing'),
+  ('fotos/obra-2026-08/obra-04.jpg','Vista cenital','Aerial top view'),
+  ('fotos/obra-2026-08/obra-05.jpg','Estructura metálica','Steel structure'),
+  ('fotos/obra-2026-08/obra-02.jpg','Vista aérea','Aerial view'),
+  ('fotos/obra-2026-08/obra-07.jpg','Interior de la nave','Inside the warehouse'),
+  ('fotos/obra-2026-08/obra-03.jpg','Accesos y calles internas','Access and internal roads'),
+  ('fotos/obra-2026-08/obra-06.jpg','Pórticos de 20 m de luz','20 m span frames'),
+  ('fotos/obra-2026-08/obra-10.jpg','Sobre la Autovía 19','On Motorway 19'),
+  ('fotos/obra-2026-08/obra-08.jpg','Estructura','Structure'),
+  ('fotos/obra-2026-08/obra-09.jpg','Cartel de obra','Site sign')] %}
+{% macro progress(pre) %}
+<section id="{{ pre }}avance" class="sec night dk" aria-label="Avance de obra">
+  <div class="wrap proj-flow">
+    <div class="obra-head">
+      <div class="sec-head">
+        <div class="eyebrow" data-reveal="up">{{ t('Avance de obra · Nodo Flex','Construction progress · Nodo Flex') }}</div>
+        <h2 class="ttl" data-reveal="up" style="--d:.06s">{{ t('LA OBRA, <b>COMO ESTÁ HOY</b>','THE SITE, <b>AS IT STANDS TODAY</b>') }}</h2>
+        <p class="lead" data-reveal="up" style="--d:.12s">{{ t('Nodo Flex, la primera nave del parque, está en construcción. Estas son las fotos más recientes del predio.','Nodo Flex, the park’s first warehouse, is under construction. These are the latest photos of the site.') }}</p>
+      </div>
+      <span class="obra-date" data-reveal="up"><i></i>{{ t('Actualizado · ' ~ d.obra.mes_es, 'Updated · ' ~ d.obra.mes_en) }}</span>
+    </div>
+    {{ gallery(OBRA, 'Avance de obra') }}
+    <div class="p-cta" data-reveal="up">
+      <a class="btn btn-primary" href="https://www.youtube.com/watch?v={{ d.videos.nodo_flex_avance }}" target="_blank" rel="noopener">{{ i_play() }}<span>{{ t('Video de avance de obra','Construction progress video') }}</span></a>
+      <a class="btn btn-ghost" href="{{ d.redes.instagram }}" target="_blank" rel="noopener">{{ i_ext() }}<span>{{ t('Seguí la obra en Instagram','Follow the works on Instagram') }}</span></a>
+    </div>
+  </div>
+</section>
+{% endmacro %}
+
+{# ── banderas del selector de idioma ── #}
+{% macro flag_ar() %}<svg viewBox="0 0 20 14" preserveAspectRatio="none"><rect width="20" height="14" fill="#fff"/><rect width="20" height="4.67" fill="#75AADB"/><rect y="9.33" width="20" height="4.67" fill="#75AADB"/><circle cx="10" cy="7" r="1.7" fill="#F6B40E"/></svg>{% endmacro %}
+{% macro flag_us() %}<svg viewBox="0 0 20 14" preserveAspectRatio="none"><rect width="20" height="14" fill="#fff"/><rect width="20" height="1.08" y="0" fill="#B22234"/><rect width="20" height="1.08" y="2.15" fill="#B22234"/><rect width="20" height="1.08" y="4.3" fill="#B22234"/><rect width="20" height="1.08" y="6.46" fill="#B22234"/><rect width="20" height="1.08" y="8.62" fill="#B22234"/><rect width="20" height="1.08" y="10.77" fill="#B22234"/><rect width="20" height="1.08" y="12.92" fill="#B22234"/><rect width="8.4" height="7.54" fill="#3C3B6E"/></svg>{% endmacro %}

@@ -1,0 +1,7 @@
+# caché de imágenes del armado (se regenera sola)
+/.cache/
+/_site/
+__pycache__/
+desktop.ini
+Thumbs.db
+~$*

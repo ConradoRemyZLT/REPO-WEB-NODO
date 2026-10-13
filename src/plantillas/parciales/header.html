@@ -1,0 +1,79 @@
+{% from 'parciales/macros.html' import i_car, i_back, i_arrow, flag_ar, flag_us %}
+{% set MENU_HOME = [
+  ('#/nodo-y-flex','Nodo y Nodo Flex','Nodo & Nodo Flex'),
+  ('#/parque','El parque','The park'),
+  ('#/etapas','Masterplan y etapas','Masterplan & phases'),
+  ('#/servicios','Infraestructura y servicios','Infrastructure & services'),
+  ('#/ubicacion','Ubicación','Location')] %}
+{% set MENU_EMP = [('#/empresas/superficie','La nave','The warehouse'),('#/empresas/ficha','Ficha técnica','Specs'),('#/empresas/ubicacion','Ubicación','Location'),('#/empresas/ecosistema','Ecosistema','Ecosystem'),('#/empresas/proceso','Proceso','Process'),('#/empresas/contacto','Contacto','Contact')] %}
+{% set MENU_INV = [('#/inversores/por-que','Por qué logística AAA','Why AAA logistics'),('#/inversores/modelo','Pool de renta','Rental pool'),('#/inversores/activo','El activo','The asset'),('#/inversores/ubicacion','Ubicación','Location'),('#/inversores/faq','Preguntas','FAQ'),('#/inversores/contacto','Contacto','Contact')] %}
+
+<header class="hdr" id="hdr">
+  <a class="hlogo" href="#/" aria-label="Nodo — inicio">{{ svg('nodo', '', 'Nodo') }}</a>
+
+  <nav class="menu" data-only="home" aria-label="Principal">
+    <div class="mi" data-menu>
+      <button class="tl" type="button" aria-expanded="false">{{ t('El parque','The park') }}{{ i_car() }}</button>
+      <div class="panel"><div class="pinner">
+        {% for h, es, en in MENU_HOME %}<a class="leaf" href="{{ h }}">{{ t(es, en) }}</a>{% endfor %}
+      </div></div>
+    </div>
+    <div class="mi"><a class="tl" href="#/nodo-flex">Nodo Flex</a></div>
+    <div class="mi"><a class="tl" href="#/avance">{{ t('Avance de obra','Progress') }}</a></div>
+    <div class="mi"><a class="tl" href="#/acompanan">{{ t('Acompañan','Partners') }}</a></div>
+    <div class="mi"><a class="tl" href="#/prensa">{{ t('Prensa','Press') }}</a></div>
+    <div class="mi"><a class="tl" href="#/contacto">{{ t('Contacto','Contact') }}</a></div>
+  </nav>
+  <nav class="menu" data-only="empresas" aria-label="Empresas">
+    <div class="mi"><a class="tl" href="#/">{{ t('Nodo','Nodo') }}</a></div>
+    {% for h, es, en in MENU_EMP %}<div class="mi"><a class="tl" href="{{ h }}">{{ t(es, en) }}</a></div>{% endfor %}
+  </nav>
+  <nav class="menu" data-only="inversores" aria-label="Inversores">
+    <div class="mi"><a class="tl" href="#/">{{ t('Nodo','Nodo') }}</a></div>
+    {% for h, es, en in MENU_INV %}<div class="mi"><a class="tl" href="{{ h }}">{{ t(es, en) }}</a></div>{% endfor %}
+  </nav>
+
+  <div class="hpills">
+    <a class="hpill" data-pill="empresas" href="#/empresas">{{ t('Empresas','Companies') }}</a>
+    <a class="hpill" data-pill="inversores" href="#/inversores">{{ t('Inversores','Investors') }}</a>
+  </div>
+
+  <div class="langsel" id="langsel">
+    <button class="lang-btn" id="langbtn" type="button" aria-label="Idioma / Language">
+      <span class="flag l-es-flag">{{ flag_ar() }}</span><span class="flag l-en-flag">{{ flag_us() }}</span>{{ i_car() }}
+    </button>
+    <div class="lang-menu">
+      <button type="button" data-lang="es"><span class="flag">{{ flag_ar() }}</span>Español</button>
+      <button type="button" data-lang="en"><span class="flag">{{ flag_us() }}</span>English</button>
+    </div>
+  </div>
+  <button class="mbtn" id="mbtn" type="button" aria-label="Menú" aria-expanded="false"><span></span></button>
+</header>
+
+<div class="mov" id="mov">
+  <div class="m-pills">
+    <a href="#/empresas">{{ t('Empresas','Companies') }}</a>
+    <a href="#/inversores">{{ t('Inversores','Investors') }}</a>
+  </div>
+  <div data-only="home">
+    <div class="m-group-h">{{ t('El parque','The park') }}</div>
+    {% for h, es, en in MENU_HOME %}<a href="{{ h }}">{{ t(es, en) }}</a>{% endfor %}
+    <div class="m-group-h">Nodo Flex</div>
+    <a href="#/nodo-flex">{{ t('La nave AAA','The AAA warehouse') }}</a>
+    <a href="#/avance">{{ t('Avance de obra','Construction progress') }}</a>
+    <div class="m-group-h">{{ t('Más','More') }}</div>
+    <a href="#/acompanan">{{ t('Empresas que acompañan','Partners') }}</a>
+    <a href="#/prensa">{{ t('Prensa','Press') }}</a>
+    <a href="#/contacto">{{ t('Contacto','Contact') }}</a>
+  </div>
+  <div data-only="empresas">
+    <div class="m-group-h">{{ t('Nodo Flex · Empresas','Nodo Flex · Companies') }}</div>
+    {% for h, es, en in MENU_EMP %}<a href="{{ h }}">{{ t(es, en) }}</a>{% endfor %}
+    <a href="#/">{{ t('← Volver a Nodo','← Back to Nodo') }}</a>
+  </div>
+  <div data-only="inversores">
+    <div class="m-group-h">{{ t('Nodo Flex · Inversores','Nodo Flex · Investors') }}</div>
+    {% for h, es, en in MENU_INV %}<a href="{{ h }}">{{ t(es, en) }}</a>{% endfor %}
+    <a href="#/">{{ t('← Volver a Nodo','← Back to Nodo') }}</a>
+  </div>
+</div>

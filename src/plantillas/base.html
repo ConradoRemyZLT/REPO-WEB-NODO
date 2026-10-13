@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0026A3">
+<title>Nodo | Parque Logístico en Córdoba · Nodo Flex</title>
+<meta name="description" content="Nodo es un parque logístico de 22 ha sobre la Autovía Nacional 19, km 13, Córdoba. Nodo Flex, su primera nave: 14.400 m² AAA flexibles para varios operadores. Propuestas para empresas e inversores.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="googlebot" content="noindex,nofollow">
+<meta name="author" content="ZLT Inversiones">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Nodo | Parque Logístico en Córdoba">
+<meta property="og:description" content="Nodo Flex: nave logística AAA de 14.400 m², flexible y multi-operador, dentro del Parque Logístico Nodo. Autovía Nacional 19, km 13, Córdoba.">
+<meta property="og:site_name" content="Nodo · Parque Logístico">
+<meta property="og:locale" content="es_AR">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:image" content="og-nodo.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="geo.region" content="AR-X">
+<meta name="geo.placename" content="Córdoba, Argentina">
+<meta name="geo.position" content="-31.3857;-64.0703">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ inline('iconos/web/favicon-32.png', 32, 90) }}">
+<link rel="apple-touch-icon" href="{{ inline('iconos/web/apple-touch-icon.png', 180, 90) }}">
+<link rel="preconnect" href="https://fonts.cdnfonts.com">
+<link href="https://fonts.cdnfonts.com/css/gilroy-bold" rel="stylesheet">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+<style>/*__LEAFLET_CSS__*/</style>
+<style>
+:root{--wm:url("{{ svg_uri('nodo', '#ffffff') }}");--wm-b:url("{{ svg_uri('nodo', '#0026A3') }}")}
+/*__CSS__*/
+</style>
+</head>
+<body data-view="home">
+<div id="pre">{{ svg('nodo', '', 'Nodo') }}<div class="pbar"><i></i></div></div>
+<div id="prog" aria-hidden="true"></div>
+
+{% include 'parciales/header.html' %}
+
+<main id="main">
+  <div class="view" data-view="home">{% include 'home.html' %}</div>
+  <div class="view" data-view="empresas">{% include 'empresas.html' %}</div>
+  <div class="view" data-view="inversores">{% include 'inversores.html' %}</div>
+</main>
+
+<nav id="dotnav" aria-label="Índice"></nav>
+<button id="top" type="button" aria-label="Volver arriba"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+<a class="wa-fab" href="{{ d.contacto.whatsapp }}" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="{{ ico_contacto('whatsapp') }}"></i></a>
+<div id="lb" role="dialog" aria-label="Foto ampliada">
+  <img alt="">
+  <button class="lbx" type="button" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="lbp" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <button class="lbn" type="button" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+  <div class="lbc"></div>
+</div>
+
+<script>window.NODO_CFG={mapa:{{ d.mapa|tojson }},pinSvg:{{ svg('nodo')|string|tojson }}};</script>
+<script id="nodo-img" type="application/json">__IMGS__</script>
+<script>/*__LEAFLET_JS__*/</script>
+<script>/*__JS__*/</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "contacto": {
+    "telefono": "+54 9 351 215-5100",
+    "whatsapp": "https://wa.me/5493512155100",
+    "email": "nodo_info@somoszlt.com",
+    "direccion": "Autovía Nacional 19, km 13",
+    "localidad": "Córdoba, Argentina",
+    "maps": "https://maps.app.goo.gl/DhzjcdAxueaDNVi86"
+  },
+  "formulario": {
+    "endpoint": "https://formsubmit.co/ajax/nodo_info@somoszlt.com",
+    "destino": "nodo_info@somoszlt.com"
+  },
+  "redes": {
+    "instagram": "https://www.instagram.com/somos.zlt/",
+    "linkedin": "https://www.linkedin.com/company/somoszlt",
+    "youtube": "https://www.youtube.com/@somoszlt",
+    "web_zlt": "https://somoszlt.com"
+  },
+  "videos": {
+    "banner": "kDgVQJJAjqk",
+    "nodo_flex_oficial": "kDgVQJJAjqk",
+    "nodo_flex_avance": "dWUhVN7Sczw",
+    "nodo_oficial": "UM0AKwuwXd0"
+  },
+  "recorrido_360": "7DXD8",
+  "brochures": {
+    "parque": "brochures/nodo-parque-logistico.pdf",
+    "empresas": "brochures/nodo-flex-empresas.pdf",
+    "inversores": "brochures/nodo-flex-inversores.pdf"
+  },
+  "mapa": {
+    "nodo": [-31.3856875, -64.0703125],
+    "aeropuerto": [-31.3236, -64.2081],
+    "centro": [-31.4167, -64.1836]
+  },
+  "obra": {
+    "mes_es": "Agosto 2026",
+    "mes_en": "August 2026"
+  }
+}

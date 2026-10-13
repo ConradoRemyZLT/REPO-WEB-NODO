@@ -1,0 +1,81 @@
+WEB NODO · Parque Logístico + Nodo Flex
+Repositorio completo · 13/10/2026
+
+Es la nueva web de Nodo, pensada para reemplazar a nodocordoba.com (hoy en Wix)
+cuando se decida. Toma la estructura y el comportamiento de ZLT-WEB-V2 con la
+marca de Nodo y Nodo Flex.
+
+QUÉ HAY EN LA WEB
+
+Es un solo HTML con tres vistas:
+
+  #/             Home · Nodo, el parque. Video oficial de Nodo Flex en el
+                 banner, Nodo vs Nodo Flex, ficha del parque, masterplan y
+                 próximas etapas, ficha de Nodo Flex, servicios, ubicación,
+                 avance de obra, empresas que acompañan, prensa y contacto.
+  #/empresas     Nodo Flex para empresas: superficies (interactivo), ficha
+                 técnica, ubicación, servicios, ecosistema, actividades,
+                 proceso de contratación, avance y formulario de empresa.
+  #/inversores   Nodo Flex para inversores: por qué logística AAA, pool de
+                 renta, respaldo, el activo, servicios, ubicación, avance,
+                 preguntas frecuentes y formulario de inversor.
+
+Español / inglés con el selector de banderas (o agregando ?lang=en).
+
+CÓMO ESTÁ ORDENADO
+
+  Home/
+    html/        NODO-WEB-home.html, el HTML que se publica (lleva adentro
+                 fotos, logos, íconos, código y el mapa), y robots.txt
+    brochures/   los PDF que la web ofrece para descargar
+    fotos/       las fotos en buena calidad (de acá se arma el HTML)
+      nodo-flex/       galería de la nave (obra, agosto 2026)
+      obra-2026-08/    avance de obra
+      renders/         renders definitivos del parque y de Nodo Flex
+      parque/          fotos del predio
+      ilustraciones/   masterplan por etapas y plano con Nodo Flex
+    logos/
+      marca/       Nodo, Nodo con slogan y Nodo Flex en SVG (vectores) + ZLT
+      acompanan/   Menara, Üveg, Acerma, Cantera Dumesnil, ÜA
+    iconos/
+      servicios/   la iconografía de Nodo (agua, fibra, seguridad…)
+      contacto/    WhatsApp, mail y redes
+      web/         favicon, ícono de iOS/Android e imagen para compartir
+    links/       videos, contacto, prensa y enlaces, en planillas
+    _inventario.csv   qué es cada archivo y de dónde salió
+
+  src/           el código fuente de la web
+    plantillas/  el HTML por partes (home, empresas, inversores, contacto…)
+    css/         nodo.css, el sistema visual
+    js/          nodo.js (+ Leaflet embebido en js/vendor)
+    datos/       sitio.json (teléfono, mail, videos, brochures, mapa)
+                 prensa.json (las notas de medios)
+    build.py     arma el HTML final
+
+  tools/         preparar_fotos.py (incorpora fotos nuevas) y
+                 verificar.py (prueba la web en 1440, 768 y 390 px)
+
+CÓMO SE CAMBIA ALGO
+
+  1. Se edita lo que corresponda en src/ (o se reemplaza una foto en Home/fotos).
+  2. Se corre:   python3 src/build.py
+  3. Sale el HTML nuevo en Home/html/NODO-WEB-home.html.
+  El HTML no se edita a mano: siempre se regenera.
+
+  Datos que cambian seguido y dónde están:
+    teléfono, mail, WhatsApp ......... src/datos/sitio.json → contacto
+    videos de YouTube ................ src/datos/sitio.json → videos
+    mes de las fotos de obra ......... src/datos/sitio.json → obra
+    notas de prensa .................. src/datos/prensa.json
+    fotos de avance .................. Home/fotos/obra-2026-08 + macros.html (OBRA)
+
+PARA TENER EN CUENTA
+
+  · La web está en noindex: Google no la muestra hasta que se haga la mudanza.
+  · El formulario envía por FormSubmit a nodo_info@somoszlt.com. La primera
+    consulta dispara un mail de activación a esa casilla: hay que confirmarlo
+    una vez para que empiecen a llegar.
+  · Gilroy se carga desde fonts.cdnfonts.com, igual que en ZLT-WEB-V2.
+  · El mapa usa imágenes satelitales de Esri (con OpenStreetMap de respaldo).
+    Esri World Imagery tiene licencia propia: revisarla antes de publicar
+    en el dominio comercial.

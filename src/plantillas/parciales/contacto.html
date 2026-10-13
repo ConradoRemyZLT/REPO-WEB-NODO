@@ -1,0 +1,115 @@
+{# Contacto + pie. Variables: pre ('' | 'e-' | 'i-'), perfil ('general' | 'empresa' | 'inversor') #}
+{% from 'parciales/macros.html' import i_down, i_send, i_arrow %}
+{% set FLD_ERR = t('Completá este campo','Please fill in this field') %}
+<section id="{{ pre }}contacto" class="sec blue dk wm" aria-label="Contacto">
+  <div class="wrap">
+    <div class="eyebrow" data-reveal="up">{% if perfil == 'empresa' %}{{ t('Nodo Flex · Empresas','Nodo Flex · Companies') }}{% elif perfil == 'inversor' %}{{ t('Nodo Flex · Inversores','Nodo Flex · Investors') }}{% else %}{{ t('Contacto','Contact') }}{% endif %}</div>
+    <h2 class="contact-big" data-reveal="up" style="--d:.06s">
+      {% if perfil == 'empresa' %}{{ t('Contanos qué <b>necesita tu operación.</b>','Tell us what <b>your operation needs.</b>') }}
+      {% elif perfil == 'inversor' %}{{ t('Hablemos de <b>tu inversión.</b>','Let’s talk about <b>your investment.</b>') }}
+      {% else %}{{ t('Conexión <b>como ninguna otra.</b>','A connection <b>like no other.</b>') }}{% endif %}
+    </h2>
+    <div class="cgrid">
+      <div class="ccol">
+        <div class="clist">
+          <a class="citem" href="{{ d.contacto.whatsapp }}" target="_blank" rel="noopener" data-reveal="up"><span class="cico"><i class="{{ ico_contacto('whatsapp') }}"></i></span><span>{{ d.contacto.telefono }}<small>WhatsApp</small></span></a>
+          <a class="citem" href="mailto:{{ d.contacto.email }}" data-reveal="up" style="--d:.06s"><span class="cico"><i class="{{ ico_contacto('email') }}"></i></span><span>{{ d.contacto.email }}<small>Email</small></span></a>
+          <a class="citem" href="{{ d.contacto.maps }}" target="_blank" rel="noopener" data-reveal="up" style="--d:.12s"><span class="cico"><i class="{{ ico('accesos') }}"></i></span><span>{{ d.contacto.direccion }}<small>{{ d.contacto.localidad }}</small></span></a>
+        </div>
+        {% if perfil == 'empresa' %}
+        <a class="bro" href="{{ d.brochures.empresas }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/renders/nodo-flex-fachada.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Nodo Flex · Empresas','Nodo Flex brochure · Companies') }}</b><small>PDF · 2,4 MB</small></span>{{ i_down() }}</a>
+        {% elif perfil == 'inversor' %}
+        <a class="bro" href="{{ d.brochures.inversores }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/nodo-flex/nodo-flex-01.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Nodo Flex · Inversores','Nodo Flex brochure · Investors') }}</b><small>PDF · 2,6 MB</small></span>{{ i_down() }}</a>
+        {% else %}
+        <a class="bro" href="{{ d.brochures.parque }}" download data-reveal="up"><span class="bro-cov"><img data-img="{{ img('fotos/renders/parque-aereo-01.jpg', 320) }}" alt=""></span><span><b>{{ t('Brochure Parque Logístico Nodo','Nodo Logistics Park brochure') }}</b><small>PDF · 1,1 MB</small></span>{{ i_down() }}</a>
+        {% endif %}
+        <div>
+          <div class="sfollow">{{ t('Seguinos','Follow us') }}</div>
+          <div class="socials">
+            <a class="sicon" href="{{ d.redes.web_zlt }}" target="_blank" rel="noopener" aria-label="ZLT"><i class="{{ ico_contacto('sitio-web') }}"></i></a>
+            <a class="sicon" href="{{ d.redes.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="{{ ico_contacto('linkedin') }}"></i></a>
+            <a class="sicon" href="{{ d.redes.instagram }}" target="_blank" rel="noopener" aria-label="Instagram"><i class="{{ ico_contacto('instagram') }}"></i></a>
+            <a class="sicon" href="{{ d.redes.youtube }}" target="_blank" rel="noopener" aria-label="YouTube"><i class="{{ ico_contacto('youtube') }}"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <form class="cform" id="form-{{ perfil }}" novalidate data-reveal="up" style="--d:.1s"
+            data-endpoint="{{ d.formulario.endpoint }}" data-to="{{ d.formulario.destino }}" data-perfil="{{ perfil }}">
+        <div class="cform-head">{% if perfil == 'empresa' %}{{ t('Consulta de empresa','Company enquiry') }}{% elif perfil == 'inversor' %}{{ t('Consulta de inversión','Investment enquiry') }}{% else %}{{ t('Escribinos','Write to us') }}{% endif %}</div>
+        <div class="fform-body">
+          <div class="frow">
+          {% if perfil == 'empresa' %}
+            <div class="fld"><label for="{{ pre }}f-empresa">{{ t('Empresa','Company') }}<i>*</i></label><input type="text" id="{{ pre }}f-empresa" name="empresa" placeholder="Razón social" required autocomplete="organization"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-rubro">{{ t('Rubro','Industry') }}<i>*</i></label>
+              <select id="{{ pre }}f-rubro" name="rubro" required>
+                <option value="">—</option>
+                <option>Logística / operador 3PL</option><option>Última milla y e-commerce</option><option>Cross docking</option>
+                <option>Consumo masivo / distribución</option><option>Farmacéutica</option><option>Logística en frío</option>
+                <option>Industria / producción liviana</option><option>Otro</option>
+              </select><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-nombre">{{ t('Nombre y apellido','Full name') }}<i>*</i></label><input type="text" id="{{ pre }}f-nombre" name="nombre" required autocomplete="name"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-cargo">{{ t('Cargo','Position') }}</label><input type="text" id="{{ pre }}f-cargo" name="cargo" data-opt autocomplete="organization-title"></div>
+            <div class="fld"><label for="{{ pre }}f-email">Email<i>*</i></label><input type="email" id="{{ pre }}f-email" name="email" placeholder="nombre@empresa.com" required autocomplete="email"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-tel">{{ t('Teléfono','Phone') }}<i>*</i></label><input type="tel" id="{{ pre }}f-tel" name="telefono" placeholder="+54 9 351 000 0000" required autocomplete="tel"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-m2">{{ t('Superficie requerida','Space required') }}</label>
+              <select id="{{ pre }}f-m2" name="superficie" data-opt><option value="">—</option><option>3.600 m²</option><option>6.000 m²</option><option>7.200 m²</option><option>9.600 m²</option><option>14.400 m² (nave completa)</option><option>A definir</option></select></div>
+            <div class="fld"><label for="{{ pre }}f-ingreso">{{ t('Ingreso estimado','Estimated move-in') }}</label>
+              <select id="{{ pre }}f-ingreso" name="ingreso" data-opt><option value="">—</option><option>Lo antes posible</option><option>En 3 a 6 meses</option><option>En 6 a 12 meses</option><option>Más de 12 meses</option></select></div>
+          {% elif perfil == 'inversor' %}
+            <div class="fld"><label for="{{ pre }}f-nombre">{{ t('Nombre','First name') }}<i>*</i></label><input type="text" id="{{ pre }}f-nombre" name="nombre" required autocomplete="given-name"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-apellido">{{ t('Apellido','Last name') }}<i>*</i></label><input type="text" id="{{ pre }}f-apellido" name="apellido" required autocomplete="family-name"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-email">Email<i>*</i></label><input type="email" id="{{ pre }}f-email" name="email" placeholder="nombre@correo.com" required autocomplete="email"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-tel">{{ t('Teléfono','Phone') }}<i>*</i></label><input type="tel" id="{{ pre }}f-tel" name="telefono" placeholder="+54 9 351 000 0000" required autocomplete="tel"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-ciudad">{{ t('Ciudad / país','City / country') }}</label><input type="text" id="{{ pre }}f-ciudad" name="ciudad" data-opt autocomplete="address-level2"></div>
+            <div class="fld"><label for="{{ pre }}f-monto">{{ t('Inversión estimada','Estimated investment') }}</label>
+              <select id="{{ pre }}f-monto" name="inversion" data-opt><option value="">—</option><option>Desde USD 160.000 (1 participación)</option><option>USD 160.000 a 320.000</option><option>Más de USD 320.000</option><option>A definir</option></select></div>
+            <div class="fld fld-full"><span class="flbl">{{ t('¿Ya invertiste con ZLT?','Have you invested with ZLT before?') }}</span>
+              <div class="seg"><label><input type="radio" name="ya_invirtio" value="Sí"><span>{{ t('Sí','Yes') }}</span></label><label><input type="radio" name="ya_invirtio" value="No" checked><span>No</span></label></div></div>
+          {% else %}
+            <div class="fld fld-full"><span class="flbl">{{ t('Me interesa','I’m interested in') }}</span>
+              <div class="seg">
+                <label><input type="radio" name="perfil_consulta" value="Empresa · alquilar en Nodo Flex" checked><span>{{ t('Operar en Nodo Flex','Operating at Nodo Flex') }}</span></label>
+                <label><input type="radio" name="perfil_consulta" value="Inversor · pool de renta"><span>{{ t('Invertir','Investing') }}</span></label>
+                <label><input type="radio" name="perfil_consulta" value="Nave a medida · próximas etapas"><span>{{ t('Nave a medida','A built-to-suit warehouse') }}</span></label>
+                <label><input type="radio" name="perfil_consulta" value="Otra consulta"><span>{{ t('Otra consulta','Other') }}</span></label>
+              </div></div>
+            <div class="fld"><label for="{{ pre }}f-nombre">{{ t('Nombre','First name') }}<i>*</i></label><input type="text" id="{{ pre }}f-nombre" name="nombre" required autocomplete="given-name"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-apellido">{{ t('Apellido','Last name') }}<i>*</i></label><input type="text" id="{{ pre }}f-apellido" name="apellido" required autocomplete="family-name"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld"><label for="{{ pre }}f-empresa">{{ t('Empresa','Company') }}</label><input type="text" id="{{ pre }}f-empresa" name="empresa" data-opt autocomplete="organization"></div>
+            <div class="fld"><label for="{{ pre }}f-tel">{{ t('Teléfono','Phone') }}<i>*</i></label><input type="tel" id="{{ pre }}f-tel" name="telefono" placeholder="+54 9 351 000 0000" required autocomplete="tel"><span class="err">{{ FLD_ERR }}</span></div>
+            <div class="fld fld-full"><label for="{{ pre }}f-email">Email<i>*</i></label><input type="email" id="{{ pre }}f-email" name="email" placeholder="nombre@empresa.com" required autocomplete="email"><span class="err">{{ FLD_ERR }}</span></div>
+          {% endif %}
+            <div class="fld fld-full"><label for="{{ pre }}f-msg">{{ t('Mensaje','Message') }}</label><textarea id="{{ pre }}f-msg" name="mensaje" rows="5" data-opt placeholder="{% if perfil == 'empresa' %}Contanos sobre tu operación: tipo de carga, frecuencia, requerimientos…{% elif perfil == 'inversor' %}Dejanos tu consulta y te contactamos…{% else %}Contanos en qué estás interesado…{% endif %}"></textarea></div>
+          </div>
+          <label class="fcheck"><input type="checkbox" name="newsletter" value="Sí"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></span><span>{{ t('Quiero recibir novedades de Nodo y ZLT','I’d like to receive Nodo and ZLT news') }}</span></label>
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        </div>
+        <button type="submit" class="fsend">{{ i_send() }}<span class="lbl-send">{{ t('Enviar consulta','Send enquiry') }}</span><span class="lbl-wait">{{ t('Enviando…','Sending…') }}</span></button>
+        <div class="fmsg ok" role="status"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12l5 5L20 7"/></svg><span>{{ t('<b>Gracias por escribirnos.</b><br>Recibimos tu consulta y te vamos a responder a la brevedad.','<b>Thanks for writing.</b><br>We got your enquiry and will get back to you shortly.') }}</span></div>
+        <div class="fmsg ko" role="alert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span>{{ t('No pudimos enviar la consulta. Escribinos a <a href="mailto:' ~ d.contacto.email ~ '">' ~ d.contacto.email ~ '</a> o por <a href="' ~ d.contacto.whatsapp ~ '" target="_blank" rel="noopener">WhatsApp</a>.','We could not send your enquiry. Write to <a href="mailto:' ~ d.contacto.email ~ '">' ~ d.contacto.email ~ '</a> or via <a href="' ~ d.contacto.whatsapp ~ '" target="_blank" rel="noopener">WhatsApp</a>.') }}</span></div>
+      </form>
+    </div>
+
+    <footer class="foot">
+      <nav class="foot-nav" aria-label="Mapa del sitio">
+        <div class="fn-col"><div class="fn-h">{{ t('El parque','The park') }}</div>
+          <a href="#/nodo-y-flex">{{ t('Nodo y Nodo Flex','Nodo & Nodo Flex') }}</a><a href="#/parque">{{ t('Parque logístico','Logistics park') }}</a><a href="#/etapas">{{ t('Masterplan y etapas','Masterplan & phases') }}</a><a href="#/servicios">{{ t('Infraestructura y servicios','Infrastructure & services') }}</a><a href="#/ubicacion">{{ t('Ubicación','Location') }}</a></div>
+        <div class="fn-col"><div class="fn-h">Nodo Flex</div>
+          <a href="#/nodo-flex">{{ t('La nave AAA','The AAA warehouse') }}</a><a href="#/avance">{{ t('Avance de obra','Construction progress') }}</a><a href="#/empresas">{{ t('Para empresas','For companies') }}</a><a href="#/inversores">{{ t('Para inversores','For investors') }}</a></div>
+        <div class="fn-col"><div class="fn-h">{{ t('Descargas','Downloads') }}</div>
+          <a href="{{ d.brochures.parque }}" download>{{ t('Brochure del parque','Park brochure') }}</a><a href="{{ d.brochures.empresas }}" download>{{ t('Brochure empresas','Companies brochure') }}</a><a href="{{ d.brochures.inversores }}" download>{{ t('Brochure inversores','Investors brochure') }}</a></div>
+        <div class="fn-col"><div class="fn-h">{{ t('Contacto','Contact') }}</div>
+          <a href="{{ d.contacto.whatsapp }}" target="_blank" rel="noopener">WhatsApp</a><a href="mailto:{{ d.contacto.email }}">{{ d.contacto.email }}</a><a href="#/prensa">{{ t('Prensa','Press') }}</a><a href="{{ d.redes.web_zlt }}" target="_blank" rel="noopener">somoszlt.com</a></div>
+      </nav>
+      <div class="foot-row">
+        <div class="foot-brand">{{ svg('nodo') }}<span class="sep"></span><small>{{ t('Desarrolla','Developed by') }} <img data-img="{{ img('logos/marca/zlt-isologo.png', 240) }}" alt="ZLT"></small></div>
+        <a class="btn btn-ghost" href="#/{{ 'empresas' if perfil == 'inversor' else ('inversores' if perfil == 'empresa' else 'empresas') }}">{% if perfil == 'empresa' %}{{ t('¿Buscás invertir? Ver Inversores','Looking to invest? See Investors') }}{% elif perfil == 'inversor' %}{{ t('¿Sos una empresa? Ver Empresas','A company? See Companies') }}{% else %}{{ t('Propuesta para empresas','Offer for companies') }}{% endif %}{{ i_arrow() }}</a>
+      </div>
+      <div class="foot-legal">
+        <p class="foot-disc">{{ t('La información, imágenes, renders, planos y equipamiento presentados son ilustrativos y no constituyen oferta contractual. Las especificaciones y superficies pueden modificarse sin previo aviso.','The information, images, renders, plans and equipment shown are illustrative and do not constitute a contractual offer. Specifications and areas may change without notice.') }}</p>
+        <span class="foot-copy">© 2026 Nodo · Parque Logístico · ZLT</span>
+      </div>
+    </footer>
+  </div>
+</section>
