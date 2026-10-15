@@ -1,5 +1,7 @@
 ﻿sección,título,enlace,dónde aparece
-Banner home,Video oficial Nodo Flex,https://www.youtube.com/watch?v=kDgVQJJAjqk,banner de la home (autoplay)
+Banner home,Video oficial Nodo Flex sin subtítulos (horizontal),https://youtu.be/iK5m5qP8ujw,encabezado de la home en computadora (autoplay)
+Banner home mobile,Video oficial Nodo Flex vertical (Short),https://www.youtube.com/shorts/7KsC7D_AQ6A,encabezado de la home en celular (autoplay)
+Video oficial,Video oficial Nodo Flex,https://www.youtube.com/watch?v=kDgVQJJAjqk,botón "Video oficial" de la home
 Nodo Flex,Avance de obra,https://www.youtube.com/watch?v=dWUhVN7Sczw,ficha Nodo Flex y secciones de avance
 Parque,Video del parque Nodo,https://www.youtube.com/watch?v=UM0AKwuwXd0,ficha del parque
 Parque,Recorrido 360° (Kuula),https://kuula.co/share/collection/7DXD8,ficha del parque

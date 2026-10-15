@@ -11,8 +11,8 @@ Tres vistas por dirección: `#/`, `#/empresas`, `#/inversores`.
 - Verificar: `python3 tools/verificar.py <carpeta_capturas>` (0 errores JS, 0 overflow,
   galerías íntegras, mapas inicializados en 1440/768/390). Límite del HTML: 30 MiB.
 - Todo texto visible lleva las dos versiones: `{{ t('es','en') }}`.
-- Video de la Home: desde YouTube con la API oficial del reproductor (`sitio.json` → videos.banner = horizontal
-  kDgVQJJAjqk; videos.banner_vertical = Short 7KsC7D_AQ6A para celular vertical). Arranca solo y sin sonido,
+- Video de la Home: desde YouTube con la API oficial del reproductor (`sitio.json` → videos.banner_header = horizontal
+  sin subtítulos iK5m5qP8ujw; videos.banner = kDgVQJJAjqk, el oficial público del botón "Video oficial"; videos.banner_vertical = Short 7KsC7D_AQ6A para celular vertical). Arranca solo y sin sonido,
   sin subtítulos (CC) nunca, sin controles de YouTube; botones propios de pausa y sonido. La pantalla de carga
   espera a que YouTube esté reproduciendo en HD (720p o más). Abierto como archivo suelto (file://) YouTube no
   carga: se ve la imagen fija; en la web publicada sí.
