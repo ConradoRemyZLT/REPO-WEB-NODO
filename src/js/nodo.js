@@ -24,21 +24,50 @@
     else el.style.backgroundImage = 'url(' + src + ')';
   }
   function hydrate(root) { $$('[data-img],[data-bg]', root).forEach(put); }
-  // primero lo que se ve al cargar
-  $$('[data-eager],.vhero [data-bg],.hdr [data-img]').forEach(put);
-  var hio = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) { hydrate(e.target); hio.unobserve(e.target); } });
-  }, { rootMargin: '900px 0px' });
-  $$('section, .foot').forEach(function (s) { hio.observe(s); });
+  // todas las imágenes se colocan de entrada: la pantalla de carga espera a que estén listas
+  hydrate(document);
 
-  /* ══════════ Preloader ══════════ */
+  /* ══════════ Pantalla de carga ══════════
+     Se queda hasta que TODAS las imágenes (embebidas y de prensa) están decodificadas y los
+     videos de los encabezados pueden reproducirse sin cortes. La barra muestra el avance real.
+     Tope de seguridad: 90 s (si la conexión es muy lenta, la web se muestra igual). */
+  var PRE = { tasks: [], add: function (p) { this.tasks.push(p); } };
   (function () {
-    var bar = $('#pre .pbar i'), done = false;
-    function finish() { if (done) return; done = true; if (bar) bar.style.width = '100%'; setTimeout(function () { document.body.classList.add('ready'); }, 220); }
-    if (bar) requestAnimationFrame(function () { bar.style.width = '70%'; });
-    if (document.readyState === 'complete') setTimeout(finish, 300);
-    else addEventListener('load', function () { setTimeout(finish, 200); });
-    setTimeout(finish, 2500);
+    var bar = $('#pre .pbar i'), done = false, total = 0, ok = 0;
+    document.documentElement.classList.add('loading');
+    function paint() { if (bar) bar.style.width = (total ? Math.max(4, Math.round(ok / total * 100)) : 4) + '%'; }
+    function track(p) { total++; paint(); return Promise.resolve(p).catch(function () {}).then(function () { ok++; paint(); }); }
+    function withCap(p, ms) { return Promise.race([p, new Promise(function (r) { setTimeout(r, ms); })]); }
+    function imgReady(im) {
+      if (!im.getAttribute('src')) return Promise.resolve();
+      var p = (im.complete && im.naturalWidth) ? Promise.resolve()
+        : new Promise(function (r) { im.addEventListener('load', r, { once: true }); im.addEventListener('error', r, { once: true }); });
+      return p.then(function () { return im.decode ? im.decode().catch(function () {}) : null; });
+    }
+    function bgReady(el) {
+      var m = /url\(["']?(.*?)["']?\)/.exec(el.style.backgroundImage || ''); if (!m) return Promise.resolve();
+      var im = new Image(); im.src = m[1];
+      return im.decode ? im.decode().catch(function () {}) : new Promise(function (r) { im.onload = im.onerror = r; });
+    }
+    function finish() {
+      if (done) return; done = true; ok = total; paint();
+      setTimeout(function () {
+        document.body.classList.add('ready'); document.documentElement.classList.remove('loading');
+        // el video de la Home arranca desde el principio cuando se levanta la pantalla
+        var hv = $('#inicio video.hv');
+        if (hv && document.body.dataset.view === 'home') { try { hv.currentTime = 0; } catch (e) {} var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+      }, 260);
+    }
+    setTimeout(function () {                       // cuando ya se registraron los videos
+      var all = [];
+      $$('img').forEach(function (im) { if (im.closest('#pre')) return; im.loading = 'eager'; all.push(track(withCap(imgReady(im), 30000))); });
+      $$('[data-bg]').forEach(function (el) { all.push(track(withCap(bgReady(el), 30000))); });
+      PRE.tasks.forEach(function (p) { all.push(track(p)); });
+      var fonts = document.fonts && document.fonts.ready; if (fonts) all.push(track(withCap(fonts, 15000)));
+      all.push(track(new Promise(function (r) { if (document.readyState === 'complete') r(); else addEventListener('load', r, { once: true }); })));
+      Promise.all(all).then(finish);
+    }, 0);
+    setTimeout(finish, 90000);
   })();
 
   /* ══════════ Reveals ══════════ */
@@ -256,7 +285,17 @@
         else { seen.delete(v); if (!v.paused) v.pause(); if (!v.muted) v.muted = true; }
       });
     }, { threshold: 0.2 });
-    vids.forEach(function (v) { io.observe(v); });
+    vids.forEach(function (v) {
+      load(v); v.preload = 'auto'; v.load();
+      PRE.add(new Promise(function (r) {
+        if (v.readyState >= 4) return r();
+        var t = setTimeout(r, 75000);
+        function ok() { clearTimeout(t); v.removeEventListener('canplaythrough', ok); v.removeEventListener('error', bad); r(); }
+        function bad() { if ((v._e || 0) + 1 >= EXT.length) ok(); }   // si falla también el respaldo, no traba la carga
+        v.addEventListener('canplaythrough', ok); v.addEventListener('error', bad);
+      }));
+      io.observe(v);
+    });
     var rt; addEventListener('resize', function () {
       clearTimeout(rt); rt = setTimeout(function () {
         seen.forEach(function (v) {

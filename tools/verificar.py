@@ -33,6 +33,7 @@ async def main():
                 pg.on('pageerror',lambda e: errs.append(str(e)))
                 pg.on('console',lambda m: errs.append(m.text) if m.type=='error' and 'net::' not in m.text and 'Failed to load resource' not in m.text else None)
                 await pg.goto(HTML+('#/'+view if view else ''),wait_until='load')
+                await pg.wait_for_function("document.body.classList.contains('ready')", timeout=120000)
                 if CSSF: await pg.add_style_tag(content=CSSF)
                 await pg.add_style_tag(content='*,*::before,*::after{transition:none!important;animation:none!important}[data-reveal]{opacity:1!important;transform:none!important;filter:none!important}.hline>span{transform:none!important}')
                 await pg.wait_for_timeout(600)
