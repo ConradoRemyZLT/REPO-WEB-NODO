@@ -31,7 +31,7 @@
      Se queda hasta que TODAS las imágenes (embebidas y de prensa) están decodificadas y los
      videos de los encabezados pueden reproducirse sin cortes. La barra muestra el avance real.
      Tope de seguridad: 90 s (si la conexión es muy lenta, la web se muestra igual). */
-  var PRE = { tasks: [], add: function (p) { this.tasks.push(p); } };
+  var PRE = { tasks: [], done: [], add: function (p) { this.tasks.push(p); }, ready: function (f) { this.done.push(f); } };
   (function () {
     var bar = $('#pre .pbar i'), done = false, total = 0, ok = 0;
     document.documentElement.classList.add('loading');
@@ -53,9 +53,7 @@
       if (done) return; done = true; ok = total; paint();
       setTimeout(function () {
         document.body.classList.add('ready'); document.documentElement.classList.remove('loading');
-        // el video de la Home arranca desde el principio cuando se levanta la pantalla
-        var hv = $('#inicio video.hv');
-        if (hv && document.body.dataset.view === 'home') { try { hv.currentTime = 0; } catch (e) {} var pr = hv.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        PRE.done.forEach(function (f) { try { f(); } catch (e) {} });   // p. ej. el video de la Home vuelve al principio
       }, 260);
     }
     setTimeout(function () {                       // cuando ya se registraron los videos
@@ -304,6 +302,120 @@
         });
       }, 300);
     });
+  })();
+  /* ══════════ Video de la Home, desde YouTube (API oficial del reproductor) ══════════
+     Horizontal (data-yt16) en escritorio, vertical (data-yt9, el Short) en celular vertical.
+     Siempre arranca solo y sin sonido, sin subtítulos (se descarga el módulo de CC) y sin controles de YouTube.
+     La pantalla de carga espera a que el video esté reproduciendo en HD (720p o más) — el máximo que da
+     YouTube para el tamaño de pantalla — y recién ahí se levanta; el video vuelve al segundo 0. */
+  (function () {
+    var wrap = $('#inicio .hv-yt'); if (!wrap) return;
+    var box = wrap.closest('section'), host = $('.hv-yt-in', wrap);
+    var HD = /^(hd720|hd1080|hd1440|hd2160|highres)$/;
+    var player = null, cur = null, user = false, muted = true, ready = false, hdOk, hdP = new Promise(function (r) { hdOk = r; });
+    function portrait() { return innerWidth < innerHeight && innerWidth < 900; }
+    function want() { return portrait() ? (wrap.dataset.yt9 || wrap.dataset.yt16) : wrap.dataset.yt16; }
+    function ratio() { return cur === wrap.dataset.yt9 && cur !== wrap.dataset.yt16 ? 9 / 16 : 16 / 9; }
+    function fit() {                                   // "cover": llena el encabezado sin barras negras
+      var f = $('iframe', wrap); if (!f) return;
+      var r = box.getBoundingClientRect(), w = r.width, h = r.height, k = ratio();
+      if (!w || !h) return;
+      var fw = w / h > k ? w : h * k, fh = fw / k;
+      fw *= 1.02; fh *= 1.02;                          // un pelo más grande: no se ve ningún borde
+      f.style.width = fw + 'px'; f.style.height = fh + 'px';
+    }
+    function noCC() {
+      if (!player) return;
+      try { player.unloadModule('captions'); player.unloadModule('cc'); } catch (e) {}
+      try { player.setOption('captions', 'track', {}); } catch (e) {}
+    }
+    function best() { try { player.setPlaybackQuality('hd1080'); } catch (e) {} }
+    function setState() {
+      box.classList.toggle('is-muted', muted);
+      box.classList.toggle('is-paused', user);
+    }
+    function play() { if (player && ready && !user) { try { player.playVideo(); } catch (e) {} } }
+    function watchHD() {                               // resuelve la pantalla de carga cuando hay HD
+      (function chk() {
+        var q = ''; try { q = player.getPlaybackQuality(); } catch (e) {}
+        if (HD.test(q)) return hdOk();
+        setTimeout(chk, 200);
+      })();
+    }
+    function build() {
+      cur = want();
+      player = new YT.Player(host, {
+        host: 'https://www.youtube-nocookie.com', videoId: cur, width: '100%', height: '100%',
+        playerVars: { autoplay: 1, mute: 1, controls: 0, disablekb: 1, fs: 0, rel: 0, iv_load_policy: 3,
+          cc_load_policy: 0, cc_lang_pref: 'none', modestbranding: 1, playsinline: 1, showinfo: 0, vq: 'hd1080',
+          hl: document.documentElement.lang || 'es', origin: location.protocol.indexOf('http') === 0 ? location.origin : undefined },
+        events: {
+          onReady: function () {
+            ready = true; var f = $('iframe', wrap);
+            if (f) { f.setAttribute('tabindex', '-1'); f.title = 'Video oficial de Nodo Flex'; }
+            player.mute(); best(); noCC(); fit(); play();
+          },
+          onApiChange: noCC,
+          onPlaybackQualityChange: function (e) { if (HD.test(e.data)) hdOk(); },
+          onStateChange: function (e) {
+            if (e.data === 1) { noCC(); best(); wrap.classList.add('on'); watchHD(); }
+            if (e.data === 0) { player.seekTo(0, true); player.playVideo(); }        // loop sin salto a otro video
+          },
+          onError: function () { hdOk(); }             // si YouTube no lo deja ver, queda la imagen fija
+        }
+      });
+      [800, 2500, 6000].forEach(function (t) { setTimeout(noCC, t); });
+    }
+    // la pantalla de carga espera el HD (tope 75 s, como los otros videos)
+    PRE.add(new Promise(function (r) { hdP.then(r); setTimeout(r, 75000); }));
+    PRE.ready(function () {
+      if (!player || !ready) return;
+      try { player.seekTo(0, true); } catch (e) {}
+      if (document.body.dataset.view === 'home') play();
+    });
+    if (window.YT && YT.Player) build();
+    else {
+      var prev = window.onYouTubeIframeAPIReady;
+      window.onYouTubeIframeAPIReady = function () { if (prev) prev(); build(); };
+      var sc = document.createElement('script'); sc.src = 'https://www.youtube.com/iframe_api'; sc.async = true;
+      sc.onerror = function () { hdOk(); };
+      document.head.appendChild(sc);
+    }
+    $$('.js-vplay', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!player || !ready) return;
+        if (user || player.getPlayerState() !== 1) { user = false; play(); } else { user = true; player.pauseVideo(); }
+        setState();
+      });
+    });
+    $$('.js-vmute', box).forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (!player || !ready) return;
+        if (muted) {
+          $$('video').forEach(function (v) { v.muted = true; });
+          players.forEach(function (o) { if (!o.muted) setMuted(o, true); });
+          player.unMute(); player.setVolume(100); muted = false; user = false; play();
+        } else { player.mute(); muted = true; }
+        setState();
+      });
+    });
+    setState();
+    addEventListener('resize', function () {
+      fit();
+      if (!player || !ready) return;
+      var w = want(); if (w === cur) return;          // giró el celular → cambia a la otra versión
+      cur = w; wrap.classList.remove('on'); player.loadVideoById({ videoId: w, startSeconds: 0 });
+      if (muted) player.mute(); fit();
+    }, { passive: true });
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(box);
+    if (RM) return;
+    new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!player || !ready) return;
+        if (e.isIntersecting) play();
+        else { try { player.pauseVideo(); } catch (x) {} if (!muted) { player.mute(); muted = true; setState(); } }
+      });
+    }, { threshold: 0.2 }).observe(box);
   })();
   $$('.pv-auto').forEach(function (el) {
     var p = { el: el, id: el.dataset.yt, kind: 'proj', muted: true, title: 'Avance de obra' };

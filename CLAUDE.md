@@ -1,7 +1,7 @@
 # web-nodo
 
 Web de Nodo (parque logístico) y Nodo Flex (ver `LEEME.txt`). Un HTML con todo adentro
-salvo los videos de los encabezados (carpeta `Home/html/videos/`, al lado del HTML).
+salvo los loops de dron (carpeta `Home/html/videos/`, al lado del HTML) y el video de la Home, que viene de YouTube.
 Tres vistas por dirección: `#/`, `#/empresas`, `#/inversores`.
 
 ## Cómo se trabaja
@@ -11,11 +11,13 @@ Tres vistas por dirección: `#/`, `#/empresas`, `#/inversores`.
 - Verificar: `python3 tools/verificar.py <carpeta_capturas>` (0 errores JS, 0 overflow,
   galerías íntegras, mapas inicializados en 1440/768/390). Límite del HTML: 30 MiB.
 - Todo texto visible lleva las dos versiones: `{{ t('es','en') }}`.
-- Videos de encabezado (en `Home/html/videos/`, se publican junto al HTML como `videos/…`):
-  Home = video oficial de Nodo Flex (`nodo-oficial-16x9` escritorio, `-9x16` celular vertical), con sonido,
-  arranca solo y sin sonido; botones de pausa y sonido. Empresas e Inversores = loop de dron sin sonido
-  (`nodo-hero-*`). Cada uno en .mp4 (H.264) y .webm (VP9, respaldo). Si se abre el HTML suelto, sin la
-  carpeta videos/, se ve la imagen fija.
+- Video de la Home: desde YouTube con la API oficial del reproductor (`sitio.json` → videos.banner = horizontal
+  kDgVQJJAjqk; videos.banner_vertical = Short 7KsC7D_AQ6A para celular vertical). Arranca solo y sin sonido,
+  sin subtítulos (CC) nunca, sin controles de YouTube; botones propios de pausa y sonido. La pantalla de carga
+  espera a que YouTube esté reproduciendo en HD (720p o más). Abierto como archivo suelto (file://) YouTube no
+  carga: se ve la imagen fija; en la web publicada sí.
+- Empresas e Inversores = loop de dron sin sonido (`Home/html/videos/nodo-hero-*`, .mp4 H.264 + .webm VP9),
+  publicados junto al HTML como `videos/…`.
 - Imágenes: en las plantillas se piden con `img('fotos/…', ancho)` → atributo `data-img`;
   viajan una sola vez en `#nodo-img` y el JS las coloca. Íconos: `ico('nombre')` → clase con máscara.
 - Marca: azul #0026A3, hueso #ECE9E5, azul medio #7E92C3, Gilroy. Titulares en mayúsculas

@@ -47,10 +47,12 @@ CÓMO ESTÁ ORDENADO
     links/       videos, contacto, prensa y enlaces, en planillas
     _inventario.csv   qué es cada archivo y de dónde salió
 
-  Home/html/videos/  los videos de los encabezados, al lado del HTML (no entran
-                 adentro): el video oficial de Nodo Flex para la Home (horizontal
-                 y vertical, con sonido) y el loop de dron de Empresas e Inversores.
-                 MP4 y WebM. Para ver los videos, abrir el HTML desde esa carpeta.
+  Home/html/videos/  el loop de dron de Empresas e Inversores, al lado del HTML
+                 (MP4 y WebM) y las imágenes fijas del video de la Home.
+                 El video de la Home se reproduce desde YouTube (horizontal en
+                 computadora, el Short vertical en celular), en HD y sin subtítulos;
+                 la pantalla de carga espera a que esté en HD. Abriendo el HTML
+                 suelto en la computadora YouTube no carga y se ve la imagen fija.
 
   src/           el código fuente de la web
     plantillas/  el HTML por partes (home, empresas, inversores, contacto…)
