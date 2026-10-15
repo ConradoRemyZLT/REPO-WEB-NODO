@@ -149,8 +149,8 @@ body[data-view="inversores"] [data-only~="inversores"]{display:revert!important}
   display:grid;place-items:center;align-content:center;gap:26px;
   transition:opacity .7s var(--ease-out),visibility .7s;
 }
-#pre svg{width:clamp(130px,15vw,190px);color:#fff;animation:preIn 1.1s var(--ease-out) both}
-#pre .pbar{width:min(190px,42vw);height:2px;background:rgba(255,255,255,.18);overflow:hidden;border-radius:2px}
+#pre svg{width:clamp(210px,22vw,300px);height:auto;color:#fff;animation:preIn 1.1s var(--ease-out) both}
+#pre .pbar{width:min(210px,52vw);height:2px;background:rgba(255,255,255,.18);overflow:hidden;border-radius:2px}
 #pre .pbar i{display:block;height:100%;width:0;background:#fff;transition:width .35s linear}
 @keyframes preIn{from{opacity:0;transform:translateY(14px) scale(.97);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
 body.ready #pre{opacity:0;visibility:hidden}
