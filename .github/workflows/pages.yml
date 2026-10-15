@@ -3,7 +3,7 @@
 # Arma una copia del sitio en _site/:
 #   /index.html             ← Home/html/NODO-WEB-home.html
 #   /videos/                ← Home/html/videos (videos de los encabezados; no entran en el HTML)
-#   /brochures/*.pdf        ← Home/brochures
+#   /brochures/*.pdf        ← Home/html/brochures
 #   /empresas/ /inversores/ ← direcciones cortas para campañas: redirigen a #/empresas y #/inversores
 #   favicon, ícono de iOS e imagen para compartir (og-nodo.jpg)
 # La web es pública (sin login). Sigue en noindex hasta la mudanza del dominio.
@@ -37,7 +37,7 @@ jobs:
           mkdir -p _site/brochures _site/empresas _site/inversores
           cp Home/html/NODO-WEB-home.html _site/index.html
           cp -r Home/html/videos _site/videos
-          cp Home/brochures/*.pdf _site/brochures/
+          cp Home/html/brochures/*.pdf _site/brochures/
           cp Home/iconos/web/favicon.ico Home/iconos/web/apple-touch-icon.png Home/iconos/web/og-nodo.jpg _site/
           cp Home/html/robots.txt _site/robots.txt
           for v in empresas inversores; do

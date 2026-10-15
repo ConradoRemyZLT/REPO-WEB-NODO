@@ -446,7 +446,7 @@
     b.addEventListener('click', function (e) { e.preventDefault(); var o = it.classList.contains('open'); closeAll(); if (!o) it.classList.add('open'); });
   });
   document.addEventListener('click', function (e) { if (!e.target.closest('.mi')) closeAll(); });
-  addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeAll(); document.body.classList.remove('mopen'); } });
+  addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeAll(); document.body.classList.remove('mopen'); var mb = $('#mbtn'); if (mb) mb.setAttribute('aria-expanded', 'false'); } });
   var mbtn = $('#mbtn');
   $$('.mov a, .mov .m-group-h').forEach(function (el, k) { el.style.transitionDelay = (0.14 + k * 0.02) + 's'; });
   if (mbtn) mbtn.addEventListener('click', function () { var o = document.body.classList.toggle('mopen'); mbtn.setAttribute('aria-expanded', o); });
@@ -535,7 +535,7 @@
     var a = e.target.closest && e.target.closest('a[href^="#/"]');
     if (!a) return;
     e.preventDefault();
-    closeAll(); document.body.classList.remove('mopen');
+    closeAll(); document.body.classList.remove('mopen'); var mb = $('#mbtn'); if (mb) mb.setAttribute('aria-expanded', 'false');
     // preselección del motivo de consulta en el formulario general
     if (a.dataset.perfil) {
       var fg = $('#form-general');

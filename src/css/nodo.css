@@ -432,16 +432,17 @@ body.mopen .mov a,body.mopen .mov .m-group-h{opacity:1;transform:none}
 .duo-t{font-size:clamp(18px,1.7vw,23px);font-weight:300;text-transform:uppercase;line-height:1.15;color:var(--nodo)}
 .duo-t b{font-weight:800}
 .duo-card.flex .duo-t{color:#fff}
-.duo-p{font-size:15px;line-height:1.65;color:var(--tx-2)}
+.duo-p{font-size:clamp(15.5px,1.2vw,17px);line-height:1.6;color:var(--tx-2);max-width:46ch}
 .duo-card.flex .duo-p{color:#D3DAF3}
 .duo-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 20px;margin-top:auto;padding-top:22px;border-top:1px solid var(--line-l)}
 .duo-card.flex .duo-facts{border-top-color:rgba(255,255,255,.18)}
 .duo-facts b{display:block;font-size:clamp(22px,2.2vw,30px);font-weight:800;letter-spacing:-.03em;line-height:1.05;color:var(--nodo)}
 .duo-card.flex .duo-facts b{color:#fff}
-.duo-facts span{display:block;margin-top:6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.duo-facts span{display:block;margin-top:6px;font-size:13.5px;font-weight:500;color:var(--muted)}
 .duo-card.flex .duo-facts span{color:#AFBDEA}
-.duo-go{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--nodo);transition:gap .35s var(--ease-out)}
+.duo-go{display:inline-flex;align-items:center;gap:9px;font-size:14.5px;font-weight:700;color:var(--nodo);transition:gap .35s var(--ease-out)}
 .duo-go:hover{gap:14px}
+.duo-go{align-self:flex-start;padding:6px 0}
 .duo-go svg{width:15px;height:15px}
 .duo-card.flex .duo-go{color:#fff}
 .duo-map{
@@ -1123,3 +1124,6 @@ body.on-dark #dotnav a.active{background:#fff}
 }
 
 .d-block{display:block}
+
+/* Pantallas muy angostas: los botones largos pasan a dos líneas en vez de salirse */
+@media (max-width:400px){.btn{white-space:normal;text-align:center;line-height:1.3}}
