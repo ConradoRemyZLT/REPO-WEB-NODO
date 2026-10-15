@@ -537,7 +537,13 @@
     e.preventDefault();
     closeAll(); document.body.classList.remove('mopen');
     // preselección del motivo de consulta en el formulario general
-    if (a.dataset.perfil) { var r = $('#form-general input[value="' + a.dataset.perfil + '"]'); if (r) r.checked = true; }
+    if (a.dataset.perfil) {
+      var fg = $('#form-general');
+      if (fg && fg._pane) {
+        var inv = /inversor/i.test(a.dataset.perfil); fg._pane(inv ? 'inversor' : 'empresa');
+        if (!inv) { var rb = $('select[name="rubro"]', fg); if (rb) $$('option', rb).forEach(function (o) { if (o.textContent === a.dataset.perfil) rb.value = o.value || o.textContent; }); }
+      }
+    }
     var h = a.getAttribute('href');
     if (h === location.hash || (h === '#/' && !location.hash)) route(true);
     else { history.pushState(null, '', h); route(true); }
@@ -553,7 +559,21 @@
   /* ══════════ Formularios (FormSubmit, como la v2) ══════════ */
   var ASUNTO = { general: '[Nodo] Consulta desde la web', empresa: '[Nodo Flex · Empresa] Consulta desde la web', inversor: '[Nodo Flex · Inversor] Consulta desde la web' };
   $$('form.cform').forEach(function (form) {
-    var req = $$('.fld input[required], .fld textarea[required], .fld select[required]', form);
+    var all = $$('.fld input[required], .fld textarea[required], .fld select[required]', form);
+    // selector «Soy empresa / Soy inversor»: cada uno muestra sus campos; los ocultos no se validan ni se envían
+    function pane(name) {
+      $$('.ftab', form).forEach(function (t) { var on = t.dataset.pane === name; t.classList.toggle('on', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      $$('.fpane', form).forEach(function (p) {
+        var on = p.dataset.pane === name; p.hidden = !on;
+        $$('input,select,textarea', p).forEach(function (f) { f.disabled = !on; if (!on) { var fl = f.closest('.fld'); if (fl) fl.classList.remove('bad'); } });
+      });
+      form.dataset.perfil = name;
+      form.classList.remove('failed');
+    }
+    form._pane = pane;
+    $$('.ftab', form).forEach(function (t) { t.addEventListener('click', function () { pane(t.dataset.pane); }); });
+    if ($('.ftab', form)) pane(form.dataset.perfil || 'empresa');
+    var req = all;
     function valid(el) {
       var v = (el.value || '').trim(); if (!v) return false;
       if (el.type === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
@@ -570,13 +590,13 @@
       e.preventDefault();
       if (form.classList.contains('sending')) return;
       form.classList.remove('failed');
-      var bad = req.filter(function (el) { return !mark(el); });
+      var bad = req.filter(function (el) { return !el.disabled && !mark(el); });
       if (bad.length) { bad[0].focus(); return; }
       var hp = form.querySelector('[name="_honey"]'); if (hp && hp.value) return;
       var perfil = form.dataset.perfil;
       var data = { _subject: ASUNTO[perfil] || ASUNTO.general, _template: 'table', origen: 'Web Nodo · ' + perfil, idioma: EN() ? 'EN' : 'ES' };
       $$('input[name],textarea[name],select[name]', form).forEach(function (el) {
-        if (el.name.charAt(0) === '_' ) return;
+        if (el.name.charAt(0) === '_' || el.disabled) return;
         if ((el.type === 'radio' || el.type === 'checkbox') && !el.checked) return;
         var v = (el.value || '').trim(); if (v) data[el.name] = v;
       });

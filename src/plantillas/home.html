@@ -1,6 +1,6 @@
-{% from 'parciales/macros.html' import vctrl, head, gallery, accompany, services, location, progress, sound_btn, i_arrow, i_down, i_play, i_ext, i_zoom, PARTNERS %}
+{% from 'parciales/macros.html' import vctrl, i_plus, head, gallery, accompany, services, location, progress, sound_btn, i_arrow, i_down, i_play, i_ext, i_zoom, PARTNERS %}
 
-{# ═════════ 1 · BANNER: video de Nodo Flex (agosto 2026), embebido en el HTML ═════════ #}
+{# ═════════ 1 · BANNER: video oficial de Nodo Flex (videos/, al lado del HTML) ═════════ #}
 <section id="inicio" class="vhero dk is-muted" data-vbox aria-label="Video oficial de Nodo Flex">
   <div class="vhero-frame">
     <img class="hv-poster p16" data-img="{{ img('html/videos/nodo-oficial-16x9.jpg', 1920, 74) }}" data-eager alt="">
@@ -37,11 +37,11 @@
 <section id="nodo-y-flex" class="sec white" aria-label="Nodo y Nodo Flex">
   <div class="wrap">
     {{ head('Dos escalas, un mismo ecosistema','Two scales, one ecosystem',
-            'NODO ES EL PARQUE. <b>NODO FLEX, SU PRIMERA NAVE.</b>','NODO IS THE PARK. <b>NODO FLEX IS ITS FIRST WAREHOUSE.</b>',
+            'NODO, <b>CONEXIÓN COMO NINGUNA OTRA</b>','NODO, <b>A CONNECTION LIKE NO OTHER</b>',
             'Nodo es el predio completo: un parque logístico de 22 hectáreas con 14 naves, servicios e infraestructura compartidos. Nodo Flex es la primera nave que se construye adentro: 14.400 m² AAA pensados para que varias empresas operen al mismo tiempo.',
             'Nodo is the whole site: a 22-hectare logistics park with 14 warehouses and shared services and infrastructure. Nodo Flex is the first warehouse being built inside it: 14,400 m² of AAA space designed for several companies to operate at the same time.') }}
     <div class="duo">
-      <article class="duo-card" data-reveal="up">
+      <article class="duo-card flex" data-reveal="up">
         <span class="duo-k">{{ t('El parque logístico','The logistics park') }}</span>
         {{ svg('nodo', 'duo-logo', 'Nodo') }}
         <p class="duo-t">{{ t('Un predio de <b>22 ha</b> con naves logísticas, comerciales, edificio corporativo y centro de convenciones.','A <b>22-ha</b> site with logistics and retail warehouses, a corporate building and a convention centre.') }}</p>
@@ -68,13 +68,6 @@
         <a class="duo-go" href="#/nodo-flex">{{ t('Conocé Nodo Flex','Explore Nodo Flex') }}{{ i_arrow() }}</a>
       </article>
     </div>
-    <div class="duo-map" data-reveal="up">
-      <img data-img="{{ img('fotos/ilustraciones/parque-con-nodo-flex.png', 1600) }}" alt="Plano del Parque Logístico Nodo con la ubicación de Nodo Flex">
-      <div class="duo-legend">
-        <div><i style="background:#9DB0A8"></i><span>{{ t('<b>Nodo</b> · el predio completo, con calles, accesos y espacios verdes','<b>Nodo</b> · the whole site, with roads, access points and green areas') }}</span></div>
-        <div><i style="background:var(--nodo)"></i><span>{{ t('<b>Nodo Flex</b> · la primera nave del parque, en construcción (finaliza en ' ~ d.obra.fin_es ~ ')','<b>Nodo Flex</b> · the park’s first warehouse, under construction (completion ' ~ d.obra.fin_en ~ ')') }}</span></div>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -85,10 +78,9 @@
       <div class="phead-txt">
         <div class="phead-row">
           <div class="eyebrow" data-reveal="up">{{ t('Parque logístico','Logistics park') }}</div>
-          <span class="tag big-tag tag-adv pstatus" data-reveal="up" style="--d:.06s">{{ t('En ejecución','Under development') }}</span>
         </div>
         <h2 class="sr-only">Nodo</h2>
-        <div class="place" data-reveal="up" style="--d:.12s">{{ t('Autovía Nacional 19, km 13 · Córdoba, Argentina','National Motorway 19, km 13 · Córdoba, Argentina') }}</div>
+        <a class="place" href="{{ d.contacto.maps }}" target="_blank" rel="noopener" data-reveal="up" style="--d:.12s">{{ t('Autovía Nacional 19, km 13 · Córdoba, Argentina','National Motorway 19, km 13 · Córdoba, Argentina') }}</a>
       </div>
       <div class="plogo-box" data-reveal="up" style="--d:.1s">{{ svg('nodo-slogan', '', 'Nodo · Conexión como ninguna otra') }}</div>
     </div>
@@ -109,13 +101,12 @@
       <span class="chip">{{ t('Naves tipo A y AAA','A and AAA warehouses') }}</span><span class="chip">{{ t('Pórticos de 20 m de luz','20 m span frames') }}</span><span class="chip">{{ t('Pisos de hormigón llaneado','Power-floated concrete floors') }}</span><span class="chip">{{ t('Red de incendios con hidrantes','Hydrant fire network') }}</span><span class="chip">{{ t('Control de acceso','Access control') }}</span><span class="chip">{{ t('Coworking y gastronomía','Coworking and food service') }}</span>
     </div>
     {{ gallery([
-      ('fotos/parque/parque-03.jpg','El predio sobre la Autovía 19','The site on Motorway 19'),
-      ('fotos/nodo-flex/nodo-flex-05.jpg','Acceso desde la autovía','Access from the motorway'),
-      ('fotos/nodo-flex/nodo-flex-14.jpg','Vista general del predio','Overview of the site'),
-      ('fotos/nodo-flex/nodo-flex-04.jpg','Calles internas y Nodo Flex','Internal roads and Nodo Flex'),
-      ('fotos/parque/parque-02.jpg','Calles internas','Internal roads'),
-      ('fotos/parque/parque-05.jpg','El predio','The site'),
-      ('fotos/parque/parque-06.jpg','Cartel del parque','Park sign')], 'Parque Logístico Nodo') }}
+      ('fotos/renders/parque-aereo-01.jpg','Render · parque completo','Render · full park'),
+      ('fotos/renders/portico-acceso.jpg','Render · pórtico de acceso','Render · entrance gate'),
+      ('fotos/renders/naves-playon.jpg','Render · naves y playón','Render · warehouses and yard'),
+      ('fotos/renders/parque-aereo-02.jpg','Render · vista desde la autovía','Render · view from the motorway'),
+      ('fotos/renders/naves-frente.jpg','Render · frente de naves','Render · warehouse fronts'),
+      ('fotos/renders/nodo-flex-fachada.jpg','Render · Nodo Flex','Render · Nodo Flex')], 'Parque Logístico Nodo') }}
     <div class="tour" data-reveal="up">
       <div class="tour-head">
         <div class="tour-lab">{{ t('Recorrido 360°','360° tour') }}</div>
@@ -139,69 +130,29 @@
   </div>
 </section>
 
-{# ═════════ 5 · MASTERPLAN Y PRÓXIMAS ETAPAS ═════════ #}
-{% set LOTS = [
-  (1,1,'786,217 795,171 861,184 852,229'),(2,1,'470,182 488,103 774,169 756,248'),(3,1,'329,143 347,71 442,94 425,166'),(4,1,'234,321 422,254 456,349 268,416'),
-  (5,2,'130,123 154,28 251,51 228,147'),(6,2,'101,253 124,156 223,180 200,277'),(7,2,'83,332 94,283 191,306 179,355'),(8,2,'521,322 639,279 661,340 543,383'),(9,2,'268,416 458,348 482,416 293,484'),
-  (10,3,'813,312 1022,237 1032,267 824,342'),(11,3,'541,411 749,334 760,364 552,440'),(12,3,'300,499 485,432 495,461 310,528'),(13,3,'200,516 244,502 259,546 215,561'),(14,3,'181,427 209,416 229,467 202,478')] %}
-<section id="etapas" class="sec blue dk" aria-label="Masterplan y etapas">
+{# ═════════ 5 · UBICACIÓN ═════════ #}
+{{ location('') }}
+
+{# ═════════ 6 · INFRAESTRUCTURA Y SERVICIOS ═════════ #}
+<section id="servicios" class="sec mist" aria-label="Infraestructura y servicios">
   <div class="wrap">
-    {{ head('Masterplan','Masterplan','MASTERPLAN Y <b>PRÓXIMAS ETAPAS</b>','MASTERPLAN AND <b>NEXT PHASES</b>',
-            'El parque se desarrolla en tres etapas. La primera ya está en marcha y arranca con Nodo Flex. Tocá una etapa para verla en el plano.',
-            'The park is developed in three phases. The first is under way and starts with Nodo Flex. Tap a phase to see it on the plan.') }}
-    <div class="mp-grid">
-      <div data-reveal="up">
-        <div class="mp" id="mp" data-etapa="1">
-          <img data-img="{{ img('fotos/ilustraciones/masterplan-etapas.png', 1280, 90) }}" alt="Masterplan del Parque Logístico Nodo por etapas" width="1280" height="720">
-          <svg viewBox="0 0 1280 720" aria-hidden="true">
-          {% for n, e, pts in LOTS %}<polygon class="lot{{ ' flex' if n == 2 }}" data-n="{{ n }}" data-e="{{ e }}" points="{{ pts }}"/>{% endfor %}
-          </svg>
-          <span class="mp-flag" style="left:48.6%;top:15%">{{ svg('nodo-flex','','Nodo Flex')|replace('<svg','<svg style="height:12px;width:auto"') }}</span>
-          <div class="mp-tip" id="mp-tip"></div>
-        </div>
-        <div class="mp-legend">
-          <span>{{ t('<b>9</b> naves logísticas','<b>9</b> logistics warehouses') }}</span><span>{{ t('<b>2</b> naves comerciales','<b>2</b> retail warehouses') }}</span><span>{{ t('<b>1</b> edificio corporativo','<b>1</b> corporate building') }}</span><span>{{ t('<b>1</b> centro de convenciones','<b>1</b> convention centre') }}</span>
-        </div>
-      </div>
-      <div class="stages" data-reveal="left">
-        <button class="stage on" type="button" data-etapa="1">
-          <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo);box-shadow:0 0 0 1px #fff"></i>{{ t('Etapa 1','Phase 1') }}</span><span class="tag tag-adv">{{ t('En ejecución','Under way') }}</span></span>
-          <span class="stage-m2 d-block">30.000 m²</span>
-          <span class="stage-d d-block">{{ t('Naves 1 a 4 · hoy se construye Nodo Flex (14.400 m²), con finalización prevista en ' ~ d.obra.fin_es, 'Warehouses 1–4 · Nodo Flex (14,400 m²) is under construction now, due for completion in ' ~ d.obra.fin_en) }}</span>
-        </button>
-        <button class="stage" type="button" data-etapa="2">
-          <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo-m)"></i>{{ t('Etapa 2','Phase 2') }}</span><span class="tag tag-opp">{{ t('Próxima etapa','Next phase') }}</span></span>
-          <span class="stage-m2 d-block">30.000 m²</span>
-          <span class="stage-d d-block">{{ t('Naves 5 a 9','Warehouses 5–9') }}</span>
-        </button>
-        <button class="stage" type="button" data-etapa="3">
-          <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo-l)"></i>{{ t('Etapa 3','Phase 3') }}</span><span class="tag tag-opp">{{ t('Futura','Future') }}</span></span>
-          <span class="stage-m2 d-block">17.000 m²</span>
-          <span class="stage-d d-block">{{ t('Naves 10 a 14 · área comercial y corporativa','Buildings 10–14 · retail and corporate area') }}</span>
-        </button>
-      </div>
-    </div>
-    <div class="bespoke" data-reveal="up">
-      <h3>{{ t('¿Necesitás tu propia nave? <b>La armamos a medida</b>','Need your own warehouse? <b>We build it to suit</b>') }}</h3>
-      <div><p>{{ t('<b>Flexibilidad total</b>Soluciones que se adaptan al tamaño y a las necesidades de tu proyecto logístico.','<b>Total flexibility</b>Solutions that fit the size and needs of your logistics project.') }}</p></div>
-      <div><p>{{ t('<b>Llave en mano</b>Desde el diseño hasta la entrega final: un espacio listo para operar desde el primer día.','<b>Turnkey</b>From design to handover: a space ready to operate from day one.') }}</p></div>
-      <div><p>{{ t('<b>Servicios e infraestructura</b>Todo lo que el parque ofrece, al servicio de tu negocio.','<b>Services & infrastructure</b>Everything the park offers, working for your business.') }}</p></div>
-      <a class="btn btn-primary" href="#/contacto" data-perfil="Nave a medida · próximas etapas">{{ t('Consultar','Enquire') }}{{ i_arrow() }}</a>
-    </div>
+    {{ head('Infraestructura y servicios','Infrastructure & services','UN PARQUE <b>LISTO PARA OPERAR</b>','A PARK <b>READY TO OPERATE</b>',
+            'Cada espacio se conecta bajo un sistema diseñado para optimizar la funcionalidad y fomentar el crecimiento empresarial. Todo lo que el parque ofrece es compartido por las empresas que operan en él.',
+            'Every space connects through a system designed to optimise functionality and foster business growth. Everything the park offers is shared by the companies operating in it.') }}
+    {{ services() }}
   </div>
 </section>
 
-{# ═════════ 6 · NODO FLEX (ficha de proyecto) ═════════ #}
+{# ═════════ 7 · NODO FLEX (ficha de proyecto) ═════════ #}
 <section id="nodo-flex" class="sec white" aria-label="Nodo Flex">
   <div class="wrap proj-flow">
     <div class="phead-top">
       <div class="phead-txt">
         <div class="phead-row">
           <div class="eyebrow" data-reveal="up">{{ t('Nave logística AAA','AAA logistics warehouse') }}</div>
-          <span class="tag big-tag tag-adv pstatus" data-reveal="up" style="--d:.06s">{{ t('En construcción · finaliza ' ~ d.obra.fin_es, 'Under construction · completion ' ~ d.obra.fin_en) }}</span>
         </div>
         <h2 class="sr-only">Nodo Flex</h2>
-        <div class="place" data-reveal="up" style="--d:.12s">{{ t('Dentro del Parque Logístico Nodo · Autovía Nacional 19, km 13','Inside Nodo Logistics Park · National Motorway 19, km 13') }}</div>
+        <div class="place-row" data-reveal="up" style="--d:.12s"><span class="place">{{ t('Parque Logístico Nodo','Nodo Logistics Park') }}</span><span class="tag big-tag tag-adv">{{ t('En construcción','Under construction') }}</span></div>
       </div>
       <div class="plogo-box flexlogo" data-reveal="up" style="--d:.1s">{{ svg('nodo-flex', '', 'Nodo Flex') }}</div>
     </div>
@@ -258,23 +209,84 @@
   </div>
 </section>
 
-{# ═════════ 7 · INFRAESTRUCTURA Y SERVICIOS ═════════ #}
-<section id="servicios" class="sec mist" aria-label="Infraestructura y servicios">
+{# ═════════ 8 · AVANCE DE OBRA (Nodo Flex) ═════════ #}
+{{ progress('') }}
+
+{# ═════════ 9 · MASTERPLAN Y PRÓXIMAS ETAPAS ═════════ #}
+{% set LOTS = [
+  (1,1,'786,217 795,171 861,184 852,229'),(2,1,'470,182 488,103 774,169 756,248'),(3,1,'329,143 347,71 442,94 425,166'),(4,1,'234,321 422,254 456,349 268,416'),
+  (5,2,'130,123 154,28 251,51 228,147'),(6,2,'101,253 124,156 223,180 200,277'),(7,2,'83,332 94,283 191,306 179,355'),(8,2,'521,322 639,279 661,340 543,383'),(9,2,'268,416 458,348 482,416 293,484'),
+  (10,3,'813,312 1022,237 1032,267 824,342'),(11,3,'541,411 749,334 760,364 552,440'),(12,3,'300,499 485,432 495,461 310,528'),(13,3,'200,516 244,502 259,546 215,561'),(14,3,'181,427 209,416 229,467 202,478')] %}
+<section id="etapas" class="sec blue dk" aria-label="Masterplan y etapas">
   <div class="wrap">
-    {{ head('Infraestructura y servicios','Infrastructure & services','UN PARQUE <b>LISTO PARA OPERAR</b>','A PARK <b>READY TO OPERATE</b>',
-            'Cada espacio se conecta bajo un sistema diseñado para optimizar la funcionalidad y fomentar el crecimiento empresarial. Todo lo que el parque ofrece es compartido por las empresas que operan en él.',
-            'Every space connects through a system designed to optimise functionality and foster business growth. Everything the park offers is shared by the companies operating in it.') }}
-    {{ services() }}
+    {{ head('Masterplan','Masterplan','MASTERPLAN Y <b>PRÓXIMAS ETAPAS</b>','MASTERPLAN AND <b>NEXT PHASES</b>',
+            'El parque se desarrolla en tres etapas. La primera ya está en marcha y arranca con Nodo Flex. Tocá una etapa para verla en el plano.',
+            'The park is developed in three phases. The first is under way and starts with Nodo Flex. Tap a phase to see it on the plan.') }}
+    <div class="mp-grid">
+      <div data-reveal="up">
+        <div class="mp" id="mp" data-etapa="1">
+          <img data-img="{{ img('fotos/ilustraciones/masterplan-etapas.png', 1280, 90) }}" alt="Masterplan del Parque Logístico Nodo por etapas" width="1280" height="720">
+          <svg viewBox="0 0 1280 720" aria-hidden="true">
+          {% for n, e, pts in LOTS %}<polygon class="lot{{ ' flex' if n == 2 }}" data-n="{{ n }}" data-e="{{ e }}" points="{{ pts }}"/>{% endfor %}
+          <g class="lot-logo" transform="translate(622 176) rotate(13)"><image href="{{ svg_uri('nodo-flex', '#ffffff') }}" x="-104" y="-15" width="208" height="30" preserveAspectRatio="xMidYMid meet"/></g>
+          </svg>
+          <div class="mp-tip" id="mp-tip"></div>
+        </div>
+        <div class="mp-legend">
+          <span>{{ t('<b>9</b> naves logísticas','<b>9</b> logistics warehouses') }}</span><span>{{ t('<b>2</b> naves comerciales','<b>2</b> retail warehouses') }}</span><span>{{ t('<b>1</b> edificio corporativo','<b>1</b> corporate building') }}</span><span>{{ t('<b>1</b> centro de convenciones','<b>1</b> convention centre') }}</span>
+        </div>
+      </div>
+      <div class="stages" data-reveal="left">
+        <button class="stage on" type="button" data-etapa="1">
+          <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo);box-shadow:0 0 0 1px #fff"></i>{{ t('Etapa 1','Phase 1') }}</span><span class="tag tag-adv">{{ t('En ejecución','Under way') }}</span></span>
+          <span class="stage-m2 d-block">30.000 m²</span>
+          <span class="stage-d d-block">{{ t('Naves 1 a 4 · hoy se construye Nodo Flex (14.400 m²), con finalización prevista en ' ~ d.obra.fin_es, 'Warehouses 1–4 · Nodo Flex (14,400 m²) is under construction now, due for completion in ' ~ d.obra.fin_en) }}</span>
+        </button>
+        <button class="stage" type="button" data-etapa="2">
+          <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo-m)"></i>{{ t('Etapa 2','Phase 2') }}</span><span class="tag tag-opp">{{ t('Próxima etapa','Next phase') }}</span></span>
+          <span class="stage-m2 d-block">30.000 m²</span>
+          <span class="stage-d d-block">{{ t('Naves 5 a 9','Warehouses 5–9') }}</span>
+        </button>
+        <button class="stage" type="button" data-etapa="3">
+          <span class="stage-top"><span class="stage-n"><i style="background:var(--nodo-l)"></i>{{ t('Etapa 3','Phase 3') }}</span><span class="tag tag-opp">{{ t('Futura','Future') }}</span></span>
+          <span class="stage-m2 d-block">17.000 m²</span>
+          <span class="stage-d d-block">{{ t('Naves 10 a 14 · área comercial y corporativa','Buildings 10–14 · retail and corporate area') }}</span>
+        </button>
+      </div>
+    </div>
+    <div class="bespoke" data-reveal="up">
+      <h3>{{ t('¿Necesitás tu propia nave? <b>La armamos a medida</b>','Need your own warehouse? <b>We build it to suit</b>') }}</h3>
+      <div><p>{{ t('<b>Flexibilidad total</b>Soluciones que se adaptan al tamaño y a las necesidades de tu proyecto logístico.','<b>Total flexibility</b>Solutions that fit the size and needs of your logistics project.') }}</p></div>
+      <div><p>{{ t('<b>Llave en mano</b>Desde el diseño hasta la entrega final: un espacio listo para operar desde el primer día.','<b>Turnkey</b>From design to handover: a space ready to operate from day one.') }}</p></div>
+      <div><p>{{ t('<b>Servicios e infraestructura</b>Todo lo que el parque ofrece, al servicio de tu negocio.','<b>Services & infrastructure</b>Everything the park offers, working for your business.') }}</p></div>
+      <a class="btn btn-primary" href="#/contacto" data-perfil="Nave a medida · próximas etapas">{{ t('Consultar','Enquire') }}{{ i_arrow() }}</a>
+    </div>
   </div>
 </section>
 
-{# ═════════ 8 · UBICACIÓN ═════════ #}
-{{ location('') }}
+{# ═════════ 10 · PREGUNTAS FRECUENTES ═════════ #}
+{% set FAQ_HOME = [
+  ('¿Qué diferencia hay entre Nodo y Nodo Flex?','What is the difference between Nodo and Nodo Flex?','Nodo es el parque logístico completo: un predio de 22 hectáreas sobre la Autovía Nacional 19, con 14 naves proyectadas, calles, accesos, servicios e infraestructura compartidos. Nodo Flex es la primera nave del parque: 14.400 m² AAA divisibles, preparados para que varias empresas operen al mismo tiempo.','Nodo is the whole logistics park: a 22-hectare site on National Motorway 19 with 14 planned buildings and shared roads, access points, services and infrastructure. Nodo Flex is the park’s first warehouse: 14,400 m² of divisible AAA space ready for several companies to operate at the same time.'),
+  ('¿Dónde está ubicado el parque?','Where is the park?','Sobre la Autovía Nacional 19, km 13, en Córdoba Capital: a 5 km de la Av. Circunvalación y a 20 km del Aeropuerto Internacional de Córdoba, con conexión directa a las principales rutas de distribución regional.','On National Motorway 19, km 13, in Córdoba city: 5 km from the Circunvalación ring road and 20 km from Córdoba International Airport, with a direct link to the main regional distribution routes.'),
+  ('¿Cuál es la superficie mínima que puedo alquilar en Nodo Flex?','What is the smallest area I can lease at Nodo Flex?','Nodo Flex se alquila en módulos desde 600 m², que se suman según la necesidad de cada operación, hasta la nave completa de 14.400 m².','Nodo Flex is leased in modules from 600 m², which add up to suit each operation, up to the whole 14,400 m² building.'),
+  ('¿Qué actividades pueden operar en la nave?','What activities can operate in the warehouse?','Almacenamiento y distribución, logística de última milla y e-commerce, cross docking, preparación de pedidos, logística en frío y operaciones de producción liviana, entre otras actividades compatibles con un entorno industrial.','Storage and distribution, last-mile and e-commerce logistics, cross docking, order picking, cold-chain logistics and light production, among other activities compatible with an industrial setting.'),
+  ('¿Qué servicios tiene el parque?','What services does the park offer?','Seguridad 24 h y control de acceso, servicio de administración, centro de coworking y servicio gastronómico. Además, red de agua, fibra óptica, calles de hormigón, red eléctrica subterránea, desagües cloacales y cordón cuneta.','24/7 security and access control, on-site management, a coworking centre and food service. Plus water network, fibre optics, concrete roads, underground power, sewage and kerbs.'),
+  ('¿Cuándo estará terminada Nodo Flex?','When will Nodo Flex be finished?','Nodo Flex está en construcción y su finalización está prevista para ' ~ d.obra.fin_es ~ '.','Nodo Flex is under construction and due for completion in ' ~ d.obra.fin_en ~ '.'),
+  ('¿Cómo invierto en Nodo Flex?','How do I invest in Nodo Flex?','Adquirís un porcentaje de la nave, que está titulada a un fideicomiso de administración. La renta sale de los contratos corporativos con las empresas que operan en la nave y ZLT administra todo el negocio.','You acquire a percentage of the warehouse, which is held in an administration trust. The income comes from the corporate leases with the companies operating there, and ZLT manages the whole business.'),
+  ('¿Cómo se determina la renta y cuándo se cobra?','How is the income set and when is it paid?','Se hace una liquidación mensual con todos los ingresos y egresos del fideicomiso; cada inversor participa según su porcentaje. La liquidación se envía dentro de los primeros 5 días hábiles y la transferencia se hace el viernes siguiente.','A monthly statement lists all of the trust’s income and expenses; each investor takes part according to their percentage. The statement is sent within the first 5 business days and the transfer is made the following Friday.'),
+  ('¿Puedo construir una nave a medida dentro del parque?','Can I build a custom warehouse inside the park?','Sí. En las próximas etapas armamos proyectos a medida, llave en mano, con acceso a todos los servicios e infraestructura del parque.','Yes. In the next phases we develop built-to-suit, turnkey projects with access to all the park’s services and infrastructure.')] %}
+<section id="faq" class="sec hueso" aria-label="Preguntas frecuentes">
+  <div class="wrap">
+    {{ head('Preguntas frecuentes','FAQ','LO QUE TE <b>VAS A PREGUNTAR</b>','WHAT YOU’LL <b>WANT TO KNOW</b>') }}
+    <div class="faq" data-reveal="up">
+    {% for q, qe, a, ae in FAQ_HOME %}
+      <details{{ ' open' if loop.first }}><summary>{{ t(q, qe) }}<i>{{ i_plus() }}</i></summary><div class="ans">{{ t(a, ae) }}</div></details>
+    {% endfor %}
+    </div>
+  </div>
+</section>
 
-{# ═════════ 9 · AVANCE DE OBRA ═════════ #}
-{{ progress('') }}
-
-{# ═════════ 10 · EMPRESAS QUE ACOMPAÑAN ═════════ #}
+{# ═════════ 11 · EMPRESAS QUE ACOMPAÑAN ═════════ #}
 <section id="acompanan" class="sec white" aria-label="Empresas que acompañan">
   <div class="wrap">
     {{ head('Quiénes hacen Nodo','Who makes Nodo','EMPRESAS QUE <b>ACOMPAÑAN EL PROYECTO</b>','COMPANIES <b>BEHIND THE PROJECT</b>') }}
@@ -289,7 +301,7 @@
   </div>
 </section>
 
-{# ═════════ 11 · PRENSA ═════════ #}
+{# ═════════ 12 · PRENSA ═════════ #}
 <section id="prensa" class="sec hueso" aria-label="Prensa">
   <div class="wrap">
     {{ head('Prensa','Press','NODO EN <b>LOS MEDIOS</b>','NODO <b>IN THE PRESS</b>') }}
@@ -309,5 +321,5 @@
   </div>
 </section>
 
-{# ═════════ 12 · CONTACTO ═════════ #}
+{# ═════════ 13 · CONTACTO ═════════ #}
 {% with pre='', perfil='general' %}{% include 'parciales/contacto.html' %}{% endwith %}
