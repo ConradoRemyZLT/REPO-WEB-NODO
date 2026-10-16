@@ -25,7 +25,11 @@ Tres vistas por dirección: `#/`, `#/empresas`, `#/inversores`.
 - Estados de obra: clases `tag-func / tag-adv / tag-opp / tag-done` (sistema ZLT).
 
 ## Publicar
-`.github/workflows/pages.yml` arma `_site/` en cada push a `main`. La web no lleva login. `/empresas/` y `/inversores/`
+`.github/workflows/pages.yml` arma `_site/` en cada push a `main`. Por ahora lleva login: inserta `gate.js` (copia exacta del de
+ZLT-WEB-PRESENTACIONES / ZLT-WEB-V2, mismos usuarios) después de `</title>`. Si cambian los usuarios allá, copiar
+el archivo de nuevo. Es un login del lado del navegador: frena a quien entra por la URL, no a quien lea el repo;
+los PDF y videos quedan accesibles por link directo. La carga y el video de YouTube arrancan recién al ingresar
+(`GATE` en nodo.js). Para sacar el login: borrar el bloque "Login" del workflow. `/empresas/` y `/inversores/`
 redirigen a las vistas, para usarlas en campañas.
 
 ## Datos sensibles

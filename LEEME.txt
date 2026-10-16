@@ -83,7 +83,8 @@ CÓMO SE CAMBIA ALGO
 PARA TENER EN CUENTA
 
   · La web está en noindex: Google no la muestra hasta que se haga la mudanza.
-  · La web es pública: no lleva login.
+  · Por ahora la web publicada lleva login: el mismo de las webs de presentaciones
+    y V2 de ZLT, con los mismos usuarios (gate.js). El HTML local se abre sin login.
   · Nodo Flex se alquila en módulos desde 600 m² (los 3.600 m² del brochure
     son ilustrativos).
   · El formulario envía por FormSubmit a nodo_info@somoszlt.com. La primera

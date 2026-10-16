@@ -6,7 +6,8 @@
 #   /brochures/*.pdf        ← Home/html/brochures
 #   /empresas/ /inversores/ ← direcciones cortas para campañas: redirigen a #/empresas y #/inversores
 #   favicon, ícono de iOS e imagen para compartir (og-nodo.jpg)
-# La web es pública (sin login). Sigue en noindex hasta la mudanza del dominio.
+# Login: el mismo gate.js de ZLT-WEB-PRESENTACIONES y ZLT-WEB-V2 (mismos usuarios), insertado
+# justo después de </title>. Sigue en noindex hasta la mudanza del dominio.
 # Los archivos originales no se tocan.
 
 name: Publicar en GitHub Pages
@@ -43,6 +44,12 @@ jobs:
           for v in empresas inversores; do
             printf '<!doctype html><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="refresh" content="0; url=../#/%s"><a href="../#/%s">Nodo</a>\n' "$v" "$v" > "_site/$v/index.html"
           done
+          # Login (gate.js, copia exacta del de zltdev/presentacion y ZLT-WEB-V2)
+          BASE="/${GITHUB_REPOSITORY#*/}"
+          cp gate.js _site/gate.js
+          f=_site/index.html
+          grep -q "src=\"$BASE/gate\.js\"" "$f" || sed -i "0,/<\/title>/s##</title><script src=\"$BASE/gate.js\"></script>#" "$f"
+          [ "$(grep -o "$BASE/gate\.js" "$f" | wc -l)" = 1 ] || { echo "El login no quedo una sola vez en $f"; exit 1; }
           touch _site/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3

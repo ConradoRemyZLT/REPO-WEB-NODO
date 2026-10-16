@@ -31,6 +31,15 @@
      Se queda hasta que TODAS las imágenes (embebidas y de prensa) están decodificadas y los
      videos de los encabezados pueden reproducirse sin cortes. La barra muestra el avance real.
      Tope de seguridad: 90 s (si la conexión es muy lenta, la web se muestra igual). */
+  /* Login (gate.js, el mismo de las webs de ZLT; lo inserta el workflow al publicar).
+     Mientras el login está en pantalla no arranca la carga: recién al ingresar se muestra
+     la pantalla de carga y se espera el video en HD. Sin gate (HTML local) sigue de largo. */
+  var GATE = new Promise(function (r) {
+    var gated = !!document.querySelector('script[src$="gate.js"]');
+    function ok() { try { return sessionStorage.getItem('zlt_gate_ok') === '1'; } catch (e) { return true; } }
+    if (!gated || ok()) return r();
+    (function chk() { if (ok() && !document.getElementById('zgate')) r(); else setTimeout(chk, 150); })();
+  });
   var PRE = { tasks: [], done: [], add: function (p) { this.tasks.push(p); }, ready: function (f) { this.done.push(f); } };
   (function () {
     var bar = $('#pre .pbar i'), done = false, total = 0, ok = 0;
@@ -63,9 +72,8 @@
       PRE.tasks.forEach(function (p) { all.push(track(p)); });
       var fonts = document.fonts && document.fonts.ready; if (fonts) all.push(track(withCap(fonts, 15000)));
       all.push(track(new Promise(function (r) { if (document.readyState === 'complete') r(); else addEventListener('load', r, { once: true }); })));
-      Promise.all(all).then(finish);
+      GATE.then(function () { setTimeout(finish, 90000); return Promise.all(all); }).then(finish);
     }, 0);
-    setTimeout(finish, 90000);
   })();
 
   /* ══════════ Reveals ══════════ */
@@ -367,12 +375,13 @@
       [800, 2500, 6000].forEach(function (t) { setTimeout(noCC, t); });
     }
     // la pantalla de carga espera el HD (tope 75 s, como los otros videos)
-    PRE.add(new Promise(function (r) { hdP.then(r); setTimeout(r, 75000); }));
+    PRE.add(new Promise(function (r) { hdP.then(r); GATE.then(function () { setTimeout(r, 75000); }); }));
     PRE.ready(function () {
       if (!player || !ready) return;
       try { player.seekTo(0, true); } catch (e) {}
       if (document.body.dataset.view === 'home') play();
     });
+    GATE.then(function () {
     if (window.YT && YT.Player) build();
     else {
       var prev = window.onYouTubeIframeAPIReady;
@@ -381,6 +390,7 @@
       sc.onerror = function () { hdOk(); };
       document.head.appendChild(sc);
     }
+    });
     $$('.js-vplay', box).forEach(function (b) {
       b.addEventListener('click', function () {
         if (!player || !ready) return;
