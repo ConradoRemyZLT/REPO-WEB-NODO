@@ -595,6 +595,32 @@
     if (sv === 'en') { document.body.classList.add('en'); document.documentElement.lang = 'en'; fechas(); }
   } catch (e) { }
 
+  /* ══════════ Brochures según el idioma ══════════
+     En español se descarga el PDF en español; en inglés, la versión en inglés (sitio.json → brochures_en).
+     Sigue el idioma de la página: el selector ES/EN del sitio y también el traductor del navegador
+     (Chrome/Google cambian el lang del <html>). Si todavía no hay versión en inglés, queda la española. */
+  (function () {
+    var EN = {}; try { EN = JSON.parse(document.body.dataset.broEn || '{}'); } catch (e) {}
+    var links = $$('a[href*="brochures/"]');
+    links.forEach(function (a) { a.dataset.es = a.getAttribute('href'); });
+    function isEn() {
+      var h = document.documentElement, l = (h.lang || '').toLowerCase();
+      return document.body.classList.contains('en') || l.indexOf('en') === 0 ||
+        (/translated-/.test(h.className) && l.indexOf('es') !== 0);
+    }
+    function sync() {
+      var en = isEn();
+      links.forEach(function (a) {
+        var es = a.dataset.es, alt = EN[es];
+        a.setAttribute('href', en && alt ? alt : es);
+        a.setAttribute('hreflang', en && alt ? 'en' : 'es');
+      });
+    }
+    sync();
+    new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['lang', 'class'] });
+    new MutationObserver(sync).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  })();
+
   /* ══════════ Vistas: #/  ·  #/empresas  ·  #/inversores ══════════ */
   var VIEWS = { empresas: 'e-', inversores: 'i-' };
   var TITLES = {

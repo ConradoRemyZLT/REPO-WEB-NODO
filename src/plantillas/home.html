@@ -140,6 +140,8 @@
         <div class="mp" id="mp" data-etapa="1">
           <img data-img="{{ img('fotos/ilustraciones/masterplan-etapas.png', 1280, 90) }}" alt="Masterplan del Parque Logístico Nodo por etapas" width="1280" height="720">
           <svg viewBox="0 0 1280 720" aria-hidden="true">
+          {# Etapa 3: los números del plano son blancos sobre lila claro y no se leen; se reescriben en azul #}
+          {% for n, x, y, r in [(10,930,290,-20),(11,650,388,-20),(12,400,481,-20),(13,236,531,0),(14,211,449,0)] %}<g class="lot-num" transform="translate({{ x }} {{ y }}) rotate({{ r }})"><rect x="-17" y="-12" width="34" height="24" rx="2"/><text text-anchor="middle" dominant-baseline="central">{{ n }}</text></g>{% endfor %}
           {% for n, e, pts in LOTS %}<polygon class="lot{{ ' flex' if n == 2 }}" data-n="{{ n }}" data-e="{{ e }}" points="{{ pts }}"/>{% endfor %}
           <g class="lot-logo" transform="translate(622 176) rotate(13)"><image href="{{ svg_uri('nodo-flex', '#ffffff') }}" x="-104" y="-15" width="208" height="30" preserveAspectRatio="xMidYMid meet"/></g>
           </svg>

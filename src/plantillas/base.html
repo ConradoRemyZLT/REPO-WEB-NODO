@@ -33,7 +33,8 @@
 /*__CSS__*/
 </style>
 </head>
-<body data-view="home">
+{% set BRO = {} %}{% for k, v in d.brochures.items() %}{% if d.brochures_en.get(k) %}{% set _ = BRO.update({v: d.brochures_en[k]}) %}{% endif %}{% endfor %}
+<body data-view="home" data-bro-en='{{ BRO|tojson }}'>
 <div id="pre">{{ svg('nodo-slogan', '', 'Nodo · Conexión como ninguna otra') }}<div class="pbar"><i></i></div></div>
 <div id="prog" aria-hidden="true"></div>
 

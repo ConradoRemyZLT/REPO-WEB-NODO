@@ -31,6 +31,12 @@
     "empresas": "brochures/nodo-flex-empresas.pdf",
     "inversores": "brochures/nodo-flex-inversores.pdf"
   },
+  "brochures_en": {
+    "_nota": "Versión en inglés de cada brochure (mismo nombre + -en). Mientras falte, en inglés se descarga la versión en español.",
+    "parque": "",
+    "empresas": "",
+    "inversores": ""
+  },
   "mapa": {
     "nodo": [
       -31.3856875,
