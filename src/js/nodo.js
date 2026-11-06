@@ -535,9 +535,50 @@
     }
     ref(M.aeropuerto, 'Aeropuerto Internacional · 20 km', 'International Airport · 20 km');
     ref(M.centro, 'Centro de Córdoba', 'Córdoba city centre');
-    map.fitBounds(L.latLngBounds(refs.concat([nodo])).pad(0.18));
+    // el encuadre incluye toda la Av. de Circunvalación (aprox. -31,475/-64,265 a -31,345/-64,105)
+    map.fitBounds(L.latLngBounds(refs.concat([nodo, [-31.475, -64.265], [-31.345, -64.105]])).pad(0.08));
+    circunvalacion(map);
     el._map = map;
     setTimeout(function () { map.invalidateSize(); }, 350);
+  }
+  /* Av. de Circunvalación de Córdoba: el trazado real sale de OpenStreetMap (Overpass) la primera vez y
+     queda guardado en el navegador 30 días; si no hay conexión con ese servicio, el mapa se ve igual sin la línea. */
+  var CIRC = null;
+  function circunvalacion(map) {
+    var KEY = 'nodo-circ-v1', TTL = 30 * 864e5;
+    var Q = '[out:json][timeout:25];(way["highway"~"^(motorway|trunk|primary)$"]["name"~"Circunvalaci",i](-31.52,-64.32,-31.30,-64.06);' +
+            'way["highway"~"^(motorway|trunk|primary)$"]["ref"~"^A ?0?19$"](-31.52,-64.32,-31.30,-64.06););out geom;';
+    var SRV = ['https://overpass-api.de/api/interpreter', 'https://overpass.kumi.systems/api/interpreter'];
+    function draw(lines) {
+      if (!lines || !lines.length) return;
+      var g = L.layerGroup();
+      lines.forEach(function (ll) {
+        L.polyline(ll, { color: '#0026A3', weight: 7, opacity: .5, interactive: false }).addTo(g);
+        L.polyline(ll, { color: '#C9D4F6', weight: 3, opacity: .95, interactive: false }).addTo(g);
+      });
+      // etiqueta en el tramo oeste (el punto de la traza más al oeste)
+      var w = null; lines.forEach(function (ll) { ll.forEach(function (p) { if (!w || p[1] < w[1]) w = p; }); });
+      if (w) L.marker(w, { opacity: 0, interactive: false, icon: L.divIcon({ className: 'rpin-none', iconSize: [1, 1] }) }).addTo(g)
+        .bindTooltip('<span class="l-es">Av. de Circunvalación</span><span class="l-en">Circunvalación ring road</span>', { permanent: true, direction: 'left', className: 'nlabel', offset: [-6, 0] });
+      g.addTo(map);
+    }
+    if (!CIRC) CIRC = new Promise(function (ok) {
+      try { var c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c && Date.now() - c.t < TTL && c.l && c.l.length) return ok(c.l); } catch (e) {}
+      (function go(i) {
+        if (i >= SRV.length) return ok(null);
+        fetch(SRV[i], { method: 'POST', body: 'data=' + encodeURIComponent(Q), headers: { 'Content-Type': 'application/x-www-form-urlencoded' } })
+          .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+          .then(function (j) {
+            var lines = (j.elements || []).filter(function (e) { return e.type === 'way' && e.geometry && e.geometry.length > 1; })
+              .map(function (e) { return e.geometry.map(function (p) { return [Math.round(p.lat * 1e5) / 1e5, Math.round(p.lon * 1e5) / 1e5]; }); });
+            if (!lines.length) throw new Error('vacío');
+            try { localStorage.setItem(KEY, JSON.stringify({ t: Date.now(), l: lines })); } catch (e) {}
+            ok(lines);
+          })
+          .catch(function () { go(i + 1); });
+      })(0);
+    });
+    CIRC.then(draw);
   }
   var mio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) makeMap(e.target); }); }, { rootMargin: '300px 0px' });
   $$('[data-map]').forEach(function (m) { mio.observe(m); });

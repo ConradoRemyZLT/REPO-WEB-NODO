@@ -1134,3 +1134,4 @@ body.on-dark #dotnav a.active{background:#fff}
 
 /* Pantallas muy angostas: los botones largos pasan a dos líneas en vez de salirse */
 @media (max-width:400px){.btn{white-space:normal;text-align:center;line-height:1.3}}
+.rpin-none{background:none;border:0}
