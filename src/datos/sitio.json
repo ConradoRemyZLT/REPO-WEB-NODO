@@ -32,10 +32,10 @@
     "inversores": "brochures/nodo-flex-inversores.pdf"
   },
   "brochures_en": {
-    "_nota": "Versión en inglés de cada brochure (mismo nombre + -en). Mientras falte, en inglés se descarga la versión en español.",
-    "parque": "",
-    "empresas": "",
-    "inversores": ""
+    "_nota": "Versión en inglés de cada brochure (mismo nombre + -en). Si una queda vacía, en inglés se descarga la versión en español.",
+    "parque": "brochures/nodo-parque-logistico-en.pdf",
+    "empresas": "brochures/nodo-flex-empresas-en.pdf",
+    "inversores": "brochures/nodo-flex-inversores-en.pdf"
   },
   "mapa": {
     "nodo": [
