@@ -3859,7 +3859,10 @@ body.on-dark #dotnav a.active{background:#fff}
       var r = box.getBoundingClientRect(), w = r.width, h = r.height, k = ratio();
       if (!w || !h) return;
       var fw = w / h > k ? w : h * k, fh = fw / k;
-      fw *= 1.02; fh *= 1.02;                          // un pelo más grande: no se ve ningún borde
+      // YouTube muestra su interfaz (título, logo, botones) en una franja de ~60 px arriba y abajo al arrancar:
+      // se agranda el reproductor para que esas franjas queden fuera del encabezado (nunca menos de 2 % extra)
+      var M = 72, s = Math.max(1.02, (h + 2 * M) / fh);
+      fw *= s; fh *= s;
       f.style.width = fw + 'px'; f.style.height = fh + 'px';
     }
     function noCC() {
@@ -3896,7 +3899,7 @@ body.on-dark #dotnav a.active{background:#fff}
           onApiChange: noCC,
           onPlaybackQualityChange: function (e) { if (HD.test(e.data)) hdOk(); },
           onStateChange: function (e) {
-            if (e.data === 1) { noCC(); best(); wrap.classList.add('on'); watchHD(); }
+            if (e.data === 1) { noCC(); best(); setTimeout(function () { wrap.classList.add('on'); }, 700); watchHD(); }
             if (e.data === 0) { player.seekTo(0, true); player.playVideo(); }        // loop sin salto a otro video
           },
           onError: function () { hdOk(); }             // si YouTube no lo deja ver, queda la imagen fija
